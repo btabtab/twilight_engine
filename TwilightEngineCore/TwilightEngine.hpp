@@ -17,7 +17,7 @@ private:
 	//This will determine the name of the window.
 	std::string session_name;
 
-	Vector<float> window_size;
+	Point<float> window_size;
 	int max_fps;
 
 	//Wether or not the engine has started.
@@ -40,7 +40,7 @@ private:
 
 	Renderer renderer;
 public:
-	TwilightEngine(Vector<float> new_window_size, std::string new_name);
+	TwilightEngine(Point<float> new_window_size, std::string new_name);
 
 	//Enters the main loop.
 	void enter();

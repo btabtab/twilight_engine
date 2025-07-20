@@ -1,12 +1,15 @@
 #pragma once
 
+#include <vector>
+#include <iostream>
+
 template<typename T>
-class Vector
+class Point
 {
 private:
 	T x, y;
 public:
-	Vector(T new_x, T new_y):
+	Point(T new_x, T new_y):
 	x(new_x), y(new_y)
 	{
 	}
@@ -31,43 +34,62 @@ public:
 	}
 
 	//Grabs the midpoint between this and another vector<t>.
-	Vector<T> midpoint(const Vector<T>& other) const
+	Point<T> midpoint(const Point<T>& other) const
 	{
-		return Vector<T>((x + other.getX()) / 2, (y + other.getY()) / 2);
+		return Point<T>((x + other.getX()) / 2, (y + other.getY()) / 2);
 	}
-	Vector<T> operator+(const Vector<T>& other) const
+	/*
+		Used to get the midpoint between
+		a group of other points.
+	*/
+	Point<T> midpoint(const std::vector<Point<T>>& other)
 	{
-		return Vector<T>(x + other.getX(), y + other.getY());
+		Point<T> ret(0, 0);
+		for(int i = 0; i != other.size(); i++)
+		{
+			ret += other.at(i);
+		}
+		ret = ret / other.size();
+		return ret;
 	}
-	void operator+=(const Vector<T>& other)
+
+	Point<T> operator+(const Point<T>& other) const
+	{
+		return Point<T>(x + other.getX(), y + other.getY());
+	}
+	void operator+=(const Point<T>& other)
 	{
 		x += other.getX();
 		y += other.getY();
 	}
 
-	void set(Vector<T> new_vector)
+	void set(Point<T> new_vector)
 	{
 		setX(new_vector.getX());
 		setY(new_vector.getY());
 	}
 
-	Vector<T> operator-(const Vector<T>& other) const
+	Point<T> operator-(const Point<T>& other) const
 	{
-		return Vector<T>(x - other.getX(), y - other.getY());
+		return Point<T>(x - other.getX(), y - other.getY());
 	}
 
-	Vector<T> operator*(const T& scalar) const
+	Point<T> operator*(const T& scalar) const
 	{
-		return Vector<T>(x * scalar, y * scalar);
+		return Point<T>(x * scalar, y * scalar);
 	}
 
-	// Vector<T> operator/(const T& scalar) const
-	// {
-	// 	if (scalar == 0) throw std::runtime_error("Division by zero in Vector division");
-	// 	return Vector<T>(x / scalar, y / scalar);
-	// }
+	Point<T> operator/(const T& scalar) const
+	{
+		if (scalar == 0)
+		{
+			std::cout << "0 Division occurred :(\n";
+			return Point<T>(0, 0);
+		}
+		return Point<T>(x / scalar, y / scalar);
+	}
 
-	bool operator==(const Vector<T>& other) const
+	bool operator==(const Point<T>& other) const
 	{
 		return (x == other.getX() && y == other.getY());
 	}
@@ -77,24 +99,29 @@ public:
 	// 	return std::sqrt(x * x + y * y);
 	// }
 
-	// Vector<T> normalized() const
+	// Point<T> normalized() const
 	// {
 	// 	float len = length();
 	// 	if (len == 0) throw std::runtime_error("Can't normalize zero-length vector(s)");
-	// 	return Vector<T>(x / len, y / len);
+	// 	return Point<T>(x / len, y / len);
 	// }
-	float dot(const Vector<T>& other) const
+	float dot(const Point<T>& other) const
 	{
 		return x * other.getX() + y * other.getY();
 	}
 
-	Vector<T> makePerpendicular() const
+	Point<T> makePerpendicular() const
 	{
-		return Vector<T>(-y, x);
+		return Point<T>(-y, x);
 	}
 
 	std::string stringify() const
 	{
-		return "Vector(" + std::to_string(x) + ", " + std::to_string(y) + ")";
+		return "Point(" + std::to_string(x) + ", " + std::to_string(y) + ")";
+	}
+
+	//Rotation code here plox... <3
+	void rotateAroundPoint(Point<T> center, double degrees)
+	{
 	}
 };

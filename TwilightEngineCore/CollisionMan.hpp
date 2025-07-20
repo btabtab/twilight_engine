@@ -8,11 +8,11 @@ private:
 protected:
     Line2D* a;
     Line2D* b;
-    Vector<float> collision_position;
+    Point<float> collision_position;
     bool is_there_a_collision = false;
 public:
 	CollisionMan(Line2D* new_a, Line2D* new_b):
-	TwilightNode(0), a(new_a), b(new_b), collision_position(Vector<float>(0, 0))
+	TwilightNode(0), a(new_a), b(new_b), collision_position(Point<float>(0, 0))
 	{
 	}
 	virtual void draw() override

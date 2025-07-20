@@ -1,6 +1,6 @@
 #include "TwilightEngine.hpp"
 
-TwilightEngine::TwilightEngine(Vector<float> new_window_size, std::string new_name):
+TwilightEngine::TwilightEngine(Point<float> new_window_size, std::string new_name):
 window_size(new_window_size), session_name(new_name)
 {
 	emergency_exit = false;
@@ -17,16 +17,16 @@ void TwilightEngine::enter()
 
 	// renderer.addRenderObject(
 	// 			new Line2D(
-	// 					Vector<float>(50, 50),
-	// 					Vector<float>(200, 200),
+	// 					Point<float>(50, 50),
+	// 					Point<float>(200, 200),
 	// 					RED
 	// 						)
 	// 							);
 								
 	// renderer.addRenderObject(
 	// 			new Line2D(
-	// 					Vector<float>(200, 50),
-	// 					Vector<float>(50, 200),
+	// 					Point<float>(200, 50),
+	// 					Point<float>(50, 200),
 	// 					RED
 	// 						)
 	// 							);
@@ -42,21 +42,21 @@ void TwilightEngine::enter()
 		The "zero" points are so that I can quickly
 		make them pop out so that the test looks cooler.
 	*/
-	std::vector<Vector<float>> points;
+	std::vector<Point<float>> points;
 	for(int i = 0; i != 8; i++)
 	{
-		points.push_back(Vector<float>(window_size.getX() / 2, window_size.getY() / 2));
+		points.push_back(Point<float>(window_size.getX() / 2, window_size.getY() / 2));
 	}
 	//corner points.
-	points.at(0) += Vector<float>(-70, -70);
-	points.at(2) += Vector<float>(+70, -70);
-	points.at(4) += Vector<float>(+70, +70);
-	points.at(6) += Vector<float>(-70, +70);
+	points.at(0) += Point<float>(-70, -70);
+	points.at(2) += Point<float>(+70, -70);
+	points.at(4) += Point<float>(+70, +70);
+	points.at(6) += Point<float>(-70, +70);
 	
-	points.at(1) += Vector<float>(-0, -120);
-	points.at(3) += Vector<float>(+120, -0);
-	points.at(5) += Vector<float>(+0, +120);
-	points.at(7) += Vector<float>(-120, +0);
+	points.at(1) += Point<float>(-0, -120);
+	points.at(3) += Point<float>(+120, -0);
+	points.at(5) += Point<float>(+0, +120);
+	points.at(7) += Point<float>(-120, +0);
 
 	Splitter splitter;
 	LineMap line_map(points);

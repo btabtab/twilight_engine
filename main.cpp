@@ -5,6 +5,6 @@
 
 int main()
 {
-	TwilightEngine core(Vector<float>(400, 400), "Twilight Engine");
+	TwilightEngine core(Point<float>(400, 400), "Twilight Engine");
 	core.enter();
 }

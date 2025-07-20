@@ -5,13 +5,13 @@ class Ball: public TwilightNode
 {
 private:
 protected:
-	Vector<float> position;
+	Point<float> position;
 	float radius;
 	Color colour;
 	float weight;
 	
 public:
-	Ball(Vector<float> position, float radius, Color colour):
+	Ball(Point<float> position, float radius, Color colour):
 	TwilightNode(0), position(position), radius(radius), colour(colour)
 	{
 	}
@@ -21,7 +21,7 @@ public:
 	}
 	virtual void update() override
 	{
-		position = (position + Vector<float>(1.0f, 0.0f));
+		position = (position + Point<float>(1.0f, 0.0f));
 	}
 	virtual std::string getType() override
 	{

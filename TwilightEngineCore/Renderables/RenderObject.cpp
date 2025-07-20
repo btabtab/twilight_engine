@@ -8,7 +8,7 @@ RenderObject::RenderObject()
 RenderObject::RenderObject(Color new_colour)
 : colour(new_colour)
 {
-    std::cout << "New Render Object Constructed...\n";
+    // std::cout << "New Render Object Constructed...\n";
     layer = Layers::MIDDLE;
 }
 
