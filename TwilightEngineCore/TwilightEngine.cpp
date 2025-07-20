@@ -74,16 +74,20 @@ void TwilightEngine::enter()
 	points.at(6) += Point<float>(+50, +30);
 	points.at(7) += Point<float>(+20, -40);
 
-	Splitter splitter;
-	LineMap line_map(points, true);
-	
-	splitter.setSplitter(line_map.getLines().at(0).extrapolate(3.f)); // Set the splitter to the first line in the line map
+	LineSet line_set;
+	line_set.addLine(points.at(0), points.at(1), (Color){0xFF, 0xFF, 0xFF, 0xFF >> 1});
+	line_set.addLine(points.at(2), points.at(3), (Color){0xFF, 0xFF, 0xFF, 0xFF >> 1});
+	line_set.addLine(points.at(4), points.at(5), (Color){0xFF, 0xFF, 0xFF, 0xFF >> 1});
+	line_set.addLine(points.at(6), points.at(7), (Color){0xFF, 0xFF, 0xFF, 0xFF >> 1});
 
-	renderer.addRenderObject(&splitter);
-	renderer.addRenderObject(&line_map);
+	// renderer.addRenderObject(&line_set);
 
-	renderer.addRenderObject(new SplitStage(&line_map, &splitter));
+	BSPNode bsp_node(line_set.getLines()->at(0), false);
+	bsp_node.splitLines(*line_set.getLines());
+	renderer.addRenderObject(&bsp_node);
 
+	bsp_node.birthNewChild(Side::FRONT);
+	bsp_node.birthNewChild(Side::BACK);
 	while(!WindowShouldClose() || emergency_exit)
 	{
 		for(int i = 0; i != renderer.getRenderObjects()->size(); i++)
@@ -93,6 +97,11 @@ void TwilightEngine::enter()
 		renderer.startDrawing();
 		renderer.drawContents();
 		renderer.stopDrawing();
+		if(IsKeyPressed(KEY_C))
+		{
+			TakeScreenshot("DEBUGSHOT.png");
+			std::cout << "Screenshot taken\n";
+		}
 	}
 }
 

@@ -3,7 +3,7 @@
 #include <cmath> // For NAN
 
 Line2D::Line2D(Point<float> new_a, Point<float> new_b, Color new_colour)
-: a(new_a), b(new_b), colour(new_colour)
+: RenderObject(new_colour), a(new_a), b(new_b)
 {
     // std::cout << "New Line2D created\n";
     layer = Layers::MIDDLE;
@@ -79,4 +79,13 @@ void Line2D::cardinalise(Axis axis)
 Point<float> Line2D::getMidPoint()
 {
     return Point<float>((a.getX() + b.getX()) / 2, (a.getY() + b.getY()) / 2);
+}
+
+Line2D Line2D::getSplitLine(Point<float> split_point, Side side)
+{
+    if(side == Side::FRONT)
+    {
+        return Line2D(a, split_point, colour);
+    }
+    return Line2D(split_point, b, colour);
 }

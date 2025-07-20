@@ -5,15 +5,22 @@
 
 enum class Axis
 {
-    HORIZONTAL,
+	//HORIZONTAL -> x-axis cardinalisation.
+	HORIZONTAL,
+	//VERTICAL -> y-axis cardinalisation.
     VERTICAL,
+};
+
+enum class Side
+{
+	FRONT,
+	BACK,
 };
 
 class Line2D : public RenderObject
 {
 protected:
 	Point<float> a, b;
-	Color colour;
 public:
 	Line2D(Point<float> new_a, Point<float> new_b, Color new_colour);
 	virtual void draw();
@@ -33,4 +40,5 @@ public:
 	*/
 	void cardinalise(Axis axis);
 	Point<float> getMidPoint();
+	Line2D getSplitLine(Point<float> split_point, Side side);
 };

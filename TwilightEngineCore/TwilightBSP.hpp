@@ -6,312 +6,178 @@
 #include "Renderables/Plane.hpp"
 
 /*
-	A set of lines before the BSP process
-	is applied.
+	I nuked the previous code for reason technical debt
+	reasons, it was written with a different approach
+	and structure that couldn't have EVER fit with what
+	was actually being worked towards.
 */
-class LineMap: public RenderObject
+
+class LineSet : public TwilightNode
 {
 private:
 	std::vector<Line2D> lines;
-public:
-	LineMap(std::vector<Point<float>> points, bool make_lines_floating)
-	{
-		layer = Layers::BACK;
-		colour = RED; // Default color for lines
 
-		if(points.size() < 2)
+public:
+	LineSet() : TwilightNode(), lines() {}
+	LineSet(std::vector<Line2D> new_lines) : lines(new_lines) {}
+
+	void addLine(Point<float> a, Point<float> b, Color colour)
+	{
+		lines.push_back(Line2D(a, b, colour));
+	}
+	void addLine(Line2D line) { lines.push_back(line); }
+	void removeLine(int victim_index)
+	{
+		if (victim_index < 0 || victim_index >= lines.size())
 		{
-			std::cerr << "Error: Not enough points to create a line map.\n";
+			std::cerr << "Invalid index for line removal: " << victim_index << std::endl;
 			return;
 		}
-		if(make_lines_floating)
+		lines.erase(lines.begin() + victim_index);
+	}
+	std::vector<Line2D> *getLines() { return &lines; }
+	Line2D *getLine(int index)
+	{
+		if (index < 0 || index >= lines.size())
 		{
-			for(size_t i = 0; i < points.size(); i += 2)
-			{
-				lines.emplace_back(
-					Point<float>(points[i].getX(), points[i].getY()),
-					Point<float>(points[i + 1].getX(), points[i + 1].getY()),
-					WHITE
-				);
-				lines.back().cardinalise(Axis::VERTICAL); // Ensure lines are facing the same direction
-				// lines.at(i).cardinalise();
-			}
+			std::cerr << "Invalid index for line retrieval: " << index << std::endl;
+			return nullptr;
 		}
-		else
+		return &lines.at(index);
+	}
+	virtual std::string getType() override { return "LineSet"; }
+	void draw() override
+	{
+		for (auto &line : lines)
 		{
-			points.push_back(points[0]); // Close the loop
-			for(size_t i = 0; i < points.size() - 1; i++)
-			{
-				lines.emplace_back(points[i], points[i + 1], WHITE);
-				// lines.at(i).cardinalise();
-			}
+			line.draw();
 		}
 	}
-	LineMap(std::vector<Line2D> new_lines):
-	lines(new_lines)
+};
+
+class BSPNode : public TwilightNode
+{
+private:
+	BSPNode *front_child;
+	BSPNode *back_child;
+	Line2D splitting_line;
+	// Lines that are "infront" of the split.
+	std::vector<Line2D> front_lines;
+	// Lines that are "behind" the split.
+	std::vector<Line2D> back_lines;
+
+	/*
+		This will be true if the node is an end
+		point, basically just a line rlly.
+
+		LEAF == NO CHILDREN, at ALL.
+		!!! DO NOT OPERATE ON A LEAF NODE !!!
+	*/
+	bool is_leaf;
+
+public:
+	BSPNode(Line2D new_splitting_line, bool leaf = false)
+		: TwilightNode(), splitting_line(new_splitting_line.extrapolate(10.0f)), is_leaf(leaf), front_child(nullptr), back_child(nullptr)
 	{
-		layer = Layers::BACK;
-		colour = YELLOW; // Default color for lines
+		splitting_line.setColour(WHITE);
+		// splitting_line.getColour().a = 0xFF >> 1; // Semi-transparent
+	}
+
+	void setFrontChild(BSPNode *child) { front_child = child; }
+	void setBackChild(BSPNode *child) { back_child = child; }
+
+	BSPNode *getFrontChild() const { return front_child; }
+	BSPNode *getBackChild() const { return back_child; }
+
+	BSPNode* birthNewChild(Side side)
+	{
+		if (side == Side::FRONT)
+		{
+			front_child = new BSPNode(front_lines.at(0), false);
+			front_child->splitLines(front_lines);
+			return front_child;
+		}
+		back_child = new BSPNode(back_lines.at(1), false);
+		back_child->splitLines(back_lines);
+		return back_child;
+	}
+
+	void splitLines(std::vector<Line2D> lines)
+	{
+		splitting_line.setColour(WHITE);
+		Color front_colour = splitting_line.getColour(); // Semi-transparent red
+		Color back_colour = splitting_line.getColour();// Semi-transparent blue
+
+		front_colour.r /= 1.5;
+		back_colour.b /= 1.5;
+
+		for (auto &line : lines)
+		{
+			line.cardinalise(Axis::VERTICAL);
+			if (splitting_line.intersects(line))
+			{
+				Point<float> intersection_point = splitting_line.getIntersectionPoint(line);
+
+				// If the intersection point is valid, we can split the line.
+				// Create two new lines from the intersection point.
+				Line2D front_line = line.getSplitLine(intersection_point, Side::FRONT);
+				Line2D back_line = line.getSplitLine(intersection_point, Side::BACK);
+				// DrawCircle3D(intersection_point)
+				front_line.setColour(front_colour);
+				back_line.setColour(back_colour);
+				front_lines.push_back(front_line);
+				back_lines.push_back(back_line);
+				std::cout << ":^D\n";
+			}
+			else
+			{
+				std::cout << ":^(\n";
+			}
+		}
+		front_lines.push_back(lines.at(0));
 	}
 
 	void draw() override
 	{
-		return;
-		for(int i = 0; i != lines.size(); i++)
+		// splitting_line.draw();
+		// if (is_leaf)
+		// {
+		// 	return;
+		// }
+		if (front_child)
 		{
-			lines.at(i).draw();
+			front_child->draw();
 		}
-		// lines.at(0).extrapolate(3.f).draw(); // Example of extrapolation
-	}
-	std::vector<Line2D> getLines()
-	{
-		return lines;
-	}
-};
-
-class Splitter: public TwilightNode
-{
-private:
-protected:
-	Point<float> position;
-	Line2D split_line;
-public:
-	Splitter():
-	TwilightNode(0), position(Point<float>(0, 0)), split_line(Point<float>(0, 0), Point<float>(0, GetScreenHeight()), RED)
-	{
-		layer = Layers::FRONT;
-	}
-
-	Line2D getSplitter()
-	{
-		return split_line;
-	}
-
-	void setSplitter(Line2D new_split_line)
-	{
-		split_line = new_split_line;
-	}
-
-	virtual void draw() override
-	{
-		return;
-		split_line.draw();
-		// DrawLine(position.getX(), 0, position.getX(), GetScreenHeight(), RED);
-	}
-	virtual void update() override
-	{
-		position.setX(GetMouseX());
-		position.setY(GetMouseY());
-		// split_line = 
-		// split_line = Line2D(
-		// 					Point<float>(
-		// 								position.getX() - 25,
-		// 								0),
-		// 					Point<float>(
-		// 								position.getX() + 25,
-		// 								GetScreenHeight()),
-		// 								GREEN
-		// 					);
-	}
-	virtual std::string getType() override
-	{
-		return "Splitter";
-	}
-};
-
-/*
-	This contains the result of each split
-	in the BSP process.
-*/
-class BSPNode: public TwilightNode
-{
-private:
-	Line2D splitter;
-	std::vector<Line2D> front;
-	std::vector<Line2D> back;
-	//The previous node in the BSP tree.
-	BSPNode* parent;
-	//The nodes containing splits for the front lines.
-	BSPNode* front_child = nullptr;
-	//The nodes containing splits for the back lines.
-	BSPNode* back_child = nullptr;
-protected:
-public:
-	BSPNode(Line2D new_splitter, BSPNode* new_parent = nullptr):
-	TwilightNode(0), splitter(new_splitter), parent(new_parent)
-	{
-		layer = Layers::MIDDLE;
-	}
-	
-	void setFrontChild(BSPNode* child)
-	{
-		front_child = child;
-	}
-	void setBackChild(BSPNode* child)
-	{
-		back_child = child;
-	}
-	BSPNode* getFrontChild()
-	{
-		return front_child;
-	}
-	BSPNode* getBackChild()
-	{
-		return back_child;
-	}
-
-	void addFront(Line2D line)
-	{
-		front.push_back(line);
-		front.back().setColour((Color){255, 0, 0, 255}); // Set back lines to blue
-	}
-	void addBack(Line2D line)
-	{
-		back.push_back(line);
-		back.back().setColour((Color){0, 0, 255, 255}); // Set back lines to blue
-	}
-	
-	virtual void draw() override
-	{
-		splitter.draw();
-		for(auto& line : front)
-		{
-			line.draw();
-		}
-		for(auto& line : back)
-		{
-			line.draw();
-		}
-	}
-	virtual void update() override
-	{
-		// Update logic if needed
-	}
-	virtual std::string getType() override
-	{
-		return "BSPNode";
-	}
-	
-	std::vector<Line2D> getFrontLines() const
-	{
-		return front;
-	}
-	std::vector<Line2D> getBackLines() const
-	{
-		return back;
-	}
-	Line2D getSplitter() const
-	{
-		return splitter;
-	}
-};
-
-/*
-	SplitStage:
-		This class contains the data for
-		each part of a split, where the
-		intersections are. The lines on
-		the left, and the Lines on the right.
-*/
-class SplitStage: public TwilightNode
-{
-private:
-protected:
-	LineMap* line_map;
-	Splitter* splitter;
-	std::vector<Line2D> left_lines;
-	std::vector<Line2D> right_lines;
-
-	Point<float> intersection_center;
-
-	std::vector<Point<float>> split_positions;
-
-	//The current BSPNode that this stage is working on.
-	BSPNode* bsp_node = nullptr;
-
-	bool was_thing_done;
-public:
-	SplitStage(LineMap* new_line_map, Splitter* new_splitter):
-	TwilightNode(0),  line_map(new_line_map), splitter(new_splitter),
-	intersection_center(0, 0)
-	{
-		was_thing_done = false;
-	}
-	
-	virtual void draw() override
-	{
-		if(bsp_node != nullptr)
-		{
-			bsp_node->draw();
-		}
-		return;
-		for(int i = 0; i != split_positions.size(); i++)
-		{
-			DrawCircleV((Vector2){split_positions.at(i).getX(), split_positions.at(i).getY()}, 5, RED);
-		}
-		
-		//(Color){122, 75, 20, 255}
-		DrawCircleV((Vector2){intersection_center.getX(), intersection_center.getY()}, 5, YELLOW);
-
-		for(int i = 0; i != left_lines.size(); i++)
-		{
-			left_lines.at(i).draw();
-		}
-		for(int i = 0; i != right_lines.size(); i++)
-		{
-			right_lines.at(i).draw();
-		}
-	}
-	virtual void update() override
-	{
-		split_positions.clear();
-		left_lines.clear();
-		right_lines.clear();
-
-		for(int i = 0; i != line_map->getLines().size(); i++)
-		{
-			Line2D line = line_map->getLines().at(i);
-			
-			if(line.intersects(splitter->getSplitter()))
+		else
+		{	
+			for (auto &line : front_lines)
 			{
-				//Get the intersection points
-				Point<float> intersection = line.getIntersectionPoint(splitter->getSplitter());
-				//This sets the points for each split position.
-				split_positions.push_back(intersection);
-
-				intersection_center = intersection_center.midpoint(split_positions);
-				left_lines.push_back(Line2D(
-					Point<float>(line.getA().getX(), line.getA().getY()),
-					intersection,
-					(Color){255, 0, 0, 255}
-				));
-				right_lines.push_back(Line2D(
-					intersection,
-					Point<float>(line.getB().getX(), line.getB().getY()),
-					(Color){0, 0, 255, 255}
-				));
+				line.draw();
 			}
 		}
-		
-		//If the BSP node is null, then create it.
-		if(
-			bsp_node == nullptr
-			&&
-			(
-				0 < left_lines.size()
-				||
-				0 < right_lines.size()
-			)
-			)
+		if (back_child)
 		{
-			//Populate the BSPNode with the splitter and the lines.
-			bsp_node = new BSPNode(splitter->getSplitter());
-			bsp_node->addFront(left_lines.back());
-			bsp_node->addBack(right_lines.back());
+			back_child->draw();
+		}
+		else
+		{	
+			for (auto &line : back_lines)
+			{
+				line.draw();
+			}
 		}
 	}
-	virtual std::string getType() override
+
+	virtual void update() override
 	{
-		return "SplitStage";
+		if (front_child)
+		{
+			front_child->update();
+		}
+		if (back_child)
+		{
+			back_child->update();
+		}
 	}
+	virtual std::string getType() override { return "BSPNode"; }
 };

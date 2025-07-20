@@ -1,5 +1,6 @@
 #include "TwilightNode.hpp"
 
+//The ID will be equal to -1 if it is not set.
 TwilightNode::TwilightNode(int new_id)
 : ID(new_id)
 {
