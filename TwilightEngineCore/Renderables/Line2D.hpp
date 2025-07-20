@@ -3,6 +3,12 @@
 #include "RenderObject.hpp"
 #include <cmath> // For NAN
 
+enum class Axis
+{
+    HORIZONTAL,
+    VERTICAL,
+};
+
 class Line2D : public RenderObject
 {
 protected:
@@ -19,11 +25,12 @@ public:
 	Point<float> getB() const { return b; }
 	void setA(const Point<float>& new_a) { a = new_a; }
 	void setB(const Point<float>& new_b) { b = new_b; }
+	Line2D extrapolate(float factor) const;
 	/*
 		Used to make sure that lines are
 		facing in the same direction.
 		Should be useful for bsp stuff.
 	*/
-	void cardinalise();
+	void cardinalise(Axis axis);
 	Point<float> getMidPoint();
 };

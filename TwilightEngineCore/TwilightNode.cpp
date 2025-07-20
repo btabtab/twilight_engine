@@ -40,3 +40,25 @@ std::string TwilightNode::getType()
 {
 	return "TwilightNode";
 }
+
+
+void TwilightNode::updateChildren()
+{
+	for(auto& child : children)
+	{
+		if(child != nullptr)
+		{
+			child->update();
+		}
+	}
+}
+void TwilightNode::drawChildren()
+{
+	for(auto& child : children)
+	{
+		if(child != nullptr)
+		{
+			child->draw();
+		}
+	}
+}

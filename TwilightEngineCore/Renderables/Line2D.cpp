@@ -7,7 +7,16 @@ Line2D::Line2D(Point<float> new_a, Point<float> new_b, Color new_colour)
 {
     // std::cout << "New Line2D created\n";
     layer = Layers::MIDDLE;
-    cardinalise();
+    cardinalise(Axis::HORIZONTAL);
+}
+
+Line2D Line2D::extrapolate(float factor) const
+{
+	Point<float> direction_b = b - a;
+	Point<float> new_b = b + direction_b * factor;
+	Point<float> direction_a = a - b;
+	Point<float> new_a = a + direction_a * factor;
+	return Line2D(new_a, new_b, colour);
 }
 
 void Line2D::draw()
@@ -55,9 +64,13 @@ Point<float> Line2D::getIntersectionPoint(const Line2D& other) const
     return Point<float>(NAN, NAN);
 }
 
-void Line2D::cardinalise()
+void Line2D::cardinalise(Axis axis)
 {
-	if (a.getX() < b.getX())
+	if (a.getX() < b.getX() && axis == Axis::HORIZONTAL)
+	{
+		std::swap(a, b);
+	}
+	if (a.getY() < b.getY() && axis == Axis::VERTICAL)
 	{
 		std::swap(a, b);
 	}

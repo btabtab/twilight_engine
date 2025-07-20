@@ -18,6 +18,8 @@ public:
 	void addChild(TwilightNode* child);
 	void removeChild(int target_index);
 	void clearChildren();
+	void updateChildren();
+	void drawChildren();
 	TwilightNode(int new_id);
 	virtual ~TwilightNode() = default;
 	//This handles updating the node and defines it's behaviour.

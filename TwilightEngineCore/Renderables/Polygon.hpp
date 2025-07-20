@@ -37,7 +37,7 @@ public:
     {
         for(size_t i = 0; i < edges.size(); ++i)
         {
-            edges.at(i).cardinalise();
+            edges.at(i).cardinalise(Axis::HORIZONTAL);
         }
     }
 
