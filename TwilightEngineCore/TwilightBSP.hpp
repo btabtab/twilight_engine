@@ -191,11 +191,11 @@ public:
 					line.getB().getY() < splitting_line.getB().getY()
 					)
 				{
-					front_line = line;
+					back_line = line;
 				}
 				else
 				{
-					back_line = line;
+					front_line = line;
 				}
 				// std::cout << ":^(\n";
 			}
@@ -204,7 +204,8 @@ public:
 			front_lines.push_back(front_line);
 			back_lines.push_back(back_line);
 		}
-		front_lines.push_back(lines.at(0));
+		// front_lines.push_back(lines.at(0));
+		splitting_line.setColour((Color){ 200, 122, 255, 255 / 2 });
 	}
 
 	void draw() override
