@@ -14,6 +14,10 @@
 class TwilightEngine
 {
 private:
+	//Used for psuedorandom-ness.
+	int frame_ID;
+	//The label for the frame. Used for screenshots.
+	std::string frame_label;
 	//This will determine the name of the window.
 	std::string session_name;
 

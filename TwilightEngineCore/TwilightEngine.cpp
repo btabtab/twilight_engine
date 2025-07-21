@@ -9,6 +9,7 @@ window_size(new_window_size), session_name(new_name)
 
 void TwilightEngine::enter()
 {
+	frame_ID = 0;
 	InitWindow(window_size.getX(), window_size.getY(), session_name.c_str());
 	SetTargetFPS(max_fps);
 	warnings_left = 10;
@@ -85,22 +86,34 @@ void TwilightEngine::enter()
 	BSPNode bsp_node(line_set.getLines()->at(0), false);
 	bsp_node.splitLines(*line_set.getLines());
 	renderer.addRenderObject(&bsp_node);
-
-	bsp_node.birthNewChild(Side::FRONT);
-	bsp_node.birthNewChild(Side::BACK);
+	frame_label = "<Default_state>";
 	while(!WindowShouldClose() || emergency_exit)
 	{
+		frame_ID++;
 		for(int i = 0; i != renderer.getRenderObjects()->size(); i++)
 		{
 			renderer.getRenderObjects()->at(i)->update();
 		}
 		renderer.startDrawing();
+		DrawText(frame_label.c_str(), 5, 5, 10, WHITE);
 		renderer.drawContents();
 		renderer.stopDrawing();
 		if(IsKeyPressed(KEY_C))
 		{
-			TakeScreenshot("DEBUGSHOT.png");
+			TakeScreenshot(("screenshots/screenshot-" + std::to_string(frame_ID) + "-.png").c_str());
 			std::cout << "Screenshot taken\n";
+		}
+		if(IsKeyDown(KEY_LEFT_CONTROL) && IsKeyPressed(KEY_UP))
+		{
+			bsp_node.eliminateAllChildren();
+			bsp_node.birthNewChild(Side::FRONT);
+			frame_label = "bsp_node.birthNewChild(Side::FRONT); - Purple Line is the split line...";
+		}
+		if(IsKeyDown(KEY_LEFT_CONTROL) && IsKeyPressed(KEY_DOWN))
+		{
+			bsp_node.eliminateAllChildren();
+			bsp_node.birthNewChild(Side::BACK);
+			frame_label = "bsp_node.birthNewChild(Side::BACK); - Purple Line is the split line...";
 		}
 	}
 }

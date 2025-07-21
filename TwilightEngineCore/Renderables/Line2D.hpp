@@ -22,6 +22,7 @@ class Line2D : public RenderObject
 protected:
 	Point<float> a, b;
 public:
+	Line2D();
 	Line2D(Point<float> new_a, Point<float> new_b, Color new_colour);
 	virtual void draw();
 	// Returns true if intersection exists within segments
@@ -41,4 +42,12 @@ public:
 	void cardinalise(Axis axis);
 	Point<float> getMidPoint();
 	Line2D getSplitLine(Point<float> split_point, Side side);
+	Axis getGradient()
+	{
+		if (std::abs(b.getX() - a.getX()) > std::abs(b.getY() - a.getY())) {
+			return Axis::HORIZONTAL; // HORIZONTAL
+		} else {
+			return Axis::VERTICAL; // VERTICAL
+		}
+	}
 };
