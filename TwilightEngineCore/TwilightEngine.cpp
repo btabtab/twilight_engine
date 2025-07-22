@@ -59,6 +59,11 @@ void TwilightEngine::enter()
 	// points.at(5) += Point<float>(+0, +120);
 	// points.at(7) += Point<float>(-120, +0);
 
+	/*
+		Original demo lines,
+		roughly adapted from:
+		https://en.wikipedia.org/wiki/Binary_space_partitioning
+	*/
 	//A
 	points.at(0) += Point<float>(-30, 0);
 	points.at(1) += Point<float>(30, 0);
@@ -75,12 +80,32 @@ void TwilightEngine::enter()
 	points.at(6) += Point<float>(+50, +30);
 	points.at(7) += Point<float>(+20, -40);
 
-	LineSet line_set;
-	line_set.addLine(points.at(0), points.at(1), (Color){0xFF, 0xFF, 0xFF, 0xFF >> 1});
-	line_set.addLine(points.at(2), points.at(3), (Color){0xFF, 0xFF, 0xFF, 0xFF >> 1});
-	line_set.addLine(points.at(4), points.at(5), (Color){0xFF, 0xFF, 0xFF, 0xFF >> 1});
-	line_set.addLine(points.at(6), points.at(7), (Color){0xFF, 0xFF, 0xFF, 0xFF >> 1});
+	//Extra lines for testing reasons.
 
+	points.push_back(Point<float>(74, 308));
+	points.push_back(Point<float>(341, 269));
+	points.push_back(Point<float>(341, 269));
+	points.push_back(Point<float>(275, 49));
+
+	points.push_back(Point<float>(275, 49));
+	points.push_back(Point<float>(190, 25));
+	points.push_back(Point<float>(190, 25));
+	points.push_back(Point<float>(141, 65));
+
+	points.push_back(Point<float>(141, 65));
+	points.push_back(Point<float>(44, 128));
+	points.push_back(Point<float>(44, 128));
+	points.push_back(Point<float>(74, 308));
+
+	LineSet line_set;
+	for(int i = 0; i != points.size(); i += 2)
+	{
+		line_set.addLine(points.at(i), points.at(i + 1), (Color){0xFF, 0xFF, 0xFF, 0xFF >> 1});
+	}
+	// line_set.addLine(points.at(0), points.at(1), (Color){0xFF, 0xFF, 0xFF, 0xFF >> 1});
+	// line_set.addLine(points.at(2), points.at(3), (Color){0xFF, 0xFF, 0xFF, 0xFF >> 1});
+	// line_set.addLine(points.at(4), points.at(5), (Color){0xFF, 0xFF, 0xFF, 0xFF >> 1});
+	// line_set.addLine(points.at(6), points.at(7), (Color){0xFF, 0xFF, 0xFF, 0xFF >> 1});
 	// renderer.addRenderObject(&line_set);
 
 	BSPNode bsp_node(line_set.getLines()->at(0), false);
@@ -114,6 +139,11 @@ void TwilightEngine::enter()
 			bsp_node.eliminateAllChildren();
 			bsp_node.birthNewChild(Side::BACK);
 			frame_label = "bsp_node.birthNewChild(Side::BACK); - Purple Line is the split line...";
+		}
+
+		if(IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
+		{
+			std::cout << "\nPoint<float>(" + std::to_string(GetMouseX()) + ", " + std::to_string(GetMouseY()) + ")\n";
 		}
 	}
 }

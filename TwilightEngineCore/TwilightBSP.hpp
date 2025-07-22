@@ -6,6 +6,19 @@
 #include "Renderables/Plane.hpp"
 
 /*
+	I'm being honest with this...
+	My entire approach on this is
+	based pretty much exclusively
+	on the wikipedia page for
+	Binary Space Partitioning...
+
+	Even down to the demo lines.
+	https://en.wikipedia.org/wiki/Binary_space_partitioning
+
+	Also probably some youtube videos at some point.
+*/
+
+/*
 	I nuked the previous code for reason technical debt
 	reasons, it was written with a different approach
 	and structure that couldn't have EVER fit with what
@@ -93,7 +106,7 @@ public:
 
 	void eliminateAllChildren()
 	{
-		if(front_child)
+		if (front_child)
 		{
 			front_child->eliminateAllChildren();
 			delete front_child;
@@ -101,7 +114,7 @@ public:
 			std::cout << "front_child deleted...\n";
 		}
 
-		if(back_child)
+		if (back_child)
 		{
 			back_child->eliminateAllChildren();
 			delete back_child;
@@ -112,24 +125,24 @@ public:
 
 	void eliminateChild(Side side)
 	{
-		if(side == Side::FRONT)
+		if (side == Side::FRONT)
 		{
 			front_child->eliminateAllChildren();
 			delete front_child;
 		}
 
-		if(side == Side::BACK)
+		if (side == Side::BACK)
 		{
 			back_child->eliminateAllChildren();
 			delete back_child;
 		}
 	}
 
-	BSPNode* birthNewChild(Side side)
+	BSPNode *birthNewChild(Side side)
 	{
 		if (side == Side::FRONT)
 		{
-			if(front_child)
+			if (front_child)
 			{
 				return front_child;
 			}
@@ -137,7 +150,7 @@ public:
 			front_child->splitLines(front_lines);
 			return front_child;
 		}
-		if(back_child)
+		if (back_child)
 		{
 			return back_child;
 		}
@@ -150,7 +163,7 @@ public:
 	{
 		splitting_line.setColour(PURPLE);
 		Color front_colour = splitting_line.getColour(); // Semi-transparent red
-		Color back_colour = splitting_line.getColour();// Semi-transparent blue
+		Color back_colour = splitting_line.getColour();	 // Semi-transparent blue
 
 		front_colour.r /= 1.5;
 		back_colour.b /= 1.5;
@@ -164,15 +177,14 @@ public:
 			if (splitting_line.intersects(line))
 			{
 				Point<float> intersection_point = splitting_line.getIntersectionPoint(line);
-				
+
 				// If the intersection point is valid, we can split the line.
 				// Create two new lines from the intersection point.
 				front_line = line.getSplitLine(intersection_point, Side::FRONT);
 				back_line = line.getSplitLine(intersection_point, Side::BACK);
-				
-				//If the splitting line doesn't intersect the extrapolated one up top
-				//check if it is left or right
 
+				// If the splitting line doesn't intersect the extrapolated one up top
+				// check if it is left or right
 
 				// DrawCircle3D(intersection_point)
 
@@ -181,15 +193,11 @@ public:
 			else
 			{
 
-				if(
-					line.getA().getX() < splitting_line.getA().getX()
-					||
-					line.getA().getY() < splitting_line.getA().getY()
-					||
-					line.getB().getX() < splitting_line.getB().getX()
-					||
-					line.getB().getY() < splitting_line.getB().getY()
-					)
+				if (
+					line.getA().getX() < splitting_line.getA().getX() ||
+					line.getA().getY() < splitting_line.getA().getY() ||
+					line.getB().getX() < splitting_line.getB().getX() ||
+					line.getB().getY() < splitting_line.getB().getY())
 				{
 					back_line = line;
 				}
@@ -205,12 +213,12 @@ public:
 			back_lines.push_back(back_line);
 		}
 		// front_lines.push_back(lines.at(0));
-		splitting_line.setColour((Color){ 200, 122, 255, 255 / 2 });
+		splitting_line.setColour((Color){200, 122, 255, 255 / 2});
 	}
 
 	void draw() override
 	{
-		if(!front_child && !back_child)
+		if (!front_child && !back_child)
 		{
 			splitting_line.draw();
 			for (auto &line : front_lines)
