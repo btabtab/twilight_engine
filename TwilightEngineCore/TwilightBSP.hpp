@@ -1,5 +1,6 @@
 #pragma once
 #include <vector>
+#include <string>
 #include "TwilightNode.hpp"
 #include "Renderables/Line2D.hpp"
 #include "Renderables/Polygon.hpp"
@@ -68,16 +69,32 @@ public:
 	}
 };
 
+// Helper function to compute signed distance from point to line (Ax + By + C = 0) // document
+inline float signedDistance(const Line2D &line, const Point<float> &p) // document
+{																	   // document
+	float x1 = line.getA().getX(), y1 = line.getA().getY();			   // document
+	float x2 = line.getB().getX(), y2 = line.getB().getY();			   // document
+	float A = y2 - y1;												   // document
+	float B = x1 - x2;												   // document
+	float C = x2 * y1 - y2 * x1;									   // document
+	return A * p.getX() + B * p.getY() + C;							   // document
+} // document
+
 class BSPNode : public TwilightNode
 {
 private:
 	BSPNode *front_child;
 	BSPNode *back_child;
+	BSPNode *parent;
+
 	Line2D splitting_line;
 	// Lines that are "infront" of the split.
 	std::vector<Line2D> front_lines;
 	// Lines that are "behind" the split.
 	std::vector<Line2D> back_lines;
+
+	//This doesn't get set later on, so a "Setter" is not needed.
+	int depth;
 
 	/*
 		This will be true if the node is an end
@@ -87,15 +104,32 @@ private:
 		!!! DO NOT OPERATE ON A LEAF NODE !!!
 	*/
 	bool is_leaf;
+	Line2D leaf_line;
 
 public:
-	BSPNode(Line2D new_splitting_line, bool leaf = false)
-		: TwilightNode(), splitting_line(new_splitting_line.extrapolate(10.0f)), is_leaf(leaf), front_child(nullptr), back_child(nullptr)
+	BSPNode(Line2D new_splitting_line, bool leaf = false, int new_depth = 0, BSPNode* new_parent = nullptr)
+		: TwilightNode(), splitting_line(new_splitting_line.extrapolate(10.0f)), is_leaf(leaf), front_child(nullptr), back_child(nullptr),
+		leaf_line()
 	{
+		depth = new_depth;
 		front_child = nullptr;
 		back_child = nullptr;
 		splitting_line.setColour(WHITE);
 		// splitting_line.getColour().a = 0xFF >> 1; // Semi-transparent
+		parent = new_parent;
+	}
+	BSPNode* getParent()
+	{
+		return parent;
+	}
+	
+	int getDepth()
+	{
+		return depth;
+	}
+	bool isLeaf()
+	{
+		return is_leaf;
 	}
 
 	void setFrontChild(BSPNode *child) { front_child = child; }
@@ -103,6 +137,14 @@ public:
 
 	BSPNode *getFrontChild() { return front_child; }
 	BSPNode *getBackChild() { return back_child; }
+	BSPNode *getChildBasedOnSide(Side side)
+	{
+		if(side == Side::FRONT)
+		{
+			return getFrontChild();
+		}
+		return getBackChild();
+	}
 
 	void eliminateAllChildren()
 	{
@@ -140,13 +182,20 @@ public:
 
 	BSPNode *birthNewChild(Side side)
 	{
+		if(is_leaf)
+		{
+			return nullptr;
+		}
+		std::cout << "Birthing a new child with depth of: " << depth + 1 << "\n";
 		if (side == Side::FRONT)
 		{
 			if (front_child)
 			{
 				return front_child;
 			}
-			front_child = new BSPNode(front_lines.at(0), false);
+			std::cout << "\t\tfront_lines.size() = " << front_lines.size() << " out of " << back_lines.size() + front_lines.size() << "\n";
+			
+			front_child = new BSPNode(front_lines.at(front_lines.size() - 1), false, depth + 1, this);
 			front_child->splitLines(front_lines);
 			return front_child;
 		}
@@ -154,93 +203,147 @@ public:
 		{
 			return back_child;
 		}
-		back_child = new BSPNode(back_lines.at(1), false);
+		std::cout << "\t\tback_lines.size() - 1" << back_lines.size() << " out of " << back_lines.size() + front_lines.size() << "\n";
+
+		back_child = new BSPNode(back_lines.at(back_lines.size() - 1), false, depth + 1, this);
 		back_child->splitLines(back_lines);
 		return back_child;
 	}
 
 	void splitLines(std::vector<Line2D> lines)
 	{
-		splitting_line.setColour(PURPLE);
-		Color front_colour = splitting_line.getColour(); // Semi-transparent red
-		Color back_colour = splitting_line.getColour();	 // Semi-transparent blue
-
-		front_colour.r /= 1.5;
-		back_colour.b /= 1.5;
-
-		Axis side_to_cardinalise_for = splitting_line.getGradient();
-		for (auto &line : lines)
+		std::cout << "Lines = " << lines.size() << "\n";
+		if(lines.size() == 0)
 		{
-			Line2D front_line;
-			Line2D back_line;
-			line.cardinalise(Axis::VERTICAL);
-			if (splitting_line.intersects(line))
-			{
-				Point<float> intersection_point = splitting_line.getIntersectionPoint(line);
-
-				// If the intersection point is valid, we can split the line.
-				// Create two new lines from the intersection point.
-				front_line = line.getSplitLine(intersection_point, Side::FRONT);
-				back_line = line.getSplitLine(intersection_point, Side::BACK);
-
-				// If the splitting line doesn't intersect the extrapolated one up top
-				// check if it is left or right
-
-				// DrawCircle3D(intersection_point)
-
-				// std::cout << ":^D\n";
-			}
-			else
-			{
-
-				if (
-					line.getA().getX() < splitting_line.getA().getX() ||
-					line.getA().getY() < splitting_line.getA().getY() ||
-					line.getB().getX() < splitting_line.getB().getX() ||
-					line.getB().getY() < splitting_line.getB().getY())
-				{
-					back_line = line;
-				}
-				else
-				{
-					front_line = line;
-				}
-				// std::cout << ":^(\n";
-			}
-			front_line.setColour(front_colour);
-			back_line.setColour(back_colour);
-			front_lines.push_back(front_line);
-			back_lines.push_back(back_line);
+			std::cout << "0 lines to cut?\n";
+			return;
 		}
-		// front_lines.push_back(lines.at(0));
-		splitting_line.setColour((Color){200, 122, 255, 255 / 2});
-	}
+		if(lines.size() == 1)
+		{
+			std::cout << "Leaf found...";
+			leaf_line = lines.back();
+			is_leaf = true;
+			return;
+		}
+		splitting_line.setColour(PURPLE);				 // document
+		Color front_colour = splitting_line.getColour(); // document
+		Color back_colour = splitting_line.getColour();	 // document
+
+		front_colour.r /= 1.5; // document
+		back_colour.b /= 1.5;  // document
+
+		Axis side_to_cardinalise_for = splitting_line.getGradient();						 // document
+		for (auto &line : lines)															 // document
+		{																					 // document
+			Line2D front_line;																 // document
+			Line2D back_line;																 // document
+			line.cardinalise(side_to_cardinalise_for);										 // document
+			if (splitting_line.intersects(line))											 // document
+			{																				 // document
+				Point<float> intersection_point = splitting_line.getIntersectionPoint(line); // document
+
+				// Swap these if your convention is reversed
+				if (signedDistance(splitting_line, line.getA()) >= 0) { // document
+                    front_line = Line2D(line.getA(), intersection_point, line.getColour()); // document
+                    back_line = Line2D(intersection_point, line.getB(), line.getColour()); // document
+                } else { // document
+                    back_line = Line2D(line.getA(), intersection_point, line.getColour()); // document
+                    front_line = Line2D(intersection_point, line.getB(), line.getColour()); // document
+                }
+			} // document
+			else														// document
+			{															// document
+				float dA = signedDistance(splitting_line, line.getA()); // document
+				float dB = signedDistance(splitting_line, line.getB()); // document
+
+				if (dA >= 0 && dB >= 0) // document
+				{						// document
+					front_line = line;	// document
+				} // document
+				else if (dA <= 0 && dB <= 0) // document
+				{							 // document
+					back_line = line;		 // document
+				} // document
+				// If endpoints are on opposite sides, this should not happen here // document
+			} // document
+			if (front_line.getA() != front_line.getB())
+			{										// document
+				front_line.setColour(front_colour); // document
+				front_lines.push_back(front_line);	// document
+			} // document
+			if (back_line.getA() != back_line.getB())
+			{									  // document
+				back_line.setColour(back_colour); // document
+				back_lines.push_back(back_line);  // document
+			} // document
+		} // document
+		splitting_line.setColour((Color){200, 122, 255, 255 / 2}); // document
+	} // document
 
 	void draw() override
 	{
-		if (!front_child && !back_child)
+		if (is_leaf)
+		{
+			leaf_line.draw();
+			DrawText((std::to_string(depth) + ", leaf").c_str(), leaf_line.getMidPoint().getX(), leaf_line.getMidPoint().getY(), 10, WHITE);
+			return;
+		}
+		else
 		{
 			splitting_line.draw();
-			for (auto &line : front_lines)
-			{
-				line.draw();
-			}
-			for (auto &line : back_lines)
-			{
-				line.draw();
-			}
 		}
-		// if (is_leaf)
-		// {
-		// 	return;
-		// }
-		if (front_child)
+		if(front_child)
 		{
 			front_child->draw();
 		}
-		if (back_child)
+		else
+		{
+			int line_index = 0;
+			for(auto line: front_lines)
+			{
+				DrawText((std::to_string(depth) + ", " + std::to_string(line_index)).c_str(), line.getMidPoint().getX(), line.getMidPoint().getY(), 10, WHITE);
+				line.draw();
+				line_index++;
+			}
+		}
+
+		if(back_child)
 		{
 			back_child->draw();
+			return;
+		}
+		else
+		{
+			int line_index = 0;
+			for(auto line: back_lines)
+			{
+				DrawText((std::to_string(depth) + ", " + std::to_string(line_index)).c_str(), line.getMidPoint().getX(), line.getMidPoint().getY(), 10, WHITE);
+				line.draw();
+				line_index++;
+			}
+		}
+	}
+
+	void grow()
+	{
+		//Don't do anything on a leaf.
+		if (is_leaf)
+		{
+			return;
+		}
+		if(!front_child)
+		{
+			std::cout << "Birthing Front Node...\n";
+			BSPNode* child = birthNewChild(Side::FRONT);
+			child->splitLines(front_lines);
+			child->grow();
+		}
+		if(!back_child)
+		{
+			std::cout << "Birthing Back Node...\n";
+			BSPNode* child = birthNewChild(Side::BACK);
+			child->splitLines(back_lines);
+			child->grow();
 		}
 	}
 

@@ -89,10 +89,15 @@ public:
 		return Point<T>(x / scalar, y / scalar);
 	}
 
-	bool operator==(const Point<T>& other) const
-	{
-		return (x == other.getX() && y == other.getY());
-	}
+
+	   bool operator==(const Point<T>& other) const
+	   {
+			   return (x == other.getX() && y == other.getY());
+	   }
+	   bool operator!=(const Point<T>& other) const
+	   {
+			   return !(*this == other);
+	   }
 
 	// float length() const
 	// {

@@ -65,8 +65,8 @@ void TwilightEngine::enter()
 		https://en.wikipedia.org/wiki/Binary_space_partitioning
 	*/
 	//A
-	points.at(0) += Point<float>(-30, 0);
-	points.at(1) += Point<float>(30, 0);
+	points.at(0) += Point<float>(-25, 0);
+	points.at(1) += Point<float>(25, 0);
 
 	//B
 	points.at(2) += Point<float>(-30, -20);
@@ -85,14 +85,14 @@ void TwilightEngine::enter()
 	points.push_back(Point<float>(74, 308));
 	points.push_back(Point<float>(341, 269));
 	points.push_back(Point<float>(341, 269));
-	points.push_back(Point<float>(275, 49));
+	points.push_back(Point<float>(275, 90));
 
-	points.push_back(Point<float>(275, 49));
-	points.push_back(Point<float>(190, 25));
-	points.push_back(Point<float>(190, 25));
-	points.push_back(Point<float>(141, 65));
+	points.push_back(Point<float>(275, 90));
+	points.push_back(Point<float>(190, 90));
+	points.push_back(Point<float>(190, 90));
+	points.push_back(Point<float>(135, 65));
 
-	points.push_back(Point<float>(141, 65));
+	points.push_back(Point<float>(135, 65));
 	points.push_back(Point<float>(44, 128));
 	points.push_back(Point<float>(44, 128));
 	points.push_back(Point<float>(74, 308));
@@ -108,10 +108,15 @@ void TwilightEngine::enter()
 	// line_set.addLine(points.at(6), points.at(7), (Color){0xFF, 0xFF, 0xFF, 0xFF >> 1});
 	// renderer.addRenderObject(&line_set);
 
-	BSPNode bsp_node(line_set.getLines()->at(0), false);
+	BSPNode bsp_node(line_set.getLines()->at(0), false, 0);
+	BSPNode* current = &bsp_node;
 	bsp_node.splitLines(*line_set.getLines());
 	renderer.addRenderObject(&bsp_node);
 	frame_label = "<Default_state>";
+
+	Side current_side = Side::FRONT;
+	// bsp_node.grow();
+	
 	while(!WindowShouldClose() || emergency_exit)
 	{
 		frame_ID++;
@@ -122,25 +127,43 @@ void TwilightEngine::enter()
 		renderer.startDrawing();
 		DrawText(frame_label.c_str(), 5, 5, 10, WHITE);
 		renderer.drawContents();
+		DrawFPS(GetMouseX(), GetMouseY());
 		renderer.stopDrawing();
 		if(IsKeyPressed(KEY_C))
 		{
 			TakeScreenshot(("screenshots/screenshot-" + std::to_string(frame_ID) + "-.png").c_str());
 			std::cout << "Screenshot taken\n";
 		}
-		if(IsKeyDown(KEY_LEFT_CONTROL) && IsKeyPressed(KEY_UP))
+		if(IsKeyPressed(KEY_P))
 		{
-			bsp_node.eliminateAllChildren();
-			bsp_node.birthNewChild(Side::FRONT);
-			frame_label = "bsp_node.birthNewChild(Side::FRONT); - Purple Line is the split line...";
+			std::cout << "P pressed\n";
+			current->birthNewChild(current_side);
+			if(current->getChildBasedOnSide(current_side))
+			{
+				std::cout << "getting new child... with depth of " << current->getDepth() << "\n" ;
+				current = current->getChildBasedOnSide(current_side);
+			}
 		}
-		if(IsKeyDown(KEY_LEFT_CONTROL) && IsKeyPressed(KEY_DOWN))
+		if(IsKeyPressed(KEY_U))
 		{
-			bsp_node.eliminateAllChildren();
-			bsp_node.birthNewChild(Side::BACK);
-			frame_label = "bsp_node.birthNewChild(Side::BACK); - Purple Line is the split line...";
+			std::cout << "Getting Parent\n";
+			if(current->getParent())
+			{
+				current = current->getParent();
+			}
 		}
-
+		if(IsKeyPressed(KEY_UP))
+		{
+			std::cout << "UP\n";
+			current_side = Side::FRONT;
+			frame_label = "Front";
+		}
+		if(IsKeyPressed(KEY_DOWN))
+		{
+			std::cout << "DOWN\n";
+			current_side = Side::BACK;
+			frame_label = "Back";
+		}
 		if(IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
 		{
 			std::cout << "\nPoint<float>(" + std::to_string(GetMouseX()) + ", " + std::to_string(GetMouseY()) + ")\n";
