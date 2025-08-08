@@ -2,6 +2,8 @@
 
 #include <vector>
 #include <iostream>
+#include <cmath>
+#include <string>
 
 template<typename T>
 class Point
@@ -99,10 +101,10 @@ public:
 			   return !(*this == other);
 	   }
 
-	// float length() const
-	// {
-	// 	return std::sqrt(x * x + y * y);
-	// }
+	float length() const
+	{
+		return std::sqrt(x * x + y * y);
+	}
 
 	// Point<T> normalized() const
 	// {
@@ -128,5 +130,11 @@ public:
 	//Rotation code here plox... <3
 	void rotateAroundPoint(Point<T> center, double degrees)
 	{
+	}
+	float distanceTo(Point<T> other)
+	{
+		float dx = x - other.getX();
+		float dy = y - other.getY();
+		return std::sqrt(dx * dx + dy * dy);
 	}
 };
