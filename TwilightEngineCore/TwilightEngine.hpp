@@ -8,6 +8,7 @@
 #include "TwilightNode.hpp"
 #include "CollisionMan.hpp"
 #include "TwilightBSP.hpp"
+#include "LakeTracker.hpp"
 
 #include "Ball.hpp"
 

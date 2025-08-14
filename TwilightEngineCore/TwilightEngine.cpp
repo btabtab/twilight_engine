@@ -16,31 +16,11 @@ void TwilightEngine::enter()
 	errors_left = 0;
 	has_started = true;
 	system("clear");
-
-	// renderer.addRenderObject(
-	// 			new Line2D(
-	// 					Point<float>(50, 50),
-	// 					Point<float>(200, 200),
-	// 					RED
-	// 						)
-	// 							);
-								
-	// renderer.addRenderObject(
-	// 			new Line2D(
-	// 					Point<float>(200, 50),
-	// 					Point<float>(50, 200),
-	// 					RED
-	// 						)
-	// 							);
-
-	// renderer.addRenderObject(
-	// 			new CollisionMan(
-	// 					(Line2D*)renderer.getRenderObjects()->at(0),
-	// 					(Line2D*)renderer.getRenderObjects()->at(1)
-	// 						)
-	// 							);
-
 	
+	LakeTracker tracker;
+
+	renderer.addRenderObject(&tracker);
+
 	while(!WindowShouldClose() || emergency_exit)
 	{
 		frame_ID++;
