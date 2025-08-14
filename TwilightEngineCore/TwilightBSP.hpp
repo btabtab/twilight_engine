@@ -237,12 +237,13 @@ public:
 			}
 			std::cout << "\t\tfront_lines.size() = " << front_lines.size() << " out of " << back_lines.size() + front_lines.size() << "\n";
 
-			if (front_lines.empty()) {
+			if (front_lines.empty())
+			{
 				return nullptr;
 			}
 			front_child = new BSPNode(front_lines.at(0), false, depth + 1, this);
 			std::vector<Line2D> remaining_lines = front_lines;
-			remaining_lines.erase(remaining_lines.begin());  // Remove the splitting line
+			remaining_lines.erase(remaining_lines.begin()); // Remove the splitting line
 			front_child->splitLines(remaining_lines);
 			return front_child;
 		}
@@ -287,22 +288,31 @@ public:
 			// Determine which side each line is on
 			int front_count = 0, back_count = 0;
 			std::vector<Line2D> front, back;
-			for (auto &line : lines) {
+			for (auto &line : lines)
+			{
 				float dA = signedDistance(splitting_line, line.getA());
 				float dB = signedDistance(splitting_line, line.getB());
-				if (dA >= 0 && dB >= 0) {
+				if (dA >= 0 && dB >= 0)
+				{
 					front.push_back(line);
 					front_count++;
-				} else if (dA <= 0 && dB <= 0) {
+				}
+				else if (dA <= 0 && dB <= 0)
+				{
 					back.push_back(line);
 					back_count++;
-				} else {
+				}
+				else
+				{
 					// Line crosses the split, treat as split
 					Point<float> intersection_point = splitting_line.getIntersectionPoint(line);
-					if (dA >= 0) {
+					if (dA >= 0)
+					{
 						front.push_back(Line2D(line.getA(), intersection_point, line.getColour()));
 						back.push_back(Line2D(intersection_point, line.getB(), line.getColour()));
-					} else {
+					}
+					else
+					{
 						back.push_back(Line2D(line.getA(), intersection_point, line.getColour()));
 						front.push_back(Line2D(intersection_point, line.getB(), line.getColour()));
 					}
@@ -310,26 +320,33 @@ public:
 			}
 
 			// If both lines are on the same side, make a leaf for each
-			if (front.size() == 2 && back.size() == 0) {
+			if (front.size() == 2 && back.size() == 0)
+			{
 				// Both lines in front
 				is_leaf = true;
 				leaf_line = front[0];
 				// Optionally, handle the second line (could create a sibling node or store both)
 				return;
-			} else if (back.size() == 2 && front.size() == 0) {
+			}
+			else if (back.size() == 2 && front.size() == 0)
+			{
 				// Both lines in back
 				is_leaf = true;
 				leaf_line = back[0];
 				// Optionally, handle the second line
 				return;
-			} else if (front.size() == 1 && back.size() == 1) {
+			}
+			else if (front.size() == 1 && back.size() == 1)
+			{
 				// One line on each side, create two leaf nodes
 				front_lines.clear();
 				back_lines.clear();
 				front_lines.push_back(front[0]);
 				back_lines.push_back(back[0]);
 				return;
-			} else {
+			}
+			else
+			{
 				// If splitting doesn't reduce, force leaf creation to avoid infinite recursion
 				is_leaf = true;
 				leaf_line = lines[0];
@@ -419,13 +436,13 @@ public:
 		}
 		else
 		{
-			// int line_index = 0;
-			// for (auto line : front_lines)
-			// {
-			// 	DrawText((std::to_string(depth) + ", " + std::to_string(line_index)).c_str(), line.getMidPoint().getX(), line.getMidPoint().getY(), 10, WHITE);
-			// 	line.draw();
-			// 	line_index++;
-			// }
+			int line_index = 0;
+			for (auto line : front_lines)
+			{
+				DrawText((std::to_string(depth) + ", " + std::to_string(line_index)).c_str(), line.getMidPoint().getX(), line.getMidPoint().getY(), 10, WHITE);
+				line.draw();
+				line_index++;
+			}
 		}
 
 		if (back_child)
@@ -434,39 +451,58 @@ public:
 		}
 		else
 		{
-			// int line_index = 0;
-			// for (auto line : back_lines)
-			// {
-			// 	DrawText((std::to_string(depth) + ", " + std::to_string(line_index)).c_str(), line.getMidPoint().getX(), line.getMidPoint().getY(), 10, WHITE);
-			// 	line.draw();
-			// 	line_index++;
-			// }
+			int line_index = 0;
+			for (auto line : back_lines)
+			{
+				DrawText((std::to_string(depth) + ", " + std::to_string(line_index)).c_str(), line.getMidPoint().getX(), line.getMidPoint().getY(), 10, WHITE);
+				line.draw();
+				line_index++;
+			}
 		}
 	}
 
 	void grow()
 	{
-		if(this == nullptr)
-		{
-			std::cerr << "What?\n";
-			return;
-		}
 		// Don't do anything on a leaf.
+		if (is_leaf && getParent()->front_child && getParent()->back_child)
+		{
+			if (
+				getParent()->front_child->is_leaf &&
+				getParent()->back_child->is_leaf)
+			{
+				if (getParent())
+				{
+					if (getParent()->getParent())
+					{
+						getParent()->getParent()->grow();
+					}
+				}
+			}
+		}
+
 		if (is_leaf)
 		{
+			getParent()->grow();
 			return;
 		}
+
 		if (!front_child)
 		{
 			std::cout << "\t\tGrowing Front Node...\n";
 			front_child = birthNewChild(Side::FRONT);
-			front_child->grow();
+			if (front_child != nullptr)
+			{
+				front_child->grow();
+			}
 		}
 		if (!back_child)
 		{
 			std::cout << "\t\tGrowing Back Node...\n";
 			back_child = birthNewChild(Side::BACK);
-			back_child->grow();
+			if (back_child != nullptr)
+			{
+				back_child->grow();
+			}
 		}
 	}
 
