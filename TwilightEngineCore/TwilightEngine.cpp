@@ -4,7 +4,7 @@ TwilightEngine::TwilightEngine(Point<float> new_window_size, std::string new_nam
 window_size(new_window_size), session_name(new_name)
 {
 	emergency_exit = false;
-	max_fps = 60;
+	max_fps = 20;
 }
 
 void TwilightEngine::enter()
@@ -15,6 +15,7 @@ void TwilightEngine::enter()
 	warnings_left = 10;
 	errors_left = 0;
 	has_started = true;
+	system("clear");
 
 	// renderer.addRenderObject(
 	// 			new Line2D(
@@ -102,17 +103,12 @@ void TwilightEngine::enter()
 	{
 		line_set.addLine(points.at(i), points.at(i + 1), (Color){0xFF, 0xFF, 0xFF, 0xFF >> 1});
 	}
-	// line_set.addLine(points.at(0), points.at(1), (Color){0xFF, 0xFF, 0xFF, 0xFF >> 1});
-	// line_set.addLine(points.at(2), points.at(3), (Color){0xFF, 0xFF, 0xFF, 0xFF >> 1});
-	// line_set.addLine(points.at(4), points.at(5), (Color){0xFF, 0xFF, 0xFF, 0xFF >> 1});
-	// line_set.addLine(points.at(6), points.at(7), (Color){0xFF, 0xFF, 0xFF, 0xFF >> 1});
-	// renderer.addRenderObject(&line_set);
 
 	BSPNode bsp_node(line_set.getLines()->at(0), false, 0);
 	BSPNode* current = &bsp_node;
 	bsp_node.splitLines(*line_set.getLines());
 	renderer.addRenderObject(&bsp_node);
-	frame_label = "<Default_state>";
+	frame_label = "<Default_state>, depth = ";
 
 	Side current_side = Side::FRONT;
 	// bsp_node.grow();
@@ -126,9 +122,10 @@ void TwilightEngine::enter()
 		}
 		renderer.startDrawing();
 		DrawText(frame_label.c_str(), 5, 5, 10, WHITE);
+		// DrawFPS(GetMouseX(), GetMouseY());
 		renderer.drawContents();
-		DrawFPS(GetMouseX(), GetMouseY());
-		renderer.stopDrawing();
+
+		// --- INPUT POLLING SECTION ---
 		if(IsKeyPressed(KEY_C))
 		{
 			TakeScreenshot(("screenshots/screenshot-" + std::to_string(frame_ID) + "-.png").c_str());
@@ -142,7 +139,14 @@ void TwilightEngine::enter()
 			{
 				std::cout << "getting new child... with depth of " << current->getDepth() << "\n" ;
 				current = current->getChildBasedOnSide(current_side);
+				current->dumpNodeAsText();
 			}
+		}
+		if(IsKeyPressed(KEY_G))
+		{
+			TakeScreenshot("screenshots/screenshot-Pre Split-.png");
+			current->grow();
+			current->dumpEntireTreeAsText();
 		}
 		if(IsKeyPressed(KEY_U))
 		{
@@ -151,23 +155,40 @@ void TwilightEngine::enter()
 			{
 				current = current->getParent();
 			}
+			frame_label = "Gone up a layer (depth = " + std::to_string(current->getDepth()) + ")";
 		}
 		if(IsKeyPressed(KEY_UP))
 		{
 			std::cout << "UP\n";
 			current_side = Side::FRONT;
-			frame_label = "Front";
+			frame_label = "Front, depth = " + std::to_string(current->getDepth());
 		}
 		if(IsKeyPressed(KEY_DOWN))
 		{
 			std::cout << "DOWN\n";
 			current_side = Side::BACK;
-			frame_label = "Back";
+			frame_label = "Back, depth = " + std::to_string(current->getDepth());
+		}
+		if(IsKeyPressed(KEY_V))
+		{
+			system("clear");
 		}
 		if(IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
 		{
 			std::cout << "\nPoint<float>(" + std::to_string(GetMouseX()) + ", " + std::to_string(GetMouseY()) + ")\n";
+			// Test: Draw bounding box for node containing mouse
+			Point<float> mouse_pt(GetMouseX(), GetMouseY());
+			BSPNode* containing_node = bsp_node.findNodeContainingPoint(mouse_pt);
+			if (containing_node) {
+				Bounds bbox = containing_node->getBoundingBox();
+				bbox.draw();
+				std::cout << "Mouse is inside node at depth " << containing_node->getDepth() << "\n";
+			} else {
+				std::cout << "Mouse is not inside any node's bounding box\n";
+			}
 		}
+		// --- END INPUT POLLING SECTION ---
+		renderer.stopDrawing();
 	}
 }
 
