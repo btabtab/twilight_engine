@@ -1,0 +1,3099 @@
+INFO: Initializing raylib 5.6-dev
+INFO: Platform backend: DESKTOP (GLFW)
+INFO: Supported raylib modules:
+INFO:     > rcore:..... loaded (mandatory)
+INFO:     > rlgl:...... loaded (mandatory)
+INFO:     > rshapes:... loaded (optional)
+INFO:     > rtextures:. loaded (optional)
+INFO:     > rtext:..... loaded (optional)
+INFO:     > rmodels:... loaded (optional)
+INFO:     > raudio:.... loaded (optional)
+INFO: DISPLAY: Device initialized successfully
+INFO:     > Display size: 1400 x 900
+INFO:     > Screen size:  400 x 400
+INFO:     > Render size:  400 x 400
+INFO:     > Viewport offsets: 0, 0
+INFO: GLAD: OpenGL extensions loaded successfully
+INFO: GL: Supported extensions count: 231
+INFO: GL: OpenGL device information:
+INFO:     > Vendor:   Intel
+INFO:     > Renderer: Mesa Intel(R) UHD Graphics 620 (KBL GT2)
+INFO:     > Version:  4.6 (Core Profile) Mesa 25.0.7-0ubuntu0.24.04.1
+INFO:     > GLSL:     4.60
+INFO: GL: VAO extension detected, VAO functions loaded successfully
+INFO: GL: NPOT textures extension detected, full NPOT textures supported
+INFO: GL: DXT compressed textures supported
+INFO: GL: ETC2/EAC compressed textures supported
+INFO: PLATFORM: DESKTOP (GLFW - X11): Initialized successfully
+INFO: TEXTURE: [ID 1] Texture loaded successfully (1x1 | R8G8B8A8 | 1 mipmaps)
+INFO: TEXTURE: [ID 1] Default texture loaded successfully
+INFO: SHADER: [ID 1] Vertex shader compiled successfully
+INFO: SHADER: [ID 2] Fragment shader compiled successfully
+INFO: SHADER: [ID 3] Program shader loaded successfully
+INFO: SHADER: [ID 3] Default shader loaded successfully
+INFO: RLGL: Render batch vertex buffers loaded successfully in RAM (CPU)
+INFO: RLGL: Render batch vertex buffers loaded successfully in VRAM (GPU)
+INFO: RLGL: Default OpenGL state initialized successfully
+INFO: TEXTURE: [ID 2] Texture loaded successfully (128x128 | GRAY_ALPHA | 1 mipmaps)
+INFO: FONT: Default font loaded successfully (224 glyphs)
+INFO: SYSTEM: Working Directory: /home/orix/Desktop/Programming/Hobby Projects/twilight_engine
+INFO: TIMER: Target time per frame: 50.000 milliseconds
+[H[2J[3J		Growing Front Node...
+		Growing Front Node...
+		Growing Front Node...
+		Growing Front Node...
+		Growing Back Node...
+		Growing Back Node...
+		Growing Front Node...
+Leaf found...		Growing Front Node...
+		Growing Back Node...
+		Growing Back Node...
+		Growing Front Node...
+		Growing Back Node...
+		Growing Back Node...
+Leaf found...		Growing Front Node...
+		Growing Back Node...
+		Growing Back Node...
+		Growing Front Node...
+		Growing Front Node...
+		Growing Front Node...
+		Growing Back Node...
+		Growing Front Node...
+		Growing Front Node...
+		Growing Back Node...
+		Growing Back Node...
+
+0x5f867d7c1fd0 Depth: 5
+	 front lines: [0] back lines: [0]
+0x5f867d7c1fd0 Depth: 5
+	 front lines: [0] back lines: [0]
+0x5f867d7bc4d0 Depth: 4
+	 front lines: [3] back lines: [0]
+
+		Growing Back Node...
+
+0x5f867d7bc320 Depth: 3
+	 front lines: [0] back lines: [3]
+0x5f867d7c1fd0 Depth: 5
+	 front lines: [0] back lines: [0]
+0x5f867d7c1fd0 Depth: 5
+	 front lines: [0] back lines: [0]
+0x5f867d7bc4d0 Depth: 4
+	 front lines: [3] back lines: [0]
+0x5f867d7bc220 Depth: 2
+	 front lines: [4] back lines: [0]
+
+		Growing Back Node...
+		Growing Front Node...
+		Growing Front Node...
+		Growing Front Node...
+		Growing Back Node...
+		Growing Back Node...
+
+0x5f867d7ac7f0 Depth: 4
+	 front lines: [0] back lines: [0]
+0x5f867d7ac7f0 Depth: 4
+	 front lines: [0] back lines: [0]
+0x5f867d7c2280 Depth: 3
+	 front lines: [3] back lines: [0]
+
+		Growing Back Node...
+		Growing Front Node...
+0 lines to cut?
+		Growing Front Node...
+		Growing Back Node...
+
+0x5f867d7ac9f0 Depth: 4
+	 front lines: [0] back lines: [0]
+0x5f867d7ac9f0 Depth: 4
+	 front lines: [0] back lines: [0]
+
+		Growing Back Node...
+Leaf found...		Growing Front Node...
+		Growing Back Node...
+front_child deleted...
+front_child deleted...
+back_child deleted...
+back_child deleted...
+front_child deleted...
+back_child deleted...
+front_child deleted...
+front_child deleted...
+back_child deleted...
+front_child deleted...
+front_child deleted...
+front_child deleted...
+front_child deleted...
+front_child deleted...
+back_child deleted...
+back_child deleted...
+back_child deleted...
+back_child deleted...
+INFO: Initializing raylib 5.6-dev
+INFO: Platform backend: DESKTOP (GLFW)
+INFO: Supported raylib modules:
+INFO:     > rcore:..... loaded (mandatory)
+INFO:     > rlgl:...... loaded (mandatory)
+INFO:     > rshapes:... loaded (optional)
+INFO:     > rtextures:. loaded (optional)
+INFO:     > rtext:..... loaded (optional)
+INFO:     > rmodels:... loaded (optional)
+INFO:     > raudio:.... loaded (optional)
+INFO: DISPLAY: Device initialized successfully
+INFO:     > Display size: 1400 x 900
+INFO:     > Screen size:  400 x 400
+INFO:     > Render size:  400 x 400
+INFO:     > Viewport offsets: 0, 0
+INFO: GLAD: OpenGL extensions loaded successfully
+INFO: GL: Supported extensions count: 231
+INFO: GL: OpenGL device information:
+INFO:     > Vendor:   Intel
+INFO:     > Renderer: Mesa Intel(R) UHD Graphics 620 (KBL GT2)
+INFO:     > Version:  4.6 (Core Profile) Mesa 25.0.7-0ubuntu0.24.04.1
+INFO:     > GLSL:     4.60
+INFO: GL: VAO extension detected, VAO functions loaded successfully
+INFO: GL: NPOT textures extension detected, full NPOT textures supported
+INFO: GL: DXT compressed textures supported
+INFO: GL: ETC2/EAC compressed textures supported
+INFO: PLATFORM: DESKTOP (GLFW - X11): Initialized successfully
+INFO: TEXTURE: [ID 1] Texture loaded successfully (1x1 | R8G8B8A8 | 1 mipmaps)
+INFO: TEXTURE: [ID 1] Default texture loaded successfully
+INFO: SHADER: [ID 1] Vertex shader compiled successfully
+INFO: SHADER: [ID 2] Fragment shader compiled successfully
+INFO: SHADER: [ID 3] Program shader loaded successfully
+INFO: SHADER: [ID 3] Default shader loaded successfully
+INFO: RLGL: Render batch vertex buffers loaded successfully in RAM (CPU)
+INFO: RLGL: Render batch vertex buffers loaded successfully in VRAM (GPU)
+INFO: RLGL: Default OpenGL state initialized successfully
+INFO: TEXTURE: [ID 2] Texture loaded successfully (128x128 | GRAY_ALPHA | 1 mipmaps)
+INFO: FONT: Default font loaded successfully (224 glyphs)
+INFO: SYSTEM: Working Directory: /home/orix/Desktop/Programming/Hobby Projects/twilight_engine
+INFO: TIMER: Target time per frame: 50.000 milliseconds
+[H[2J[3J		Growing Front Node...
+		Growing Front Node...
+		Growing Front Node...
+		Growing Front Node...
+		Growing Back Node...
+		Growing Back Node...
+		Growing Front Node...
+Leaf found...		Growing Front Node...
+		Growing Back Node...
+		Growing Back Node...
+		Growing Front Node...
+		Growing Back Node...
+		Growing Back Node...
+Leaf found...		Growing Front Node...
+		Growing Back Node...
+		Growing Back Node...
+		Growing Front Node...
+		Growing Front Node...
+		Growing Front Node...
+		Growing Back Node...
+		Growing Front Node...
+		Growing Front Node...
+		Growing Back Node...
+		Growing Back Node...
+
+0x62e446473540 Depth: 5
+	 front lines: [0] back lines: [0]
+0x62e446473540 Depth: 5
+	 front lines: [0] back lines: [0]
+0x62e446475140 Depth: 4
+	 front lines: [3] back lines: [0]
+
+		Growing Back Node...
+
+0x62e446474f90 Depth: 3
+	 front lines: [0] back lines: [3]
+0x62e446473540 Depth: 5
+	 front lines: [0] back lines: [0]
+0x62e446473540 Depth: 5
+	 front lines: [0] back lines: [0]
+0x62e446475140 Depth: 4
+	 front lines: [3] back lines: [0]
+0x62e446484bb0 Depth: 2
+	 front lines: [4] back lines: [0]
+
+		Growing Back Node...
+		Growing Front Node...
+		Growing Front Node...
+		Growing Front Node...
+		Growing Back Node...
+		Growing Back Node...
+
+0x62e446481df0 Depth: 4
+	 front lines: [0] back lines: [0]
+0x62e446481df0 Depth: 4
+	 front lines: [0] back lines: [0]
+0x62e446481b90 Depth: 3
+	 front lines: [3] back lines: [0]
+
+		Growing Back Node...
+		Growing Front Node...
+0 lines to cut?
+		Growing Front Node...
+		Growing Back Node...
+
+[H[2J[3J[H[2J[3J[H[2J[3J[H[2J[3J[H[2J[3J[H[2J[3J[H[2J[3J[H[2J[3J[H[2J[3J[H[2J[3J[H[2J[3J[H[2J[3J[H[2J[3J[H[2J[3J[H[2J[3J[H[2J[3J[H[2J[3J[H[2J[3J[H[2J[3J0x62e44647f9a0 Depth: 4
+	 front lines: [0] back lines: [0]
+0x62e44647f9a0 Depth: 4
+	 front lines: [0] back lines: [0]
+
+		Growing Back Node...
+Leaf found...		Growing Front Node...
+		Growing Back Node...
+└── [NODE] depth:0 front:7 back:8
+    ├── [NODE] depth:1 front:6 back:1
+    │   ├── [NODE] depth:2 front:3 back:3
+    │   │   ├── [LEAF] depth:3 lines: 0
+    │   │   └── [NODE] depth:3 front:2 back:2
+    │   │       ├── [LEAF] depth:4 lines: 0
+    │   │       └── [LEAF] depth:4 lines: 0
+    │   └── [LEAF] depth:2 lines: 0
+    └── [NODE] depth:1 front:5 back:5
+        ├── [NODE] depth:2 front:4 back:0
+        │   ├── [NODE] depth:3 front:0 back:3
+        │   │   └── [NODE] depth:4 front:3 back:0
+        │   │       ├── [LEAF] depth:5 lines: 0
+        └── [NODE] depth:2 front:4 back:2
+            ├── [NODE] depth:3 front:3 back:0
+            │   ├── [LEAF] depth:4 lines: 0
+            └── [NODE] depth:3 front:1 back:1
+                ├── [NODE] depth:4 front:0 back:0
+                └── [LEAF] depth:4 lines: 0
+front_child deleted...
+front_child deleted...
+back_child deleted...
+back_child deleted...
+front_child deleted...
+back_child deleted...
+front_child deleted...
+front_child deleted...
+back_child deleted...
+front_child deleted...
+front_child deleted...
+front_child deleted...
+front_child deleted...
+front_child deleted...
+back_child deleted...
+back_child deleted...
+back_child deleted...
+back_child deleted...
+INFO: Initializing raylib 5.6-dev
+INFO: Platform backend: DESKTOP (GLFW)
+INFO: Supported raylib modules:
+INFO:     > rcore:..... loaded (mandatory)
+INFO:     > rlgl:...... loaded (mandatory)
+INFO:     > rshapes:... loaded (optional)
+INFO:     > rtextures:. loaded (optional)
+INFO:     > rtext:..... loaded (optional)
+INFO:     > rmodels:... loaded (optional)
+INFO:     > raudio:.... loaded (optional)
+INFO: DISPLAY: Device initialized successfully
+INFO:     > Display size: 1400 x 900
+INFO:     > Screen size:  400 x 400
+INFO:     > Render size:  400 x 400
+INFO:     > Viewport offsets: 0, 0
+INFO: GLAD: OpenGL extensions loaded successfully
+INFO: GL: Supported extensions count: 231
+INFO: GL: OpenGL device information:
+INFO:     > Vendor:   Intel
+INFO:     > Renderer: Mesa Intel(R) UHD Graphics 620 (KBL GT2)
+INFO:     > Version:  4.6 (Core Profile) Mesa 25.0.7-0ubuntu0.24.04.1
+INFO:     > GLSL:     4.60
+INFO: GL: VAO extension detected, VAO functions loaded successfully
+INFO: GL: NPOT textures extension detected, full NPOT textures supported
+INFO: GL: DXT compressed textures supported
+INFO: GL: ETC2/EAC compressed textures supported
+INFO: PLATFORM: DESKTOP (GLFW - X11): Initialized successfully
+INFO: TEXTURE: [ID 1] Texture loaded successfully (1x1 | R8G8B8A8 | 1 mipmaps)
+INFO: TEXTURE: [ID 1] Default texture loaded successfully
+INFO: SHADER: [ID 1] Vertex shader compiled successfully
+INFO: SHADER: [ID 2] Fragment shader compiled successfully
+INFO: SHADER: [ID 3] Program shader loaded successfully
+INFO: SHADER: [ID 3] Default shader loaded successfully
+INFO: RLGL: Render batch vertex buffers loaded successfully in RAM (CPU)
+INFO: RLGL: Render batch vertex buffers loaded successfully in VRAM (GPU)
+INFO: RLGL: Default OpenGL state initialized successfully
+INFO: TEXTURE: [ID 2] Texture loaded successfully (128x128 | GRAY_ALPHA | 1 mipmaps)
+INFO: FONT: Default font loaded successfully (224 glyphs)
+INFO: SYSTEM: Working Directory: /home/orix/Desktop/Programming/Hobby Projects/twilight_engine
+INFO: TIMER: Target time per frame: 50.000 milliseconds
+[H[2J[3J		Growing Front Node...
+		Growing Front Node...
+		Growing Front Node...
+		Growing Back Node...
+		Growing Front Node...
+Leaf found...		Growing Back Node...
+		Growing Back Node...
+		Growing Front Node...
+		Growing Front Node...
+		Growing Back Node...
+		Growing Front Node...
+		Growing Back Node...
+		Growing Front Node...
+		Growing Front Node...
+		Growing Back Node...
+		Growing Front Node...
+0 lines to cut?
+		Growing Back Node...
+Leaf found...└── [NODE] depth:0 front:7 back:8
+    ├── [NODE] depth:1 front:6 back:1
+    │   ├── [NODE] depth:2 front:3 back:3
+    │   │   ├── [LEAF] depth:3 lines: 0
+    │   │   └── [NODE] depth:3 front:2 back:2
+    │   │       ├── [LEAF] depth:4 lines: 0
+    │   │       └── [LEAF] depth:4 lines: 0
+    │   └── [LEAF] depth:2 lines: 0
+    └── [NODE] depth:1 front:5 back:5
+        ├── [NODE] depth:2 front:4 back:0
+        │   ├── [NODE] depth:3 front:0 back:3
+        │   │   └── [NODE] depth:4 front:3 back:0
+        │   │       ├── [LEAF] depth:5 lines: 0
+        └── [NODE] depth:2 front:4 back:2
+            ├── [NODE] depth:3 front:3 back:0
+            │   ├── [LEAF] depth:4 lines: 0
+            └── [NODE] depth:3 front:1 back:1
+                ├── [NODE] depth:4 front:0 back:0
+                └── [LEAF] depth:4 lines: 0
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			2 lines in leaf node.
+
+			2 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			2 lines in leaf node.
+
+			2 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			2 lines in leaf node.
+
+			2 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			2 lines in leaf node.
+
+			2 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			2 lines in leaf node.
+
+			2 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			2 lines in leaf node.
+
+			2 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			2 lines in leaf node.
+
+			2 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			2 lines in leaf node.
+
+			2 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			2 lines in leaf node.
+
+			2 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			2 lines in leaf node.
+
+			2 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			2 lines in leaf node.
+
+			2 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			2 lines in leaf node.
+
+			2 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			2 lines in leaf node.
+
+			2 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			2 lines in leaf node.
+
+			2 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			2 lines in leaf node.
+
+			2 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			2 lines in leaf node.
+
+			2 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			2 lines in leaf node.
+
+			2 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			2 lines in leaf node.
+
+			2 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			2 lines in leaf node.
+
+			2 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			2 lines in leaf node.
+
+			2 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			2 lines in leaf node.
+
+			2 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			2 lines in leaf node.
+
+			2 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			2 lines in leaf node.
+
+			2 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			2 lines in leaf node.
+
+			2 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			2 lines in leaf node.
+
+			2 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			2 lines in leaf node.
+
+			2 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			2 lines in leaf node.
+
+			2 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			2 lines in leaf node.
+
+			2 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			2 lines in leaf node.
+
+			2 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			2 lines in leaf node.
+
+			2 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			2 lines in leaf node.
+
+			2 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			2 lines in leaf node.
+
+			2 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			2 lines in leaf node.
+
+			2 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			2 lines in leaf node.
+
+			2 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			2 lines in leaf node.
+
+			2 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			2 lines in leaf node.
+
+			2 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			2 lines in leaf node.
+
+			2 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			2 lines in leaf node.
+
+			2 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			2 lines in leaf node.
+
+			2 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			2 lines in leaf node.
+
+			2 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			2 lines in leaf node.
+
+			2 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			2 lines in leaf node.
+
+			2 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			2 lines in leaf node.
+
+			2 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			2 lines in leaf node.
+
+			2 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			2 lines in leaf node.
+
+			2 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			2 lines in leaf node.
+
+			2 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			2 lines in leaf node.
+
+			2 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			2 lines in leaf node.
+
+			2 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			2 lines in leaf node.
+
+			2 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			2 lines in leaf node.
+
+			2 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			2 lines in leaf node.
+
+			2 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			2 lines in leaf node.
+
+			2 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			2 lines in leaf node.
+
+			2 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			2 lines in leaf node.
+
+			2 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			2 lines in leaf node.
+
+			2 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			2 lines in leaf node.
+
+			2 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			2 lines in leaf node.
+
+			2 lines in leaf node.
+front_child deleted...
+front_child deleted...
+back_child deleted...
+back_child deleted...
+front_child deleted...
+back_child deleted...
+front_child deleted...
+front_child deleted...
+back_child deleted...
+front_child deleted...
+front_child deleted...
+front_child deleted...
+front_child deleted...
+front_child deleted...
+back_child deleted...
+back_child deleted...
+back_child deleted...
+back_child deleted...
+INFO: Initializing raylib 5.6-dev
+INFO: Platform backend: DESKTOP (GLFW)
+INFO: Supported raylib modules:
+INFO:     > rcore:..... loaded (mandatory)
+INFO:     > rlgl:...... loaded (mandatory)
+INFO:     > rshapes:... loaded (optional)
+INFO:     > rtextures:. loaded (optional)
+INFO:     > rtext:..... loaded (optional)
+INFO:     > rmodels:... loaded (optional)
+INFO:     > raudio:.... loaded (optional)
+INFO: DISPLAY: Device initialized successfully
+INFO:     > Display size: 1400 x 900
+INFO:     > Screen size:  400 x 400
+INFO:     > Render size:  400 x 400
+INFO:     > Viewport offsets: 0, 0
+INFO: GLAD: OpenGL extensions loaded successfully
+INFO: GL: Supported extensions count: 231
+INFO: GL: OpenGL device information:
+INFO:     > Vendor:   Intel
+INFO:     > Renderer: Mesa Intel(R) UHD Graphics 620 (KBL GT2)
+INFO:     > Version:  4.6 (Core Profile) Mesa 25.0.7-0ubuntu0.24.04.1
+INFO:     > GLSL:     4.60
+INFO: GL: VAO extension detected, VAO functions loaded successfully
+INFO: GL: NPOT textures extension detected, full NPOT textures supported
+INFO: GL: DXT compressed textures supported
+INFO: GL: ETC2/EAC compressed textures supported
+INFO: PLATFORM: DESKTOP (GLFW - X11): Initialized successfully
+INFO: TEXTURE: [ID 1] Texture loaded successfully (1x1 | R8G8B8A8 | 1 mipmaps)
+INFO: TEXTURE: [ID 1] Default texture loaded successfully
+INFO: SHADER: [ID 1] Vertex shader compiled successfully
+INFO: SHADER: [ID 2] Fragment shader compiled successfully
+INFO: SHADER: [ID 3] Program shader loaded successfully
+INFO: SHADER: [ID 3] Default shader loaded successfully
+INFO: RLGL: Render batch vertex buffers loaded successfully in RAM (CPU)
+INFO: RLGL: Render batch vertex buffers loaded successfully in VRAM (GPU)
+INFO: RLGL: Default OpenGL state initialized successfully
+INFO: TEXTURE: [ID 2] Texture loaded successfully (128x128 | GRAY_ALPHA | 1 mipmaps)
+INFO: FONT: Default font loaded successfully (224 glyphs)
+INFO: SYSTEM: Working Directory: /home/orix/Desktop/Programming/Hobby Projects/twilight_engine
+INFO: TIMER: Target time per frame: 50.000 milliseconds
+[H[2J[3J		Growing Front Node...
+		Growing Front Node...
+		Growing Front Node...
+		Growing Back Node...
+		Growing Front Node...
+Leaf found...		Growing Back Node...
+		Growing Back Node...
+		Growing Front Node...
+		Growing Front Node...
+		Growing Back Node...
+		Growing Front Node...
+		Growing Back Node...
+		Growing Front Node...
+		Growing Front Node...
+		Growing Back Node...
+		Growing Front Node...
+0 lines to cut?
+		Growing Back Node...
+Leaf found...└── [NODE] depth:0 front:7 back:8
+    ├── [NODE] depth:1 front:6 back:1
+    │   ├── [NODE] depth:2 front:3 back:3
+    │   │   ├── [LEAF] depth:3 lines: 0
+    │   │   └── [NODE] depth:3 front:2 back:2
+    │   │       ├── [LEAF] depth:4 lines: 0
+    │   │       └── [LEAF] depth:4 lines: 0
+    │   └── [LEAF] depth:2 lines: 0
+    └── [NODE] depth:1 front:5 back:5
+        ├── [NODE] depth:2 front:4 back:0
+        │   ├── [NODE] depth:3 front:0 back:3
+        │   │   └── [NODE] depth:4 front:3 back:0
+        │   │       ├── [LEAF] depth:5 lines: 0
+        └── [NODE] depth:2 front:4 back:2
+            ├── [NODE] depth:3 front:3 back:0
+            │   ├── [LEAF] depth:4 lines: 0
+            └── [NODE] depth:3 front:1 back:1
+                ├── [NODE] depth:4 front:0 back:0
+                └── [LEAF] depth:4 lines: 0
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			2 lines in leaf node.
+
+			2 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			2 lines in leaf node.
+
+			2 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			2 lines in leaf node.
+
+			2 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			2 lines in leaf node.
+
+			2 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			2 lines in leaf node.
+
+			2 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			2 lines in leaf node.
+
+			2 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			2 lines in leaf node.
+
+			2 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			2 lines in leaf node.
+
+			2 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			2 lines in leaf node.
+
+			2 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			2 lines in leaf node.
+
+			2 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			2 lines in leaf node.
+
+			2 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			2 lines in leaf node.
+
+			2 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			2 lines in leaf node.
+
+			2 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			2 lines in leaf node.
+
+			2 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			2 lines in leaf node.
+
+			2 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			2 lines in leaf node.
+
+			2 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			2 lines in leaf node.
+
+			2 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			2 lines in leaf node.
+
+			2 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			2 lines in leaf node.
+
+			2 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			2 lines in leaf node.
+
+			2 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			2 lines in leaf node.
+
+			2 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			2 lines in leaf node.
+
+			2 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			2 lines in leaf node.
+
+			2 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			2 lines in leaf node.
+
+			2 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			2 lines in leaf node.
+
+			2 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			2 lines in leaf node.
+
+			2 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			2 lines in leaf node.
+
+			2 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			2 lines in leaf node.
+
+			2 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			2 lines in leaf node.
+
+			2 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			2 lines in leaf node.
+
+			2 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			2 lines in leaf node.
+
+			2 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			2 lines in leaf node.
+
+			2 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			2 lines in leaf node.
+
+			2 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			2 lines in leaf node.
+
+			2 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			2 lines in leaf node.
+
+			2 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			2 lines in leaf node.
+
+			2 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			2 lines in leaf node.
+
+			2 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			2 lines in leaf node.
+
+			2 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			2 lines in leaf node.
+
+			2 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			2 lines in leaf node.
+
+			2 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			2 lines in leaf node.
+
+			2 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			2 lines in leaf node.
+
+			2 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			2 lines in leaf node.
+
+			2 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			2 lines in leaf node.
+
+			2 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			2 lines in leaf node.
+
+			2 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			2 lines in leaf node.
+
+			2 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			2 lines in leaf node.
+
+			2 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			2 lines in leaf node.
+
+			2 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			2 lines in leaf node.
+
+			2 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			2 lines in leaf node.
+
+			2 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			2 lines in leaf node.
+
+			2 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			2 lines in leaf node.
+
+			2 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			2 lines in leaf node.
+
+			2 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			2 lines in leaf node.
+
+			2 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			2 lines in leaf node.
+
+			2 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			2 lines in leaf node.
+
+			2 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			2 lines in leaf node.
+
+			2 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			2 lines in leaf node.
+
+			2 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			2 lines in leaf node.
+
+			2 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			2 lines in leaf node.
+
+			2 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			2 lines in leaf node.
+
+			2 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			2 lines in leaf node.
+
+			2 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			2 lines in leaf node.
+
+			2 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			2 lines in leaf node.
+
+			2 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			2 lines in leaf node.
+
+			2 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			2 lines in leaf node.
+
+			2 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			2 lines in leaf node.
+
+			2 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			2 lines in leaf node.
+
+			2 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			2 lines in leaf node.
+
+			2 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			2 lines in leaf node.
+
+			2 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			2 lines in leaf node.
+
+			2 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			2 lines in leaf node.
+
+			2 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			2 lines in leaf node.
+
+			2 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			2 lines in leaf node.
+
+			2 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			2 lines in leaf node.
+
+			2 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			2 lines in leaf node.
+
+			2 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			2 lines in leaf node.
+
+			2 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			2 lines in leaf node.
+
+			2 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			2 lines in leaf node.
+
+			2 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			2 lines in leaf node.
+
+			2 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			2 lines in leaf node.
+
+			2 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			2 lines in leaf node.
+
+			2 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			2 lines in leaf node.
+
+			2 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			2 lines in leaf node.
+
+			2 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			2 lines in leaf node.
+
+			2 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			2 lines in leaf node.
+
+			2 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			2 lines in leaf node.
+
+			2 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			2 lines in leaf node.
+
+			2 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			2 lines in leaf node.
+
+			2 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			2 lines in leaf node.
+
+			2 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			2 lines in leaf node.
+
+			2 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			2 lines in leaf node.
+
+			2 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			2 lines in leaf node.
+
+			2 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			2 lines in leaf node.
+
+			2 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			2 lines in leaf node.
+
+			2 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			2 lines in leaf node.
+
+			2 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			2 lines in leaf node.
+
+			2 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			2 lines in leaf node.
+
+			2 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			2 lines in leaf node.
+
+			2 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			2 lines in leaf node.
+
+			2 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			2 lines in leaf node.
+
+			2 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			2 lines in leaf node.
+
+			2 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			2 lines in leaf node.
+
+			2 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			2 lines in leaf node.
+
+			2 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			2 lines in leaf node.
+
+			2 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			2 lines in leaf node.
+
+			2 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			2 lines in leaf node.
+
+			2 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			2 lines in leaf node.
+
+			2 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			2 lines in leaf node.
+
+			2 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			2 lines in leaf node.
+
+			2 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			2 lines in leaf node.
+
+			2 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			2 lines in leaf node.
+
+			2 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			2 lines in leaf node.
+
+			2 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			2 lines in leaf node.
+
+			2 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			2 lines in leaf node.
+
+			2 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			2 lines in leaf node.
+
+			2 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			2 lines in leaf node.
+
+			2 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			2 lines in leaf node.
+
+			2 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			2 lines in leaf node.
+
+			2 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			2 lines in leaf node.
+
+			2 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			2 lines in leaf node.
+
+			2 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			2 lines in leaf node.
+
+			2 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			2 lines in leaf node.
+
+			2 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			2 lines in leaf node.
+
+			2 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			2 lines in leaf node.
+
+			2 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			2 lines in leaf node.
+
+			2 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			2 lines in leaf node.
+
+			2 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			2 lines in leaf node.
+
+			2 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			2 lines in leaf node.
+
+			2 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			2 lines in leaf node.
+
+			2 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			2 lines in leaf node.
+
+			2 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			2 lines in leaf node.
+
+			2 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			2 lines in leaf node.
+
+			2 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			2 lines in leaf node.
+
+			2 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			2 lines in leaf node.
+
+			2 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			2 lines in leaf node.
+
+			2 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			2 lines in leaf node.
+
+			2 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			2 lines in leaf node.
+
+			2 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			2 lines in leaf node.
+
+			2 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			2 lines in leaf node.
+
+			2 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			2 lines in leaf node.
+
+			2 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			2 lines in leaf node.
+
+			2 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			2 lines in leaf node.
+
+			2 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			2 lines in leaf node.
+
+			2 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			2 lines in leaf node.
+
+			2 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			2 lines in leaf node.
+
+			2 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			2 lines in leaf node.
+
+			2 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			2 lines in leaf node.
+
+			2 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			2 lines in leaf node.
+
+			2 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			2 lines in leaf node.
+
+			2 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			2 lines in leaf node.
+
+			2 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			2 lines in leaf node.
+
+			2 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			2 lines in leaf node.
+
+			2 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			2 lines in leaf node.
+
+			2 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			2 lines in leaf node.
+
+			2 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			2 lines in leaf node.
+
+			2 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			2 lines in leaf node.
+
+			2 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			2 lines in leaf node.
+
+			2 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			2 lines in leaf node.
+
+			2 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			2 lines in leaf node.
+
+			2 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			2 lines in leaf node.
+
+			2 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			3 lines in leaf node.
+
+			2 lines in leaf node.
+
+			2 lines in leaf node.
+front_child deleted...
+front_child deleted...
+back_child deleted...
+back_child deleted...
+front_child deleted...
+back_child deleted...
+front_child deleted...
+front_child deleted...
+back_child deleted...
+front_child deleted...
+front_child deleted...
+front_child deleted...
+front_child deleted...
+front_child deleted...
+back_child deleted...
+back_child deleted...
+back_child deleted...
+back_child deleted...
