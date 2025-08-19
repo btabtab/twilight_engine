@@ -9,11 +9,14 @@ class Renderer
 {
 private:
 	std::vector<RenderObject*> render_objects;
+	Rectangle render_rect;
+	RenderTexture render_texture;
+
 public:
-	RenderTexture2D render_texture;
 	Renderer(int width, int height);
 	~Renderer();
 
+	void initializeTexture();
 	void setRenderTextureSize(int width, int height);
 	void setRenderTexture(RenderTexture2D new_texture);
 
@@ -26,5 +29,7 @@ public:
 	void stopDrawing();
 	void drawContents();
 
-	void drawRenderTexture(RenderTexture2D texture, int x, int y, Color tint = WHITE);
+	void drawRenderTexture(Rectangle dest);
+	void setRenderRect(Rectangle rect);
+	Rectangle getRenderRect() const;
 };

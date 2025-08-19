@@ -1,14 +1,28 @@
 #include "TwilightEngine.hpp"
 
-TwilightEngine::TwilightEngine(Point<float> new_window_size, std::string new_name):
+TwilightEngine::TwilightEngine(Point<float> new_window_size, std::string new_name, bool is_one_renderer):
 window_size(new_window_size), session_name(new_name)
 {
 	emergency_exit = false;
 	max_fps = 20;
+	if(is_one_renderer)
+	{
+		renderers.push_back(new Renderer(window_size.getX(), window_size.getY()));
+	}
+}
+
+void TwilightEngine::addRenderer(Renderer* new_renderer)
+{
+	renderers.push_back(new_renderer);
 }
 
 void TwilightEngine::enter()
 {
+	if(renderers.empty())
+	{
+		std::cout << "Error: No renderers initialized... </3\n";
+		return;
+	}
 	frame_ID = 0;
 	InitWindow(window_size.getX(), window_size.getY(), session_name.c_str());
 	SetTargetFPS(max_fps);
@@ -16,30 +30,6 @@ void TwilightEngine::enter()
 	errors_left = 0;
 	has_started = true;
 	system("clear");
-
-	// renderer.addRenderObject(
-	// 			new Line2D(
-	// 					Point<float>(50, 50),
-	// 					Point<float>(200, 200),
-	// 					RED
-	// 						)
-	// 							);
-								
-	// renderer.addRenderObject(
-	// 			new Line2D(
-	// 					Point<float>(200, 50),
-	// 					Point<float>(50, 200),
-	// 					RED
-	// 						)
-	// 							);
-
-	// renderer.addRenderObject(
-	// 			new CollisionMan(
-	// 					(Line2D*)renderer.getRenderObjects()->at(0),
-	// 					(Line2D*)renderer.getRenderObjects()->at(1)
-	// 						)
-	// 							);
-
 	/*
 		The "zero" points are so that I can quickly
 		make them pop out so that the test looks cooler.
@@ -49,17 +39,6 @@ void TwilightEngine::enter()
 	{
 		points.push_back(Point<float>(window_size.getX() / 2, window_size.getY() / 2));
 	}
-	//corner points.
-	// points.at(0) += Point<float>(-70, -70);
-	// points.at(2) += Point<float>(+70, -70);
-	// points.at(4) += Point<float>(+70, +70);
-	// points.at(6) += Point<float>(-70, +70);
-	
-	// points.at(1) += Point<float>(-0, -120);
-	// points.at(3) += Point<float>(+120, -0);
-	// points.at(5) += Point<float>(+0, +120);
-	// points.at(7) += Point<float>(-120, +0);
-
 	/*
 		Original demo lines,
 		roughly adapted from:
@@ -107,7 +86,7 @@ void TwilightEngine::enter()
 	BSPNode bsp_node(line_set.getLines()->at(0), false, 0);
 	BSPNode* current = &bsp_node;
 	bsp_node.splitLines(*line_set.getLines());
-	renderer.addRenderObject(&bsp_node);
+	renderers.at(0)->addRenderObject(&bsp_node);
 	frame_label = "<Default_state>, depth = ";
 
 	Side current_side = Side::FRONT;
@@ -116,16 +95,15 @@ void TwilightEngine::enter()
 	while(!WindowShouldClose() || emergency_exit)
 	{
 		frame_ID++;
-		for(int i = 0; i != renderer.getRenderObjects()->size(); i++)
+		for(int i = 0; i != renderers.at(0)->getRenderObjects()->size(); i++)
 		{
-			renderer.getRenderObjects()->at(i)->update();
+			renderers.at(0)->getRenderObjects()->at(i)->update();
 		}
-		renderer.startDrawing();
+		renderers.at(0)->startDrawing();
 		DrawText(frame_label.c_str(), 5, 5, 10, WHITE);
 		// DrawFPS(GetMouseX(), GetMouseY());
-		renderer.drawContents();
+		renderers.at(0)->drawContents();
 
-		// --- INPUT POLLING SECTION ---
 		if(IsKeyPressed(KEY_C))
 		{
 			TakeScreenshot(("screenshots/screenshot-" + std::to_string(frame_ID) + "-.png").c_str());
@@ -187,8 +165,11 @@ void TwilightEngine::enter()
 				std::cout << "Mouse is not inside any node's bounding box\n";
 			}
 		}
-		// --- END INPUT POLLING SECTION ---
-		renderer.stopDrawing();
+		renderers.at(0)->stopDrawing();
+		BeginDrawing();
+		ClearBackground(BLACK);
+		renderers.at(0)->drawRenderTexture((Rectangle){0, 0, GetScreenWidth() / 2.f, GetScreenHeight() / 2.f});
+		EndDrawing();
 	}
 }
 

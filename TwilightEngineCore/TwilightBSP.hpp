@@ -20,6 +20,13 @@
 	https://en.wikipedia.org/wiki/Binary_space_partitioning
 
 	Also probably some youtube videos at some point.
+
+	! !
+		Heavy Disclaimer - AI was used to help smooth out
+		parts of the code and some comments it generated have stuck
+		around, but I'll be working on rewriting most of the code
+		myself so that it truly is my own BSP implementation.
+	! !
 */
 
 /*
@@ -72,16 +79,16 @@ public:
 	}
 };
 
-// Helper function to compute signed distance from point to line (Ax + By + C = 0) // document
-inline float signedDistance(const Line2D &line, const Point<float> &p) // document
-{																	   // document
-	float x1 = line.getA().getX(), y1 = line.getA().getY();			   // document
-	float x2 = line.getB().getX(), y2 = line.getB().getY();			   // document
-	float A = y2 - y1;												   // document
-	float B = x1 - x2;												   // document
-	float C = x2 * y1 - y2 * x1;									   // document
-	return A * p.getX() + B * p.getY() + C;							   // document
-} // document
+// Helper function to compute signed distance from point to line (Ax + By + C = 0) // Written with AI assistance
+inline float signedDistance(const Line2D &line, const Point<float> &p) // Written with AI assistance
+{																	   // Written with AI assistance
+	float x1 = line.getA().getX(), y1 = line.getA().getY();			   // Written with AI assistance
+	float x2 = line.getB().getX(), y2 = line.getB().getY();			   // Written with AI assistance
+	float A = y2 - y1;												   // Written with AI assistance
+	float B = x1 - x2;												   // Written with AI assistance
+	float C = x2 * y1 - y2 * x1;									   // Written with AI assistance
+	return A * p.getX() + B * p.getY() + C;							   // Written with AI assistance
+} // Written with AI assistance
 
 // Simple struct for bounding box
 class Bounds: public TwilightNode
@@ -345,62 +352,62 @@ public:
 			return;
 		}
 
-		splitting_line.setColour(PURPLE);				 // document
-		Color front_colour = splitting_line.getColour(); // document
-		Color back_colour = splitting_line.getColour();	 // document
+		splitting_line.setColour(PURPLE);				 // Written with AI assistance
+		Color front_colour = splitting_line.getColour(); // Written with AI assistance
+		Color back_colour = splitting_line.getColour();	 // Written with AI assistance
 
-		front_colour.r /= 1.5; // document
-		back_colour.b /= 1.5;  // document
+		front_colour.r /= 1.5; // Written with AI assistance
+		back_colour.b /= 1.5;  // Written with AI assistance
 
-		Axis side_to_cardinalise_for = splitting_line.getGradient();						 // document
-		for (auto &line : lines)															 // document
-		{																					 // document
-			Line2D front_line;																 // document
-			Line2D back_line;																 // document
-			line.cardinalise(side_to_cardinalise_for);										 // document
-			if (splitting_line.intersects(line))											 // document
-			{																				 // document
-				Point<float> intersection_point = splitting_line.getIntersectionPoint(line); // document
+		Axis side_to_cardinalise_for = splitting_line.getGradient();						 // Written with AI assistance
+		for (auto &line : lines)															 // Written with AI assistance
+		{																					 // Written with AI assistance
+			Line2D front_line;																 // Written with AI assistance
+			Line2D back_line;																 // Written with AI assistance
+			line.cardinalise(side_to_cardinalise_for);										 // Written with AI assistance
+			if (splitting_line.intersects(line))											 // Written with AI assistance
+			{																				 // Written with AI assistance
+				Point<float> intersection_point = splitting_line.getIntersectionPoint(line); // Written with AI assistance
 
 				// Swap these if your convention is reversed
 				if (signedDistance(splitting_line, line.getA()) >= 0)
-				{																			// document
-					front_line = Line2D(line.getA(), intersection_point, line.getColour()); // document
-					back_line = Line2D(intersection_point, line.getB(), line.getColour());	// document
+				{																			// Written with AI assistance
+					front_line = Line2D(line.getA(), intersection_point, line.getColour()); // Written with AI assistance
+					back_line = Line2D(intersection_point, line.getB(), line.getColour());	// Written with AI assistance
 				}
 				else
-				{																			// document
-					back_line = Line2D(line.getA(), intersection_point, line.getColour());	// document
-					front_line = Line2D(intersection_point, line.getB(), line.getColour()); // document
+				{																			// Written with AI assistance
+					back_line = Line2D(line.getA(), intersection_point, line.getColour());	// Written with AI assistance
+					front_line = Line2D(intersection_point, line.getB(), line.getColour()); // Written with AI assistance
 				}
-			} // document
-			else														// document
-			{															// document
-				float dA = signedDistance(splitting_line, line.getA()); // document
-				float dB = signedDistance(splitting_line, line.getB()); // document
+			} // Written with AI assistance
+			else														// Written with AI assistance
+			{															// Written with AI assistance
+				float dA = signedDistance(splitting_line, line.getA()); // Written with AI assistance
+				float dB = signedDistance(splitting_line, line.getB()); // Written with AI assistance
 
-				if (dA >= 0 && dB >= 0) // document
-				{						// document
-					front_line = line;	// document
-				} // document
-				else if (dA <= 0 && dB <= 0) // document
-				{							 // document
-					back_line = line;		 // document
-				} // document
-				// If endpoints are on opposite sides, this should not happen here // document
-			} // document
+				if (dA >= 0 && dB >= 0) // Written with AI assistance
+				{						// Written with AI assistance
+					front_line = line;	// Written with AI assistance
+				} // Written with AI assistance
+				else if (dA <= 0 && dB <= 0) // Written with AI assistance
+				{							 // Written with AI assistance
+					back_line = line;		 // Written with AI assistance
+				} // Written with AI assistance
+				// If endpoints are on opposite sides, this should not happen here // Written with AI assistance
+			} // Written with AI assistance
 			if (front_line.getA() != front_line.getB())
-			{										// document
-				front_line.setColour(front_colour); // document
-				front_lines.push_back(front_line);	// document
-			} // document
+			{										// Written with AI assistance
+				front_line.setColour(front_colour); // Written with AI assistance
+				front_lines.push_back(front_line);	// Written with AI assistance
+			} // Written with AI assistance
 			if (back_line.getA() != back_line.getB())
-			{									  // document
-				back_line.setColour(back_colour); // document
-				back_lines.push_back(back_line);  // document
-			} // document
-		} // document
-		splitting_line.setColour((Color){200, 122, 255, 255 / 2}); // document
+			{									  // Written with AI assistance
+				back_line.setColour(back_colour); // Written with AI assistance
+				back_lines.push_back(back_line);  // Written with AI assistance
+			} // Written with AI assistance
+		} // Written with AI assistance
+		splitting_line.setColour((Color){200, 122, 255, 255 / 2}); // Written with AI assistance
 
 		// After splitting, check for single lines in front/back and leaf them
 		if (front_lines.size() == 1 && !front_child)
@@ -417,7 +424,7 @@ public:
 			back_child->leaf_lines.push_back(back_lines[0]);
 			back_child->leaf_lines.push_back(original_splitting_line);
 		}
-	} // document
+	} // Written with AI assistance
 
 	void draw() override
 	{

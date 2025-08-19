@@ -42,10 +42,10 @@ private:
 	bool suspend_on_warning;
 
 
-	Renderer renderer;
+	std::vector<Renderer*> renderers;
 public:
-	TwilightEngine(Point<float> new_window_size, std::string new_name);
-
+	TwilightEngine(Point<float> new_window_size, std::string new_name, bool is_one_renderer = true);
+	void addRenderer(Renderer* new_renderer);
 	//Enters the main loop.
 	void enter();
 	//Takes a screenshot with the name.

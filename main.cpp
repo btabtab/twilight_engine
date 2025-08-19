@@ -2,9 +2,11 @@
 #include <iostream>
 
 #include "TwilightEngineCore/TwilightEngine.hpp"
-
+#include "TwilightEngineCore/Rendering.hpp"
 int main()
 {
-	TwilightEngine core(Point<float>(400, 400), "Twilight Engine");
+	Renderer renderer(400, 400);
+	TwilightEngine core(Point<float>(400, 400), "Twilight Engine", false);
+	core.addRenderer(&renderer);
 	core.enter();
 }
