@@ -24,7 +24,7 @@ protected:
 public:
 	   Line2D();
 	   Line2D(Point<float> new_a, Point<float> new_b, Color new_colour);
-	   virtual void draw();
+	   virtual void draw() override;
 	   // Returns true if intersection exists within segments
 	   bool intersects(const Line2D& other) const;
 	   // Returns intersection point if it exists, otherwise Point<float>(NAN, NAN)
@@ -58,4 +58,6 @@ public:
 	   bool operator!=(const Line2D& other) const {
 			   return !(*this == other);
 	   }
+	   
+	   std::string getType() override { return "Line2D"; }
 };

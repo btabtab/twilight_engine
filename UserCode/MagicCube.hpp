@@ -11,25 +11,26 @@ class MagicCube : public RenderObject3D
 private:
 	float rotation_speed;
 	float rotation_angle;
-	Line3D edges[12] = {
-		Line3D(Point3D<float>(1, 1, 1), Point3D<float>(-1, 1, 1), RED),
-		Line3D(Point3D<float>(-1, 1, 1), Point3D<float>(-1, -1, 1), GREEN),
-		Line3D(Point3D<float>(-1, -1, 1), Point3D<float>(1, -1, 1), BLUE),
-		Line3D(Point3D<float>(1, -1, 1), Point3D<float>(1, 1, 1), YELLOW),
-		Line3D(Point3D<float>(1, 1, -1), Point3D<float>(-1, 1, -1), ORANGE),
-		Line3D(Point3D<float>(-1, 1, -1), Point3D<float>(-1, -1, -1), BLUE),
-		Line3D(Point3D<float>(-1, -1, -1), Point3D<float>(1, -1, -1), PURPLE),
-		Line3D(Point3D<float>(1, -1, -1), Point3D<float>(1, 1, -1), MAGENTA),
-		Line3D(Point3D<float>(1, 1, 1), Point3D<float>(1, 1, -1), WHITE),
-		Line3D(Point3D<float>(-1, 1, 1), Point3D<float>(-1, 1, -1), WHITE),
-		Line3D(Point3D<float>(-1, -1, 1), Point3D<float>(-1, -1, -1), WHITE),
-		Line3D(Point3D<float>(1, -1, 1), Point3D<float>(1, -1, -1), WHITE)
-	};
+	Line3D edges[12];
+	Point3D<float> center;
 public:
-	MagicCube(float speed = 1.0f):
-	RenderObject3D(), rotation_speed(speed), rotation_angle(0.0f)
+	MagicCube(Point3D<float> new_center):
+	RenderObject3D(), center(new_center)
 	{
 		setColour(WHITE);
+		
+		edges[0] = Line3D(	center + Point3D<float>(1, 1, 1),	center + Point3D<float>(-1, 1, 1), RED);
+		edges[1] = Line3D(	center + Point3D<float>(-1, 1, 1),	center + Point3D<float>(-1, -1, 1), GREEN);
+		edges[2] = Line3D(	center + Point3D<float>(-1, -1, 1),	center + Point3D<float>(1, -1, 1), BLUE);
+		edges[3] = Line3D(	center + Point3D<float>(1, -1, 1),	center + Point3D<float>(1, 1, 1), YELLOW);
+		edges[4] = Line3D(	center + Point3D<float>(1, 1, -1),	center + Point3D<float>(-1, 1, -1), ORANGE);
+		edges[5] = Line3D(	center + Point3D<float>(-1, 1, -1),	center + Point3D<float>(-1, -1, -1), BLUE);
+		edges[6] = Line3D(	center + Point3D<float>(-1, -1, -1),center + Point3D<float>(1, -1, -1), PURPLE);
+		edges[7] = Line3D(	center + Point3D<float>(1, -1, -1),	center + Point3D<float>(1, 1, -1), MAGENTA);
+		edges[8] = Line3D(	center + Point3D<float>(1, 1, 1),	center + Point3D<float>(1, 1, -1), WHITE);
+		edges[9] = Line3D(	center + Point3D<float>(-1, 1, 1),	center + Point3D<float>(-1, 1, -1), WHITE);
+		edges[10] = Line3D(	center + Point3D<float>(-1, -1, 1),	center + Point3D<float>(-1, -1, -1), WHITE);
+		edges[11] = Line3D(	center + Point3D<float>(1, -1, 1),	center + Point3D<float>(1, -1, -1), WHITE);
 	}
 
 	void draw() override
@@ -42,13 +43,31 @@ public:
 
 	void update() override
 	{
-		for(auto& edge : edges)
-		{
-			edge.setA(edge.getA() + Point3D<float>(0, 0, 0.25));
-			edge.setB(edge.getB() + Point3D<float>(0, 0, 0.25));
-			if(1.0f < edge.getA().getZ())
-			{
-			}
-		}
+		setPosition(getPosition() + Point3D<float>(0, 0, 0.1f));
+	}
+	void setPosition(Point3D<float> new_position)
+	{
+		center = new_position;
+		
+		edges[0] = Line3D(	center + Point3D<float>(1, 1, 1),	center + Point3D<float>(-1, 1, 1), RED);
+		edges[1] = Line3D(	center + Point3D<float>(-1, 1, 1),	center + Point3D<float>(-1, -1, 1), GREEN);
+		edges[2] = Line3D(	center + Point3D<float>(-1, -1, 1),	center + Point3D<float>(1, -1, 1), BLUE);
+		edges[3] = Line3D(	center + Point3D<float>(1, -1, 1),	center + Point3D<float>(1, 1, 1), YELLOW);
+		edges[4] = Line3D(	center + Point3D<float>(1, 1, -1),	center + Point3D<float>(-1, 1, -1), ORANGE);
+		edges[5] = Line3D(	center + Point3D<float>(-1, 1, -1),	center + Point3D<float>(-1, -1, -1), BLUE);
+		edges[6] = Line3D(	center + Point3D<float>(-1, -1, -1),center + Point3D<float>(1, -1, -1), PURPLE);
+		edges[7] = Line3D(	center + Point3D<float>(1, -1, -1),	center + Point3D<float>(1, 1, -1), MAGENTA);
+		edges[8] = Line3D(	center + Point3D<float>(1, 1, 1),	center + Point3D<float>(1, 1, -1), WHITE);
+		edges[9] = Line3D(	center + Point3D<float>(-1, 1, 1),	center + Point3D<float>(-1, 1, -1), WHITE);
+		edges[10] = Line3D(	center + Point3D<float>(-1, -1, 1),	center + Point3D<float>(-1, -1, -1), WHITE);
+		edges[11] = Line3D(	center + Point3D<float>(1, -1, 1),	center + Point3D<float>(1, -1, -1), WHITE);
+	}
+	Point3D<float> getPosition()
+	{
+		return center;
+	}
+	std::string getType() override
+	{
+		return "MagicCube";
 	}
 };

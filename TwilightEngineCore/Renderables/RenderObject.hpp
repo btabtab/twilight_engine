@@ -36,4 +36,8 @@ public:
 	virtual void update();
 	Layers getLayer();
 	Color getColour() const;
+
+	//This handles updating the node and defines it's behaviour.
+	virtual std::string getType() = 0;
+	virtual ~RenderObject() = default;
 };

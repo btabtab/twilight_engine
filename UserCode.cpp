@@ -11,8 +11,8 @@ void TwilightEngine::userSetup()
 
 	Camera3D* camera = new Camera3D();
 	// Define the camera to look into our 3d world
-    camera->position = (Vector3){ 0.0f, 0.0f, 16.0f }; // Camera position
-    camera->target = (Vector3){ 0.0f, 0.0f, 0.0f };      // Camera looking at point
+    camera->position = (Vector3){ 0.0f, 3.0f, 16.0f }; // Camera position
+    camera->target = (Vector3){ -3.0f, -3.0f, 3.0f };      // Camera looking at point
     camera->up = (Vector3){ 0.0f, 1.0f, 0.0f };          // Camera up vector (rotation towards target)
     camera->fovy = 45.0f;                                // Camera field-of-view Y
     camera->projection = CAMERA_PERSPECTIVE;             // Camera projection type
@@ -25,7 +25,11 @@ void TwilightEngine::userSetup()
 	std::cout << "You can use the C key to take a screenshot.\n";
 	std::cout << "You can use the V key to clear the console.\n";
 
-	renderer.addRenderObject3D(new MagicCube(8.0f));
+	renderer.addRenderObject3D(new MagicCube(Point3D<float>(0, 0, 0)));
+	for(int i = -7; i != 7; i++)
+	{
+		renderer.addRenderObject3D(new MagicCube(Point3D<float>(i * 2, i, i * 3)));
+	}
 
 	startGIFRecording("magic_cube_rotation");
 	std::cout << "GIF recording started.\n";
@@ -33,8 +37,20 @@ void TwilightEngine::userSetup()
 
 void TwilightEngine::userLoop()
 {
-	recordGIFFrame();
+	if(renderer.getRenderObjects3D()->back()->getType() != "MagicCube")
+	{
+		std::cout << "Last object is not a MagicCube, aborting GIF recording.\n";
+		stopGIFRecording();
+		return;
+	}
+	MagicCube* target_cube = ((MagicCube*)renderer.getRenderObjects3D()->back());
 
+	recordGIFFrame();
+	renderer.getCurrentCamera()->target = Vector3{
+													target_cube->getPosition().getX(),
+													target_cube->getPosition().getY(),
+													target_cube->getPosition().getZ()
+												};
 	if(120 < GIF_frame_counter)
 	{
 		stopGIFRecording();

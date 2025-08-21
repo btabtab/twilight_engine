@@ -37,12 +37,6 @@ void TwilightNode::clearChildren()
 	children.clear();
 }
 
-std::string TwilightNode::getType()
-{
-	return "TwilightNode";
-}
-
-
 void TwilightNode::updateChildren()
 {
 	for(auto& child : children)

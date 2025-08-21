@@ -10,7 +10,7 @@ protected:
 public:
 	Line3D();
 	Line3D(Point3D<float> new_a, Point3D<float> new_b, Color new_colour);
-	virtual void draw();
+	virtual void draw() override;
 	// Returns true if intersection exists within segments (3D)
 	bool intersects(const Line3D& other) const;
 	// Returns intersection point if it exists, otherwise Point3D<float>(NAN, NAN, NAN)
@@ -44,4 +44,5 @@ public:
 			b = Point3D<float>::rotateAroundAxis(b, a, axis, degrees);
 		}
 	}
+	std::string getType() override { return "Line3D"; }
 };

@@ -22,6 +22,4 @@ public:
 	void drawChildren();
 	TwilightNode(int new_id = -1);
 	virtual ~TwilightNode() = default;
-	//This handles updating the node and defines it's behaviour.
-	virtual std::string getType() = 0;
 };
