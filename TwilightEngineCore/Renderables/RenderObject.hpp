@@ -3,7 +3,7 @@
 #include <raylib.h>
 #include <iostream>
 
-#include "../Vectors.hpp"
+#include "../Point.hpp"
 
 enum class Layers
 {

@@ -1,7 +1,7 @@
 #pragma once
 
 #include <string>
-#include "Vectors.hpp"
+#include "Point.hpp"
 
 #include "Renderables/RenderObject.hpp"
 #include "Rendering.hpp"
@@ -41,11 +41,36 @@ private:
 	//If true this will suspend the engine upon a warning happening.
 	bool suspend_on_warning;
 
-
 	Renderer renderer;
+
+	int GIF_frame_counter = 0;
+	bool is_recording_gif = false;
+	std::string gif_name;
 public:
 	TwilightEngine(Point<float> new_window_size, std::string new_name);
 
+	void startGIFRecording(std::string name)
+	{
+		is_recording_gif = true;
+		gif_name = name;
+	}
+	void stopGIFRecording()
+	{
+		is_recording_gif = false;
+		GIF_frame_counter = 0;
+	}
+	void recordGIFFrame()
+	{
+		if (is_recording_gif)
+		{
+			char buf[4];
+			sprintf(buf, "%03d", GIF_frame_counter);
+			system(("mkdir -p screenshots/gifs/" + gif_name).c_str());
+			TakeScreenshot(("screenshots/gifs/" + gif_name + "/" + std::string(buf) + ".png").c_str());
+			std::cout << gif_name + " frame " << GIF_frame_counter << " recorded.\n";
+			GIF_frame_counter++;
+		}
+	}
 	//Enters the main loop.
 	void enter();
 	//Takes a screenshot with the name.
@@ -70,4 +95,15 @@ public:
 		as to what is happening.
 	*/
 	void suspendEngine();
+
+	/*
+		This is a function for anyone making use of the
+		engine to do their own setup.
+	*/
+	void userSetup();
+	/*
+		Lets someone using the engine do their own looping
+		stuff.
+	*/
+	void userLoop();
 };

@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Line2D.hpp"
-#include "../Vectors.hpp"
+#include "../Point.hpp"
 #include <vector>
 
 class Polygon: public RenderObject
