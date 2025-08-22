@@ -11,6 +11,8 @@
 
 #include "Ball.hpp"
 
+#include "WizardPanel.hpp"
+
 class TwilightEngine
 {
 private:
@@ -46,31 +48,25 @@ private:
 	int GIF_frame_counter = 0;
 	bool is_recording_gif = false;
 	std::string gif_name;
-public:
-	TwilightEngine(Point<float> new_window_size, std::string new_name);
 
-	void startGIFRecording(std::string name)
-	{
-		is_recording_gif = true;
-		gif_name = name;
-	}
-	void stopGIFRecording()
-	{
-		is_recording_gif = false;
-		GIF_frame_counter = 0;
-	}
-	void recordGIFFrame()
-	{
-		if (is_recording_gif)
-		{
-			char buf[4];
-			sprintf(buf, "%03d", GIF_frame_counter);
-			system(("mkdir -p screenshots/gifs/" + gif_name).c_str());
-			TakeScreenshot(("screenshots/gifs/" + gif_name + "/" + std::string(buf) + ".png").c_str());
-			std::cout << gif_name + " frame " << GIF_frame_counter << " recorded.\n";
-			GIF_frame_counter++;
-		}
-	}
+	/*
+		The wizard being present means that
+		there will be information about the
+		engine in a panel on the right side
+		of the screen.
+	*/
+	bool is_wizard_present;
+
+	/*
+		Keeping this as a pointer, for any low memory
+		uses (Raspberry pi) this engine might be used
+		on...
+	*/
+	WizardPanel* wizard_panel;
+
+public:
+	TwilightEngine(Point<float> new_window_size, std::string new_name, bool set_is_wizard_present);
+
 	//Enters the main loop.
 	void enter();
 	//Takes a screenshot with the name.
@@ -106,4 +102,9 @@ public:
 		stuff.
 	*/
 	void userLoop();
+	
+	//GIF handling, might move this over somewhere else soon.
+	void startGIFRecording(std::string name);
+	void stopGIFRecording();
+	void recordGIFFrame();
 };

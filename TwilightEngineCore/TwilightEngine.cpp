@@ -1,8 +1,18 @@
 #include "TwilightEngine.hpp"
 
-TwilightEngine::TwilightEngine(Point<float> new_window_size, std::string new_name):
-window_size(new_window_size), session_name(new_name)
+TwilightEngine::TwilightEngine(Point<float> new_window_size, std::string new_name, bool set_is_wizard_present) : window_size(new_window_size), session_name(new_name)
 {
+	wizard_panel = nullptr;
+	is_wizard_present = set_is_wizard_present;
+	if (is_wizard_present)
+	{
+		/*
+			We're increasing the window size so that
+			there is room for the wizard's teachings...
+		*/
+		window_size.setX(window_size.getX());
+		wizard_panel = new WizardPanel();
+	}
 	emergency_exit = false;
 	max_fps = 20;
 }
@@ -22,19 +32,20 @@ void TwilightEngine::enter()
 	while (!WindowShouldClose() || emergency_exit)
 	{
 		frame_ID++;
-		for (int i = 0; i != renderer.getRenderObjects()->size(); i++)
-		{
-			if (!renderer.getRenderObjects()->empty())
-			{
-				renderer.getRenderObjects()->at(i)->update();
-			}
-		}
 
 		if (!renderer.getRenderObjects3D()->empty())
 		{
 			for (int i = 0; i != renderer.getRenderObjects3D()->size(); i++)
 			{
 				renderer.getRenderObjects3D()->at(i)->update();
+			}
+		}
+		
+		for (int i = 0; i != renderer.getRenderObjects()->size(); i++)
+		{
+			if (!renderer.getRenderObjects()->empty())
+			{
+				renderer.getRenderObjects()->at(i)->update();
 			}
 		}
 
@@ -44,7 +55,11 @@ void TwilightEngine::enter()
 
 		DrawText(frame_label.c_str(), 5, 5, 10, WHITE);
 
+		if(wizard_panel) {wizard_panel->draw();}
+
 		renderer.stopDrawing();
+
+		if(wizard_panel) {wizard_panel->handleInputs();}
 
 		// --- INPUT POLLING SECTION ---
 		if (IsKeyPressed(KEY_C))
@@ -82,4 +97,27 @@ void TwilightEngine::postWarning(std::string message)
 		emergency_exit = true;
 	}
 	warnings_left--;
+}
+
+void TwilightEngine::startGIFRecording(std::string name)
+{
+	is_recording_gif = true;
+	gif_name = name;
+}
+void TwilightEngine::stopGIFRecording()
+{
+	is_recording_gif = false;
+	GIF_frame_counter = 0;
+}
+void TwilightEngine::recordGIFFrame()
+{
+	if (is_recording_gif)
+	{
+		char buf[4];
+		sprintf(buf, "%03d", GIF_frame_counter);
+		system(("mkdir -p screenshots/gifs/" + gif_name).c_str());
+		TakeScreenshot(("screenshots/gifs/" + gif_name + "/" + std::string(buf) + ".png").c_str());
+		std::cout << gif_name + " frame " << GIF_frame_counter << " recorded.\n";
+		GIF_frame_counter++;
+	}
 }

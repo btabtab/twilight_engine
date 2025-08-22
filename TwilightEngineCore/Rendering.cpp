@@ -34,7 +34,6 @@ std::vector<RenderObject3D *> *Renderer::getRenderObjects3D()
 }
 void Renderer::drawContents()
 {
-	startDrawing();
 
 	startDrawing3D_Objects();
 	for (int i = 0; i != render_objects_3D.size(); i++)
@@ -93,7 +92,6 @@ void Renderer::drawContents()
 		}
 	}
 	stopDrawing3D_Objects();
-	stopDrawing();
 }
 
 void Renderer::updateCurrentCamera()

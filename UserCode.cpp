@@ -31,8 +31,7 @@ void TwilightEngine::userSetup()
 		renderer.addRenderObject3D(new MagicCube(Point3D<float>(i * 2, i, i * 3)));
 	}
 
-	startGIFRecording("magic_cube_rotation");
-	std::cout << "GIF recording started.\n";
+	// startGIFRecording("magic_cube_rotation");
 }
 
 void TwilightEngine::userLoop()
@@ -51,9 +50,9 @@ void TwilightEngine::userLoop()
 													target_cube->getPosition().getY(),
 													target_cube->getPosition().getZ()
 												};
-	if(120 < GIF_frame_counter)
-	{
-		stopGIFRecording();
-		std::cout << "GIF recording stopped.\n";
-	}
+	// if(120 < GIF_frame_counter)
+	// {
+	// 	stopGIFRecording();
+	// 	std::cout << "GIF recording stopped.\n";
+	// }
 }
