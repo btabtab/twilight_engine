@@ -50,9 +50,4 @@ void TwilightEngine::userLoop()
 													target_cube->getPosition().getY(),
 													target_cube->getPosition().getZ()
 												};
-	// if(120 < GIF_frame_counter)
-	// {
-	// 	stopGIFRecording();
-	// 	std::cout << "GIF recording stopped.\n";
-	// }
 }

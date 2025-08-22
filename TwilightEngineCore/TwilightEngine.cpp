@@ -29,23 +29,33 @@ void TwilightEngine::enter()
 
 	userSetup();
 
+	wizard_panel->loadWizardTexture();
+
 	while (!WindowShouldClose() || emergency_exit)
 	{
 		frame_ID++;
 
-		if (!renderer.getRenderObjects3D()->empty())
+		bool should_i_pause_updates = false;
+		if (wizard_panel)
 		{
-			for (int i = 0; i != renderer.getRenderObjects3D()->size(); i++)
-			{
-				renderer.getRenderObjects3D()->at(i)->update();
-			}
+			should_i_pause_updates = !wizard_panel->isWizardOpen() || wizard_panel->getWasStepIssued();
 		}
-		
-		for (int i = 0; i != renderer.getRenderObjects()->size(); i++)
+		if (should_i_pause_updates)
 		{
-			if (!renderer.getRenderObjects()->empty())
+			if (!renderer.getRenderObjects3D()->empty())
 			{
-				renderer.getRenderObjects()->at(i)->update();
+				for (int i = 0; i != renderer.getRenderObjects3D()->size(); i++)
+				{
+					renderer.getRenderObjects3D()->at(i)->update();
+				}
+			}
+
+			for (int i = 0; i != renderer.getRenderObjects()->size(); i++)
+			{
+				if (!renderer.getRenderObjects()->empty())
+				{
+					renderer.getRenderObjects()->at(i)->update();
+				}
 			}
 		}
 
@@ -55,11 +65,17 @@ void TwilightEngine::enter()
 
 		DrawText(frame_label.c_str(), 5, 5, 10, WHITE);
 
-		if(wizard_panel) {wizard_panel->draw();}
+		if (wizard_panel)
+		{
+			wizard_panel->draw();
+		}
 
 		renderer.stopDrawing();
 
-		if(wizard_panel) {wizard_panel->handleInputs();}
+		if (wizard_panel)
+		{
+			wizard_panel->handleInputs();
+		}
 
 		// --- INPUT POLLING SECTION ---
 		if (IsKeyPressed(KEY_C))
@@ -73,6 +89,18 @@ void TwilightEngine::enter()
 		}
 
 		userLoop();
+
+		if (wizard_panel->callForGifRecording())
+		{
+			std::cout << "GIF recording started...\n";
+			startGIFRecording("UserGIFRecording");
+		}
+
+		if (240 < GIF_frame_counter)
+		{
+			stopGIFRecording();
+			std::cout << "...GIF recording stopped\n";
+		}
 		// --- END INPUT POLLING SECTION ---
 	}
 }
