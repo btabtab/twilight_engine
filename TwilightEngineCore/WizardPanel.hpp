@@ -1,3 +1,5 @@
+#pragma once
+
 #include <iostream>
 #include <string>
 #include <vector>
@@ -21,6 +23,10 @@ private:
 
 	bool request_gif_recording;
 
+	std::vector<RenderObject*>* render_object_vector;
+	std::vector<RenderObject3D*>* render_object_3D_vector;
+	
+
 public:
 	WizardPanel()
 	{
@@ -41,7 +47,21 @@ public:
 		pages.push_back(new WizardPage(&the_wizard_texture, "Window to see what's happening."));
 		pages.back()->toggleHole();
 
+		pages.push_back(new WizardPage(&the_wizard_texture, "Debug Information"));
+		pages.back()->toggleDebugPage();
+
+		pages.back()->addText("Framerate counter [?]");
+
+		pages.back()->addText("2D object counts");
+		pages.back()->addText("3D object counts");
+
 	}
+	void grabRenderObjectLists(std::vector<RenderObject*>* main_render_object_vector, std::vector<RenderObject3D*>* main_render_object_3D_vector)
+	{
+		render_object_vector = main_render_object_vector;
+		render_object_3D_vector = main_render_object_3D_vector;
+	}
+
 	void loadWizardTexture()
 	{
 		//Loads the wizard texture.
@@ -49,6 +69,17 @@ public:
 	}
 	void addTextToPanel()
 	{
+	}
+	
+	void updateDebugPage()
+	{
+		if(!pages.at(current_page)->isDebugPage())
+		{
+			return;
+		}
+		pages.at(current_page)->getText()->at(0) = "Framerate: " + std::to_string(GetFPS());
+		pages.at(current_page)->getText()->at(1) = "2D render objects: " + std::to_string(render_object_vector->size());
+		pages.at(current_page)->getText()->at(2) = "3D render objects: " + std::to_string(render_object_3D_vector->size());
 	}
 
 	void draw() override
@@ -74,7 +105,6 @@ public:
 			DrawRectangle(0, 0, screen.getX(), screen.getY(), BLACK);
 		}
 		pages.at(current_page)->draw();
-
 		// DrawText(((std::string)("FPS: " + GetFPS())).c_str(), screen.getX() - 30, screen.getY() - 30, 10, ORANGE;
 		DrawText(
 				((std::string)("Page: " + std::to_string(current_page + 1)) + "/" + std::to_string(pages.size())).c_str(),

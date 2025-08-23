@@ -18,3 +18,15 @@ plate code that is going to be used to do stuff.
 
 Massive thanks to **RAYLIB** for existing as I wouldn't
 be where I was today without it...
+
+Build instrutions:
+->->->->->->->->->->->->->->->->->->->->->->->->->->->
+My main build instruction line is:
+clang++ */*/*.cpp */*.cpp *.cpp -lraylib -lGL -lm -lpthread -ldl -lrt -lX11 -lncurses -g -o twilightEngineFrameWork.debug.runme
+
+Dependencies:
+-> Raylib
+-> Ncurses (currently a hangover from a 2nd year project from where I've reused the build line
+			so much and never re-used it, but I am going to work on a way to run Twilight-Engine
+			in the console using Ncurses.)
+<-<-<-<-<-<-<-<-<-<-<-<-<-<-<-<-<-<-<-<-<-<-<-<-<-<-<-

@@ -12,6 +12,7 @@ TwilightEngine::TwilightEngine(Point<float> new_window_size, std::string new_nam
 		*/
 		window_size.setX(window_size.getX());
 		wizard_panel = new WizardPanel();
+		wizard_panel->grabRenderObjectLists(renderer.getRenderObjects(), renderer.getRenderObjects3D());
 	}
 	emergency_exit = false;
 	max_fps = 20;
@@ -75,6 +76,7 @@ void TwilightEngine::enter()
 		if (wizard_panel)
 		{
 			wizard_panel->handleInputs();
+			wizard_panel->updateDebugPage();
 		}
 
 		// --- INPUT POLLING SECTION ---
@@ -95,7 +97,7 @@ void TwilightEngine::enter()
 			std::cout << "GIF recording started...\n";
 			startGIFRecording("UserGIFRecording");
 		}
-
+		recordGIFFrame();
 		if (240 < GIF_frame_counter)
 		{
 			stopGIFRecording();
