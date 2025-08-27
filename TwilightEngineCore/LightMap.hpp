@@ -135,7 +135,7 @@ public:
 		{
 			for (auto &line : stored_light_lines)
 			{
-				// line.draw();
+				line.extrapolate(10).draw();
 			}
 			for(int i = 0; i < stored_light_lines.size() - 1; i++)
 			{

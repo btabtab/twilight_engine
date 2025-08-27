@@ -95,6 +95,14 @@ void TwilightEngine::enter()
 				startGIFRecording("UserGIFRecording");
 			}
 		}
+		if(wizard_panel)
+		{
+			if (wizard_panel->callForScreenshot())
+			{
+				std::cout << "Screenshot\n";
+				TakeScreenshot((std::to_string(frame_ID) + ".png").c_str());
+			}
+		}
 		recordGIFFrame();
 		if (240 < GIF_frame_counter)
 		{
