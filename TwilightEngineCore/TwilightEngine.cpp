@@ -24,10 +24,14 @@ void TwilightEngine::enter()
 	has_started = true;
 	system("clear");
 
-
-	if(wizard_panel) {wizard_panel->loadWizardTexture();}
+	if (wizard_panel)
+	{
+		wizard_panel->loadWizardTexture();
+	}
 
 	userSetup();
+
+	bool is_screenshot_being_taken = false;
 
 	while (!WindowShouldClose() || emergency_exit)
 	{
@@ -76,18 +80,12 @@ void TwilightEngine::enter()
 			wizard_panel->updateDebugPage();
 		}
 
-		// --- INPUT POLLING SECTION ---
-		if (IsKeyPressed(KEY_C))
-		{
-			TakeScreenshot(("screenshots/screenshot-" + std::to_string(frame_ID) + "-.png").c_str());
-			std::cout << "Screenshot taken\n";
-		}
 		if (IsKeyPressed(KEY_V))
 		{
 			system("clear");
 		}
-		
-		if(wizard_panel)
+
+		if (wizard_panel)
 		{
 			if (wizard_panel->callForGifRecording())
 			{
@@ -95,12 +93,19 @@ void TwilightEngine::enter()
 				startGIFRecording("UserGIFRecording");
 			}
 		}
-		if(wizard_panel)
+		if (is_screenshot_being_taken)
+		{
+			std::string end_path_name = "screenshots/" + std::to_string(frame_ID) + ".png";
+			std::cout << "Screenshot\n";
+
+			TakeScreenshot(end_path_name.c_str());
+			is_screenshot_being_taken = false;
+		}
+		if (wizard_panel)
 		{
 			if (wizard_panel->callForScreenshot())
 			{
-				std::cout << "Screenshot\n";
-				TakeScreenshot((std::to_string(frame_ID) + ".png").c_str());
+				is_screenshot_being_taken = true;
 			}
 		}
 		recordGIFFrame();

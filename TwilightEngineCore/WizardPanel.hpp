@@ -42,7 +42,7 @@ public:
 		pages.back()->addText(std::string("L-ALT + S - Step (useful if there is a window...)\n"));
 		
 		pages.back()->addText(std::string("L-ALT + G - start recording GIF\n"));
-		pages.back()->addText(std::string("L-ALT + C - start recording GIF\n"));
+		pages.back()->addText(std::string("L-ALT + C - take screenshot (.png)\n"));
 
 		pages.back()->addText(std::string("L-ALT + X + Y - Close Application\n"));
 
