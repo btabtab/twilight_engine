@@ -132,6 +132,7 @@ public:
 		bool was_last_page_pressed = IsKeyPressed(KEY_LEFT);
 		bool was_GIF_recording_started = IsKeyPressed(KEY_G);
 		bool was_screenshot_taken = IsKeyPressed(KEY_C);
+		bool is_thunar_being_opened = IsKeyPressed(KEY_F);
 
 		was_step_issued = false;
 
@@ -171,6 +172,10 @@ public:
 		if(is_alt_held_down && was_screenshot_taken)
 		{
 			request_screenshot = true;
+		}
+		if(is_alt_held_down && is_thunar_being_opened)
+		{
+			system("thunar .");
 		}
 	}
 
