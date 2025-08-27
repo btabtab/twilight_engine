@@ -1,4 +1,5 @@
 #include "UserIncludes.hpp"
+#include "TwilightEngineCore/LightMap.hpp"
 /*
 	Hello!
 	This file will let you easily add your own code
@@ -24,15 +25,30 @@ void TwilightEngine::userSetup()
 	std::cout << "Welcome to the Twilight Engine!\n";
 	std::cout << "You can use the C key to take a screenshot.\n";
 	std::cout << "You can use the V key to clear the console.\n";
+	
+	renderer.addRenderObject(new LightBreakdown(
+												new Room(),
+												new Light(Point<float>(200, 200), WHITE, 100.0f)
+												)
+							);
+	LightBreakdown* light_breakdown = (LightBreakdown*)renderer.getRenderObjects()->back();
+	light_breakdown->getRoom()->addWall(Point<float>(24.f, 26.f), Point<float>(379.f, 24.f), WHITE);
+	light_breakdown->getRoom()->addWall(Point<float>(379.f, 24.f), 	Point<float>(381.f, 364.f), WHITE);
+	light_breakdown->getRoom()->addWall(Point<float>(381.f, 364.f), Point<float>(19.f, 378.f), WHITE);
+	light_breakdown->getRoom()->addWall(Point<float>(19.f, 378.f), Point<float>(24.f, 26.f), WHITE);
 
-	renderer.addRenderObject3D(new Floor(Point3D<float>(0, 0, 0)));
+	light_breakdown->getRoom()->addWall(Point<float>(177.f, 67.f), Point<float>(62.f, 205.f), WHITE);
+
+	light_breakdown->buildLightLines();
+	light_breakdown->cleanUpLightLines();
+
 }
 
 void TwilightEngine::userLoop()
 {
-	// renderer.getCurrentCamera()->target = Vector3{
-	// 												target_cube->getPosition().getX(),
-	// 												target_cube->getPosition().getY(),
-	// 												target_cube->getPosition().getZ()
-	// 											};
+	if(IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
+	{
+		Point<float> mouse_pos = Point<float>(GetMouseX(), GetMouseY());
+		std::cout << mouse_pos.stringify() << "\n";
+	}
 }

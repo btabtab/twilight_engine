@@ -6,16 +6,12 @@ TwilightEngine::TwilightEngine(Point<float> new_window_size, std::string new_nam
 	is_wizard_present = set_is_wizard_present;
 	if (is_wizard_present)
 	{
-		/*
-			We're increasing the window size so that
-			there is room for the wizard's teachings...
-		*/
-		window_size.setX(window_size.getX());
+		std::cout << "Running the application with the wizard :3\n";
 		wizard_panel = new WizardPanel();
 		wizard_panel->grabRenderObjectLists(renderer.getRenderObjects(), renderer.getRenderObjects3D());
 	}
 	emergency_exit = false;
-	max_fps = 20;
+	max_fps = 30;
 }
 
 void TwilightEngine::enter()
@@ -28,9 +24,10 @@ void TwilightEngine::enter()
 	has_started = true;
 	system("clear");
 
-	userSetup();
 
-	wizard_panel->loadWizardTexture();
+	if(wizard_panel) {wizard_panel->loadWizardTexture();}
+
+	userSetup();
 
 	while (!WindowShouldClose() || emergency_exit)
 	{
@@ -89,13 +86,14 @@ void TwilightEngine::enter()
 		{
 			system("clear");
 		}
-
-		userLoop();
-
-		if (wizard_panel->callForGifRecording())
+		
+		if(wizard_panel)
 		{
-			std::cout << "GIF recording started...\n";
-			startGIFRecording("UserGIFRecording");
+			if (wizard_panel->callForGifRecording())
+			{
+				std::cout << "GIF recording started...\n";
+				startGIFRecording("UserGIFRecording");
+			}
 		}
 		recordGIFFrame();
 		if (240 < GIF_frame_counter)
@@ -103,6 +101,9 @@ void TwilightEngine::enter()
 			stopGIFRecording();
 			std::cout << "...GIF recording stopped\n";
 		}
+
+		userLoop();
+
 		// --- END INPUT POLLING SECTION ---
 	}
 }

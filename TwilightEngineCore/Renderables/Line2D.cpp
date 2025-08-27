@@ -94,3 +94,4 @@ Line2D Line2D::getSplitLine(Point<float> split_point, Side side)
     }
     return Line2D(split_point, b, colour);
 }
+

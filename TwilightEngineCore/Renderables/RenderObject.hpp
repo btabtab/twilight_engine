@@ -28,10 +28,13 @@ protected:
 		objects for any BSP esque effects.
 	*/
 	RenderObject* sub_render_object;
+	bool is_visible;
 public:
 	RenderObject();
 	RenderObject(Color new_colour);
 	void setColour(Color new_colour);
+	void toggleVisibility();
+	bool isVisible() const;
 	virtual void draw();
 	virtual void update();
 	Layers getLayer();

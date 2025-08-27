@@ -65,7 +65,7 @@ public:
 	void loadWizardTexture()
 	{
 		//Loads the wizard texture.
-		the_wizard_texture = LoadTexture("HIM_THE_WIZARD.png");
+		// the_wizard_texture = LoadTexture("HIM_THE_WIZARD.png");
 	}
 	void addTextToPanel()
 	{
