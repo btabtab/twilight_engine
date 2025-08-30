@@ -24,6 +24,8 @@ private:
 
 	std::vector<Line2D> stored_light_lines;
 
+	std::vector<Point<float>> intersection_vertices;
+
 public:
 	LightBreakdown(Room *new_room, Light *new_light)
 		: RenderObject(), room(new_room), light(new_light)
@@ -43,19 +45,17 @@ public:
 		if (light)
 			delete light;
 	}
-	/*
-		Build the lines that will be used to draw
-		the polygons for the floor, ceiling and
-		handle drawing the walls.
-	*/
 	void buildLightLines()
 	{
+		//the B point for these will be the vertex point.
+		std::vector<Line2D*> light_lines;
+		std::vector<Line2D> extrapolated_light_lines;
+
+		for(Line2D line: *room->getWalls())
+		{
+			
+		}
 	}
-	/*
-		Run through the wall lines and the light lines
-		and remove any light lines that will be blocked
-		by any walls.
-	*/
 	void cleanUpLightLines()
 	{
 	}
@@ -65,6 +65,17 @@ public:
 		{
 			room->draw();
 			light->draw();
+		}
+		for(int x = 0; x != intersection_vertices.size() - 1; x++)
+		{
+			for(int y = x + 1; y != intersection_vertices.size() - 1; y++)
+			{
+				Line2D(intersection_vertices.at(x), intersection_vertices.at(y), GREEN).draw();
+			}
+		}
+		for(auto vertices: intersection_vertices)
+		{
+			DrawCircle(vertices.getX(), vertices.getY(), 5, BLUE);
 		}
 	}
 
