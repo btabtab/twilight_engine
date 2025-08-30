@@ -33,3 +33,13 @@ Color RenderObject::getColour() const
 {
     return colour;
 }
+
+void RenderObject::toggleVisibility()
+{
+    is_visible = !is_visible;
+}
+
+bool RenderObject::isVisible() const
+{
+    return is_visible;
+}

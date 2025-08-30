@@ -22,6 +22,7 @@ private:
 	Texture the_wizard_texture;
 
 	bool request_gif_recording;
+	bool request_screenshot;
 
 	std::vector<RenderObject*>* render_object_vector;
 	std::vector<RenderObject3D*>* render_object_3D_vector;
@@ -41,6 +42,7 @@ public:
 		pages.back()->addText(std::string("L-ALT + S - Step (useful if there is a window...)\n"));
 		
 		pages.back()->addText(std::string("L-ALT + G - start recording GIF\n"));
+		pages.back()->addText(std::string("L-ALT + C - take screenshot (.png)\n"));
 
 		pages.back()->addText(std::string("L-ALT + X + Y - Close Application\n"));
 
@@ -65,7 +67,7 @@ public:
 	void loadWizardTexture()
 	{
 		//Loads the wizard texture.
-		the_wizard_texture = LoadTexture("HIM_THE_WIZARD.png");
+		// the_wizard_texture = LoadTexture("HIM_THE_WIZARD.png");
 	}
 	void addTextToPanel()
 	{
@@ -129,6 +131,8 @@ public:
 		bool was_next_page_pressed = IsKeyPressed(KEY_RIGHT);
 		bool was_last_page_pressed = IsKeyPressed(KEY_LEFT);
 		bool was_GIF_recording_started = IsKeyPressed(KEY_G);
+		bool was_screenshot_taken = IsKeyPressed(KEY_C);
+		bool is_thunar_being_opened = IsKeyPressed(KEY_F);
 
 		was_step_issued = false;
 
@@ -165,6 +169,14 @@ public:
 		{
 			request_gif_recording = true;
 		}
+		if(is_alt_held_down && was_screenshot_taken)
+		{
+			request_screenshot = true;
+		}
+		if(is_alt_held_down && is_thunar_being_opened)
+		{
+			system("thunar .");
+		}
 	}
 
 	std::string getType() override { return "Wizard Panel"; }
@@ -187,6 +199,16 @@ public:
 			showing = false;
 		}
 		request_gif_recording = false;
+		return ret;
+	}
+	bool callForScreenshot()
+	{
+		bool ret = request_screenshot;
+		if(request_screenshot)
+		{
+			showing = false;
+		}
+		request_screenshot = false;
 		return ret;
 	}
 };

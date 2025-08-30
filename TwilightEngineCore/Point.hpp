@@ -122,7 +122,7 @@ public:
 
 	std::string stringify() const
 	{
-		return "Point(" + std::to_string(x) + ", " + std::to_string(y) + ")";
+		return "Point<float>(" + std::to_string(x) + ".f, " + std::to_string(y) + ".f)";
 	}
 
 	// Rotate this point around another point by degrees (2D)
@@ -143,6 +143,12 @@ public:
 		float dx = x - other.getX();
 		float dy = y - other.getY();
 		return std::sqrt(dx * dx + dy * dy);
+	}
+	Point<T> normalized() const
+	{
+		float len = length();
+		if (len == 0) throw std::runtime_error("Can't normalize zero-length vector(s)");
+		return Point<T>(x / len, y / len);
 	}
 };
 
@@ -247,5 +253,5 @@ class Point3D
 		Point3D<T> rotated = rel * cosA + k.cross(rel) * sinA + k * (k.dot(rel)) * (1 - cosA);
 		// Translate back
 		return origin + rotated;
-	} 
+	}
 };

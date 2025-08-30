@@ -6,16 +6,12 @@ TwilightEngine::TwilightEngine(Point<float> new_window_size, std::string new_nam
 	is_wizard_present = set_is_wizard_present;
 	if (is_wizard_present)
 	{
-		/*
-			We're increasing the window size so that
-			there is room for the wizard's teachings...
-		*/
-		window_size.setX(window_size.getX());
+		std::cout << "Running the application with the wizard :3\n";
 		wizard_panel = new WizardPanel();
 		wizard_panel->grabRenderObjectLists(renderer.getRenderObjects(), renderer.getRenderObjects3D());
 	}
 	emergency_exit = false;
-	max_fps = 20;
+	max_fps = 30;
 }
 
 void TwilightEngine::enter()
@@ -28,9 +24,14 @@ void TwilightEngine::enter()
 	has_started = true;
 	system("clear");
 
+	if (wizard_panel)
+	{
+		wizard_panel->loadWizardTexture();
+	}
+
 	userSetup();
 
-	wizard_panel->loadWizardTexture();
+	bool is_screenshot_being_taken = false;
 
 	while (!WindowShouldClose() || emergency_exit)
 	{
@@ -79,23 +80,33 @@ void TwilightEngine::enter()
 			wizard_panel->updateDebugPage();
 		}
 
-		// --- INPUT POLLING SECTION ---
-		if (IsKeyPressed(KEY_C))
-		{
-			TakeScreenshot(("screenshots/screenshot-" + std::to_string(frame_ID) + "-.png").c_str());
-			std::cout << "Screenshot taken\n";
-		}
 		if (IsKeyPressed(KEY_V))
 		{
 			system("clear");
 		}
 
-		userLoop();
-
-		if (wizard_panel->callForGifRecording())
+		if (wizard_panel)
 		{
-			std::cout << "GIF recording started...\n";
-			startGIFRecording("UserGIFRecording");
+			if (wizard_panel->callForGifRecording())
+			{
+				std::cout << "GIF recording started...\n";
+				startGIFRecording("UserGIFRecording");
+			}
+		}
+		if (is_screenshot_being_taken)
+		{
+			std::string end_path_name = "screenshots/" + std::to_string(frame_ID) + ".png";
+			std::cout << "Screenshot\n";
+
+			TakeScreenshot(end_path_name.c_str());
+			is_screenshot_being_taken = false;
+		}
+		if (wizard_panel)
+		{
+			if (wizard_panel->callForScreenshot())
+			{
+				is_screenshot_being_taken = true;
+			}
 		}
 		recordGIFFrame();
 		if (240 < GIF_frame_counter)
@@ -103,6 +114,9 @@ void TwilightEngine::enter()
 			stopGIFRecording();
 			std::cout << "...GIF recording stopped\n";
 		}
+
+		userLoop();
+
 		// --- END INPUT POLLING SECTION ---
 	}
 }

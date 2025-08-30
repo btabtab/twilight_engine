@@ -2,69 +2,54 @@
 
 #include "Line2D.hpp"
 #include "../Point.hpp"
-#include <vector>
+#include <stdexcept>
+#include <algorithm>
+#include <cmath>
 
 class Polygon: public RenderObject
 {
 private:
-	std::vector<Line2D> edges;
+	Point<float> a, b, c; // Points defining the polygon
+	Color color; // Added member variable for color
 
 public:
-	Polygon(std::vector<Point<float>> points)
+	Polygon(Point<float> pointA, Point<float> pointB, Point<float> pointC, Color polygonColor = RED)
+		: a(pointA), b(pointB), c(pointC), color(polygonColor)
 	{
-		if (points.size() < 3)
+		// Ensure the points form a valid triangle
+		if (a == b || b == c || c == a)
 		{
-			throw std::invalid_argument("A polygon must have at least 3 points.");
+			// throw std::invalid_argument("A polygon must have three DISTINCT points.");
 		}
+		// Ensure points are in counter-clockwise order
+		float cross = (b.getX() - a.getX()) * (c.getY() - a.getY()) - (b.getY() - a.getY()) * (c.getX() - a.getX());
+		if (cross < 0) {
+			std::swap(b, c);
+		}
+	}
 
-		for (size_t i = 0; i < points.size(); ++i)
-		{
-			Point<float> start = points[i];
-			Point<float> end = points[(i + 1) % points.size()];
-			edges.emplace_back(start, end, WHITE);
-		}
-	}
-	Polygon(std::vector<Line2D> new_edges)
-	{
-		if(new_edges.size() < 3)
-		{
-			return;
-		}
-		edges = new_edges;
-	}
 	void draw() override
 	{
-		Vector2 points_for_bezier[edges.size() * 2];
-		for(int i = 0; i != edges.size() * 2; i += 2)
-		{
-			points_for_bezier[i] = {edges.at(i / 2).getA().getX(), edges.at(i / 2).getA().getY()};
-			points_for_bezier[i+1] = {edges.at(i / 2).getB().getX(), edges.at(i / 2).getB().getY()};
-		}
-		// for(int i = 0; i != points_for_bezier->size(); i += 3)
-		{
-			DrawTriangleStrip(
-							points_for_bezier,
-							edges.size() * 2,
-							LIME
-						);
-		}
-		// for (int i = 0; i < edges.size(); ++i)
-		// {
-		//     edges.at(i).draw();
-		// }
-		
+		Line2D line_ab = Line2D(a, b, color);
+		Line2D line_bc = Line2D(b, c, color);
+		Line2D line_ca = Line2D(c, a, color);
+		line_ab.draw();
+		line_bc.draw();
+		line_ca.draw();
 	}
 
 	void cardinalise()
 	{
-		for(size_t i = 0; i < edges.size(); ++i)
-		{
-			edges.at(i).cardinalise(Axis::HORIZONTAL);
-		}
+		a.setX(std::round(a.getX()));
+		a.setY(std::round(a.getY()));
+		b.setX(std::round(b.getX()));
+		b.setY(std::round(b.getY()));
+		c.setX(std::round(c.getX()));
+		c.setY(std::round(c.getY()));
 	}
 
-	const std::vector<Line2D>& getEdges() const
+	std::string getType() override
 	{
-		return edges;
+		return "Polygon";
 	}
 };

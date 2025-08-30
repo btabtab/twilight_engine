@@ -17,6 +17,8 @@ int main(int argc, char* argv[])
 
 	printf("Clearing Gifs...");
 	system("rm -rf screenshots/gifs/*");
+	system("rm -rf screenshots/*");
+
 	TwilightEngine core(Point<float>(400, 400), "Twilight Engine", is_the_wizard_here);
 	core.enter();
 }
