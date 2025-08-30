@@ -65,7 +65,7 @@ private:
 	WizardPanel* wizard_panel;
 
 public:
-	TwilightEngine(Point<float> new_window_size, std::string new_name, bool set_is_wizard_present);
+	TwilightEngine(int argc, char* argv[], Point<float> new_window_size, std::string new_name);
 
 	//Enters the main loop.
 	void enter();

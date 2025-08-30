@@ -1,9 +1,24 @@
 #include "TwilightEngine.hpp"
 
-TwilightEngine::TwilightEngine(Point<float> new_window_size, std::string new_name, bool set_is_wizard_present) : window_size(new_window_size), session_name(new_name)
+TwilightEngine::TwilightEngine(int argc, char* argv[], Point<float> new_window_size, std::string new_name)
+: window_size(new_window_size), session_name(new_name)
 {
+	bool is_the_wizard_here = false;
+	for(int i = 0; i != argc; i++)
+	{
+		if(std::string(argv[i]) == "-wizard")
+		{
+			is_the_wizard_here = true;
+			printf("Wizard found, running with the wizard...\n");
+		}
+	}
+
+	printf("Clearing Gifs...");
+	system("rm -rf screenshots/gifs/*");
+	system("rm -rf screenshots/*");
+
 	wizard_panel = nullptr;
-	is_wizard_present = set_is_wizard_present;
+	is_wizard_present = is_the_wizard_here;
 	if (is_wizard_present)
 	{
 		std::cout << "Running the application with the wizard :3\n";
@@ -12,6 +27,7 @@ TwilightEngine::TwilightEngine(Point<float> new_window_size, std::string new_nam
 	}
 	emergency_exit = false;
 	max_fps = 30;
+
 }
 
 void TwilightEngine::enter()

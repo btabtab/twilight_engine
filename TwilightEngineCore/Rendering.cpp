@@ -34,16 +34,18 @@ std::vector<RenderObject3D *> *Renderer::getRenderObjects3D()
 }
 void Renderer::drawContents()
 {
-
-	startDrawing3D_Objects();
-	for (int i = 0; i != render_objects_3D.size(); i++)
+	if(!render_objects_3D.empty())
 	{
-		if (render_objects_3D.at(i)->getIfDrawnPre2D())
+		startDrawing3D_Objects();
+		for (int i = 0; i != render_objects_3D.size(); i++)
 		{
-			render_objects_3D.at(i)->draw();
+			if (render_objects_3D.at(i)->getIfDrawnPre2D())
+			{
+				render_objects_3D.at(i)->draw();
+			}
 		}
+		stopDrawing3D_Objects();
 	}
-	stopDrawing3D_Objects();
 	/*
 		TODO:
 		Make this sort the list by layers only when
@@ -83,6 +85,10 @@ void Renderer::drawContents()
 		}
 	}
 
+	if(render_objects_3D.empty())
+	{
+		return;
+	}
 	startDrawing3D_Objects();
 	for (int i = 0; i != render_objects_3D.size(); i++)
 	{

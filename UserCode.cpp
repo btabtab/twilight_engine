@@ -9,7 +9,6 @@
 
 void TwilightEngine::userSetup()
 {
-
 }
 
 void TwilightEngine::userLoop()
