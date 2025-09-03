@@ -1,1 +1,0 @@
-clang++ ../*/*.cpp main.cpp -lraylib -lGL -lm -lpthread -ldl -lrt -lX11 -lncurses -g -o internal_recompile.runme
