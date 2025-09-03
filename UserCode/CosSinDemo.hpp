@@ -5,7 +5,7 @@
 #include "raylib.h"
 #include "../TwilightEngineCore/Renderables/RenderClasses.hpp"
 
-class CosSinGrid : public RenderObject
+class CosSinGrid : public RenderObject2D
 {
 private:
 	unsigned char grid_width = 0xff, grid_height = 0xff;

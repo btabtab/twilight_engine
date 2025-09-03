@@ -4,7 +4,7 @@
 #include "Point.hpp"
 #include "Renderables/RenderObject.hpp"
 #include "Renderables/Line2D.hpp"
-class Light : public RenderObject
+class Light : public RenderObject2D
 {
 private:
 	Point<float> position;

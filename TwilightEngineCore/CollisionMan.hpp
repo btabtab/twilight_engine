@@ -3,7 +3,7 @@
 #include "Renderables/RenderClasses.hpp"
 #include "Renderables/Line2D.hpp"
 
-class CollisionMan: public RenderObject
+class CollisionMan: public RenderObject2D
 {
 private:
 protected:
@@ -13,7 +13,7 @@ protected:
     bool is_there_a_collision = false;
 public:
 	CollisionMan(Line2D* new_a, Line2D* new_b):
-	RenderObject(), a(new_a), b(new_b), collision_position(Point<float>(0, 0))
+	RenderObject2D(), a(new_a), b(new_b), collision_position(Point<float>(0, 0))
 	{
 	}
 	virtual void draw() override

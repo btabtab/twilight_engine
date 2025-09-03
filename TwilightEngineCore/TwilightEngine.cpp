@@ -1,12 +1,12 @@
 #include "TwilightEngine.hpp"
 
-TwilightEngine::TwilightEngine(int argc, char* argv[], Point<float> new_window_size, std::string new_name)
-: window_size(new_window_size), session_name(new_name)
+TwilightEngine::TwilightEngine(int argc, char *argv[], Point<float> new_window_size, std::string new_name)
+	: window_size(new_window_size), session_name(new_name)
 {
 	bool is_the_wizard_here = false;
-	for(int i = 0; i != argc; i++)
+	for (int i = 0; i != argc; i++)
 	{
-		if(std::string(argv[i]) == "-wizard")
+		if (std::string(argv[i]) == "-wizard")
 		{
 			is_the_wizard_here = true;
 			printf("Wizard found, running with the wizard...\n");
@@ -27,7 +27,6 @@ TwilightEngine::TwilightEngine(int argc, char* argv[], Point<float> new_window_s
 	}
 	emergency_exit = false;
 	max_fps = 30;
-
 }
 
 void TwilightEngine::enter()
@@ -68,9 +67,9 @@ void TwilightEngine::enter()
 				}
 			}
 
-			for (int i = 0; i != renderer.getRenderObjects()->size(); i++)
+			if (!renderer.getRenderObjects()->empty())
 			{
-				if (!renderer.getRenderObjects()->empty())
+				for (int i = 0; i != renderer.getRenderObjects()->size(); i++)
 				{
 					renderer.getRenderObjects()->at(i)->update();
 				}

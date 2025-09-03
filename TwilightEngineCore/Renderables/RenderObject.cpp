@@ -1,45 +1,49 @@
 #include "RenderObject.hpp"
 
-RenderObject::RenderObject()
+RenderObject2D::RenderObject2D()
 {
-    layer = Layers::MIDDLE;
+    layer = DrawLayer::MIDDLE;
+    //Why didn't I already do this?
+    sub_render_object = nullptr;
 }
 
-RenderObject::RenderObject(Color new_colour)
+RenderObject2D::RenderObject2D(Color new_colour)
 : colour(new_colour)
 {
     // std::cout << "New Render Object Constructed...\n";
-    layer = Layers::MIDDLE;
+    layer = DrawLayer::MIDDLE;
+    //Why didn't I already do this?
+    sub_render_object = nullptr;
 }
 
-void RenderObject::setColour(Color new_colour)
+void RenderObject2D::setColour(Color new_colour)
 {
     colour = new_colour;
 }
 
-Layers RenderObject::getLayer()
+DrawLayer RenderObject2D::getLayer()
 {
     return layer;
 }
 
-void RenderObject::draw()
+void RenderObject2D::draw()
 {
 }
-void RenderObject::update()
+void RenderObject2D::update()
 {
 }
 
-Color RenderObject::getColour() const
+Color RenderObject2D::getColour() const
 {
     return colour;
 }
 
-void RenderObject::toggleVisibility()
+void RenderObject2D::toggleVisibility()
 {
     is_visible = !is_visible;
 }
 
-bool RenderObject::isVisible() const
+bool RenderObject2D::isVisible() const
 {
     return is_visible;
 }

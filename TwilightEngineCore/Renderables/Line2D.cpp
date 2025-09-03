@@ -3,15 +3,15 @@
 #include <cmath> // For NAN
 
 Line2D::Line2D()
-: RenderObject(MAGENTA), a(0, 0), b(0, 0)
+: RenderObject2D(MAGENTA), a(0, 0), b(0, 0)
 {
 }
 
 Line2D::Line2D(Point<float> new_a, Point<float> new_b, Color new_colour)
-: RenderObject(new_colour), a(new_a), b(new_b)
+: RenderObject2D(new_colour), a(new_a), b(new_b)
 {
     // std::cout << "New Line2D created\n";
-    layer = Layers::MIDDLE;
+    layer = DrawLayer::MIDDLE;
     cardinalise(Axis::HORIZONTAL);
 }
 

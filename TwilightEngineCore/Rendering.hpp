@@ -8,7 +8,7 @@
 class Renderer
 {
 private:
-	std::vector<RenderObject*> render_objects;
+	std::vector<RenderObject2D*> render_objects;
 	std::vector<RenderObject3D*> render_objects_3D;
 
 	/*
@@ -19,11 +19,11 @@ private:
 public:
 	Renderer();
 	~Renderer();
-	std::vector<RenderObject*>* getRenderObjects();
+	std::vector<RenderObject2D*>* getRenderObjects();
 	std::vector<RenderObject3D*> *getRenderObjects3D();
 
 
-	void addRenderObject(RenderObject* new_object);
+	void addRenderObject(RenderObject2D* new_object);
 	void addRenderObject3D(RenderObject3D* new_object);
 
 	void clearScreen();

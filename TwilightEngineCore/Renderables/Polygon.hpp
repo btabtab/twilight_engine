@@ -6,7 +6,7 @@
 #include <algorithm>
 #include <cmath>
 
-class Polygon: public RenderObject
+class Polygon: public RenderObject2D
 {
 private:
 	Point<float> a, b, c; // Points defining the polygon

@@ -45,4 +45,9 @@ public:
 		}
 	}
 	std::string getType() override { return "Line3D"; }
+
+	virtual size_t getBytesConsumed() override
+	{
+		return sizeof(*this);
+	}
 };

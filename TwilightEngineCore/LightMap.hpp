@@ -12,7 +12,7 @@
 	FOR LIGHTING! :D
 */
 
-class LightBreakdown : public RenderObject
+class LightBreakdown : public RenderObject2D
 {
 private:
 	Room *room;
@@ -28,7 +28,7 @@ private:
 
 public:
 	LightBreakdown(Room *new_room, Light *new_light)
-		: RenderObject(), room(new_room), light(new_light)
+		: RenderObject2D(), room(new_room), light(new_light)
 	{
 		// Just to ease checking for any errors.
 		is_in_error_state = (!new_room || !new_light);
