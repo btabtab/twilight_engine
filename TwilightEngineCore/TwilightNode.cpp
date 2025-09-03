@@ -5,55 +5,12 @@ TwilightNode::TwilightNode(int new_id)
 : ID(new_id)
 {
 }
-int TwilightNode::getID()
-{
-	return ID;
+int TwilightNode::getID() { return ID; }
+
+void TwilightNode::update() {
+    // Default implementation
 }
 
-std::vector<TwilightNode*>* TwilightNode::getChildren()
-{
-	return &children;
-}
-void TwilightNode::addChild(TwilightNode* child)
-{
-	children.push_back(child);
-}
-
-void TwilightNode::removeChild(int target_index)
-{
-	for(int i = 0; i != children.size(); i++)
-	{
-		if(i == target_index)
-		{
-			delete children.at(i);
-			children.erase(children.begin() + i);
-			return;
-		}
-	}
-}
-
-void TwilightNode::clearChildren()
-{
-	children.clear();
-}
-
-void TwilightNode::updateChildren()
-{
-	for(auto& child : children)
-	{
-		if(child != nullptr)
-		{
-			child->update();
-		}
-	}
-}
-void TwilightNode::drawChildren()
-{
-	for(auto& child : children)
-	{
-		if(child != nullptr)
-		{
-			child->draw();
-		}
-	}
+std::string TwilightNode::getType() {
+    return "TwilightNode";
 }
