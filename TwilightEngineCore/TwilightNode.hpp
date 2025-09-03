@@ -4,22 +4,16 @@
 #include <vector>
 #include <string>
 
-#include "Renderables/RenderObject.hpp"
-class TwilightNode: public RenderObject
+class TwilightNode
 {
 private:
+protected:
 	int ID;
 	std::string name;
-	std::vector<TwilightNode*> children;
-protected:
 public:
 	int getID();
-	std::vector<TwilightNode*>* getChildren();
-	void addChild(TwilightNode* child);
-	void removeChild(int target_index);
-	void clearChildren();
-	void updateChildren();
-	void drawChildren();
 	TwilightNode(int new_id = -1);
 	virtual ~TwilightNode() = default;
+	virtual void update();
+	virtual std::string getType();
 };

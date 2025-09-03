@@ -3,6 +3,8 @@
 #include <raylib.h>
 #include <iostream>
 
+#include "../TwilightNode.hpp"
+
 #include "../Point.hpp"
 
 enum class Layers
@@ -17,7 +19,7 @@ enum class Layers
 	BACK,
 };
 
-class RenderObject
+class RenderObject : public TwilightNode
 {
 protected:
 	//Used to make sure that certain things are drawn over/under each other.
@@ -36,6 +38,7 @@ public:
 	void toggleVisibility();
 	bool isVisible() const;
 	virtual void draw();
+	void drawChildren();
 	virtual void update();
 	Layers getLayer();
 	Color getColour() const;

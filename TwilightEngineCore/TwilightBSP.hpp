@@ -5,9 +5,7 @@
 #include <iostream>
 #include <cmath>
 #include "TwilightNode.hpp"
-#include "Renderables/Line2D.hpp"
-#include "Renderables/Polygon.hpp"
-#include "Renderables/Plane.hpp"
+#include "Renderables/RenderClasses.hpp"
 
 /*
 	I'm being honest with this...
@@ -29,13 +27,13 @@
 	was actually being worked towards.
 */
 
-class LineSet : public TwilightNode
+class LineSet : public RenderObject
 {
 private:
 	std::vector<Line2D> lines;
 
 public:
-	LineSet() : TwilightNode(), lines() {}
+	LineSet() : RenderObject(), lines() {}
 	LineSet(std::vector<Line2D> new_lines) : lines(new_lines) {}
 
 	void addLine(Point<float> a, Point<float> b, Color colour)
@@ -63,7 +61,7 @@ public:
 		return &lines.at(index);
 	}
 	virtual std::string getType() override { return "LineSet"; }
-	void draw() override
+	virtual void draw() override
 	{
 		for (auto &line : lines)
 		{
@@ -84,12 +82,13 @@ inline float signedDistance(const Line2D &line, const Point<float> &p) // docume
 } // document
 
 // Simple struct for bounding box
-class Bounds: public TwilightNode
+class Bounds : public RenderObject
 {
 private:
 	std::vector<Line2D> edges;
 	float minX, minY, maxX, maxY;
 	Color color;
+
 public:
 	Bounds(float new_minX = 0, float new_minY = 0, float new_maxX = 0, float new_maxY = 0, Color c = WHITE)
 		: minX(new_minX), minY(new_minY), maxX(new_maxX), maxY(new_maxY), color(c)
@@ -108,14 +107,16 @@ public:
 	float getMaxX() const { return maxX; }
 	float getMaxY() const { return maxY; }
 	std::string getType() override { return "Bounds"; }
-	void draw() override {
-		for (auto& edge : edges) {
+	virtual void draw() override
+	{
+		for (auto &edge : edges)
+		{
 			edge.draw();
 		}
 	}
 };
 
-class BSPNode : public TwilightNode
+class BSPNode : public RenderObject
 {
 private:
 	BSPNode *front_child;
@@ -135,11 +136,14 @@ private:
 
 public:
 	// Returns the bounding box of all lines in this node (leaf)
-	Bounds getBoundingBox(Color c = WHITE) {
-		if (leaf_lines.empty()) return Bounds(0, 0, 0, 0, c);
+	Bounds getBoundingBox(Color c = WHITE)
+	{
+		if (leaf_lines.empty())
+			return Bounds(0, 0, 0, 0, c);
 		float minX = leaf_lines[0].getA().getX(), maxX = leaf_lines[0].getA().getX();
 		float minY = leaf_lines[0].getA().getY(), maxY = leaf_lines[0].getA().getY();
-		for (auto& line : leaf_lines) {
+		for (auto &line : leaf_lines)
+		{
 			float ax = line.getA().getX(), ay = line.getA().getY();
 			float bx = line.getB().getX(), by = line.getB().getY();
 			minX = std::min(minX, std::min(ax, bx));
@@ -150,7 +154,7 @@ public:
 		return Bounds(minX, minY, maxX, maxY, c);
 	}
 	BSPNode(Line2D new_splitting_line, bool leaf = false, int new_depth = 0, BSPNode *new_parent = nullptr, std::string label = "root")
-		: TwilightNode(), splitting_line(new_splitting_line.extrapolate(10.0f)), original_splitting_line(new_splitting_line), is_leaf(leaf), front_child(nullptr), back_child(nullptr),
+		: RenderObject(), splitting_line(new_splitting_line.extrapolate(10.0f)), original_splitting_line(new_splitting_line), is_leaf(leaf), front_child(nullptr), back_child(nullptr),
 		  leaf_lines(), node_label(label)
 	{
 		depth = new_depth;
@@ -216,26 +220,31 @@ public:
 		// Print current node
 		std::cout << prefix;
 		std::cout << (isLeft ? "├── " : "└── ");
-		
+
 		// Print node info
-		if (is_leaf) {
+		if (is_leaf)
+		{
 			std::cout << "[LEAF] depth:" << depth << " lines: " << front_lines.size() + back_lines.size() << "\n";
-		} else {
-			std::cout << "[NODE] depth:" << depth 
-					<< " front:" << front_lines.size() 
-					<< " back:" << back_lines.size() << "\n";
+		}
+		else
+		{
+			std::cout << "[NODE] depth:" << depth
+					  << " front:" << front_lines.size()
+					  << " back:" << back_lines.size() << "\n";
 		}
 
 		// Prepare prefix for children
 		std::string childPrefix = prefix + (isLeft ? "│   " : "    ");
 
 		// Recursively print front child (left in the tree)
-		if (front_child) {
+		if (front_child)
+		{
 			front_child->dumpEntireTreeAsText(childPrefix, true);
 		}
 
 		// Recursively print back child (right in the tree)
-		if (back_child) {
+		if (back_child)
+		{
 			back_child->dumpEntireTreeAsText(childPrefix, false);
 		}
 	}
@@ -340,7 +349,8 @@ public:
 			// Always make a leaf and include all lines and the splitting line
 			is_leaf = true;
 			leaf_lines.clear();
-			for (auto &l : lines) leaf_lines.push_back(l);
+			for (auto &l : lines)
+				leaf_lines.push_back(l);
 			leaf_lines.push_back(original_splitting_line);
 			return;
 		}
@@ -419,7 +429,7 @@ public:
 		}
 	} // document
 
-	void draw() override
+	virtual void draw() override
 	{
 		// splitting_line.draw();
 		if (is_leaf)
@@ -427,13 +437,16 @@ public:
 			int line_index = 0;
 			// Color logic: left = more red, right = more blue, deeper = more green, start white
 			int base = 60;
-			int maxDepth = 10; // You can adjust this if you know the max tree depth
+			int maxDepth = 10;							  // You can adjust this if you know the max tree depth
 			int green = std::min(255, base + depth * 40); // More drastic green
 			int red = (node_label == "left") ? 255 : base;
 			int blue = (node_label == "right") ? 255 : base;
-			if (node_label == "root") { red = blue = 255; }
-			Color popColor = { (unsigned char)red, (unsigned char)green, (unsigned char)blue, 255 };
-			Color bboxColor = { (unsigned char)red, (unsigned char)green, (unsigned char)blue, 80 };
+			if (node_label == "root")
+			{
+				red = blue = 255;
+			}
+			Color popColor = {(unsigned char)red, (unsigned char)green, (unsigned char)blue, 255};
+			Color bboxColor = {(unsigned char)red, (unsigned char)green, (unsigned char)blue, 80};
 			for (auto &line : leaf_lines)
 			{
 				// std::cout << "\n\t\t\t" << leaf_lines.size() << " lines in leaf node.\n";
@@ -496,19 +509,22 @@ public:
 
 	void grow()
 	{
-		if (is_leaf) return;
+		if (is_leaf)
+			return;
 
 		if (!front_child && !front_lines.empty())
 		{
 			std::cout << "\t\tGrowing Front Node...\n";
 			front_child = birthNewChild(Side::FRONT);
-			if (front_child) front_child->grow();
+			if (front_child)
+				front_child->grow();
 		}
 		if (!back_child && !back_lines.empty())
 		{
 			std::cout << "\t\tGrowing Back Node...\n";
 			back_child = birthNewChild(Side::BACK);
-			if (back_child) back_child->grow();
+			if (back_child)
+				back_child->grow();
 		}
 	}
 
@@ -526,21 +542,28 @@ public:
 	virtual std::string getType() override { return "BSPNode"; }
 
 	// Returns pointer to the node whose bounding box contains p, or nullptr if not found
-	BSPNode* findNodeContainingPoint(const Point<float>& p) {
+	BSPNode *findNodeContainingPoint(const Point<float> &p)
+	{
 		// Always search children first
-		if (front_child) {
-			BSPNode* found = front_child->findNodeContainingPoint(p);
-			if (found) return found;
+		if (front_child)
+		{
+			BSPNode *found = front_child->findNodeContainingPoint(p);
+			if (found)
+				return found;
 		}
-		if (back_child) {
-			BSPNode* found = back_child->findNodeContainingPoint(p);
-			if (found) return found;
+		if (back_child)
+		{
+			BSPNode *found = back_child->findNodeContainingPoint(p);
+			if (found)
+				return found;
 		}
 		// For leaf nodes, check bounding box
-		if (is_leaf) {
+		if (is_leaf)
+		{
 			Bounds bbox = getBoundingBox();
 			if (p.getX() >= bbox.getMinX() && p.getX() <= bbox.getMaxX() &&
-				p.getY() >= bbox.getMinY() && p.getY() <= bbox.getMaxY()) {
+				p.getY() >= bbox.getMinY() && p.getY() <= bbox.getMaxY())
+			{
 				return this;
 			}
 		}
