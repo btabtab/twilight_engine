@@ -1,5 +1,4 @@
 #include "UserIncludes.hpp"
-#include "TwilightEngineCore/LightMap.hpp"
 /*
 	Hello!
 	This file will let you easily add your own code
@@ -9,6 +8,7 @@
 
 void TwilightEngine::userSetup()
 {
+	renderer.addRenderObject(new CosSinGrid());
 }
 
 void TwilightEngine::userLoop()

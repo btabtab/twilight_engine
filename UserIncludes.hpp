@@ -6,5 +6,4 @@
 #include "TwilightEngineCore/Renderables/RenderClasses.hpp"
 #include "TwilightEngineCore/TwilightEngine.hpp"
 
-#include "UserCode/MagicCube.hpp"
-#include "UserCode/Floor.hpp"
+#include "UserCode/CosSinDemo.hpp"
