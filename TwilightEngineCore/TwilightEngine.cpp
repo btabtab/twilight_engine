@@ -4,12 +4,23 @@ TwilightEngine::TwilightEngine(int argc, char *argv[], Point<float> new_window_s
 	: window_size(new_window_size), session_name(new_name)
 {
 	bool is_the_wizard_here = false;
+	bool run_with_metrics_too = false;
+	//Basic, non-dependant, arguments.
 	for (int i = 0; i != argc; i++)
 	{
 		if (std::string(argv[i]) == "-wizard")
 		{
 			is_the_wizard_here = true;
 			printf("Wizard found, running with the wizard...\n");
+		}
+	}
+	//For loop to check for arguments that depend on other arguments.
+	for(int i = 0; i != argc; i++)
+	{
+		if (is_the_wizard_here && std::string(argv[i]) == "-metrics")
+		{
+			run_with_metrics_too = true;
+			printf("Running with Metrics Capture as well.\n");
 		}
 	}
 
@@ -22,11 +33,25 @@ TwilightEngine::TwilightEngine(int argc, char *argv[], Point<float> new_window_s
 	if (is_wizard_present)
 	{
 		std::cout << "Running the application with the wizard :3\n";
-		wizard_panel = new WizardPanel();
+		wizard_panel = new WizardPanel(run_with_metrics_too);
 		wizard_panel->grabRenderObjectLists(renderer.getRenderObjects(), renderer.getRenderObjects3D());
 	}
 	emergency_exit = false;
-	max_fps = 30;
+	max_fps = 120;
+}
+TwilightEngine::~TwilightEngine()
+{
+	for(int i = 0; i != renderer.getRenderObjects()->size(); i++)
+	{
+		delete renderer.getRenderObjects()->at(i);
+	}
+	renderer.getRenderObjects()->clear();
+
+	for(int i = 0; i != renderer.getRenderObjects3D()->size(); i++)
+	{
+		delete renderer.getRenderObjects3D()->at(i);
+	}
+	renderer.getRenderObjects3D()->clear();
 }
 
 void TwilightEngine::enter()
@@ -42,6 +67,7 @@ void TwilightEngine::enter()
 	if (wizard_panel)
 	{
 		wizard_panel->loadWizardTexture();
+		wizard_panel->produceRenderTexture();
 	}
 
 	userSetup();
@@ -50,6 +76,8 @@ void TwilightEngine::enter()
 
 	while (!WindowShouldClose() || emergency_exit)
 	{
+		system("clear");
+		
 		frame_ID++;
 
 		bool should_i_pause_updates = false;
@@ -59,6 +87,7 @@ void TwilightEngine::enter()
 		}
 		if (should_i_pause_updates)
 		{
+			std::cout << "updating engine...\n";
 			if (!renderer.getRenderObjects3D()->empty())
 			{
 				for (int i = 0; i != renderer.getRenderObjects3D()->size(); i++)
@@ -74,6 +103,11 @@ void TwilightEngine::enter()
 					renderer.getRenderObjects()->at(i)->update();
 				}
 			}
+			if (wizard_panel)
+			{
+				wizard_panel->updateMetrics();
+			}
+
 		}
 
 		renderer.startDrawing();
@@ -93,6 +127,7 @@ void TwilightEngine::enter()
 		{
 			wizard_panel->handleInputs();
 			wizard_panel->updateDebugPage();
+			wizard_panel->updateMetrics();
 		}
 
 		if (IsKeyPressed(KEY_V))
@@ -107,6 +142,11 @@ void TwilightEngine::enter()
 				std::cout << "GIF recording started...\n";
 				startGIFRecording("UserGIFRecording");
 			}
+			if (wizard_panel->callForScreenshot())
+			{
+				is_screenshot_being_taken = true;
+			}
+			wizard_panel->updateMetricsGrid();
 		}
 		if (is_screenshot_being_taken)
 		{
@@ -116,13 +156,6 @@ void TwilightEngine::enter()
 			TakeScreenshot(end_path_name.c_str());
 			is_screenshot_being_taken = false;
 		}
-		if (wizard_panel)
-		{
-			if (wizard_panel->callForScreenshot())
-			{
-				is_screenshot_being_taken = true;
-			}
-		}
 		recordGIFFrame();
 		if (240 < GIF_frame_counter)
 		{
@@ -131,6 +164,7 @@ void TwilightEngine::enter()
 		}
 
 		userLoop();
+
 
 		// --- END INPUT POLLING SECTION ---
 	}
