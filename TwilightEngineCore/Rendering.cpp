@@ -5,7 +5,7 @@ void Renderer::addRenderObject3D(RenderObject3D* new_object)
 	render_objects_3D.push_back(new_object);
 }
 
-void Renderer::addRenderObject(RenderObject *new_object)
+void Renderer::addRenderObject(RenderObject2D *new_object)
 {
 	render_objects.push_back(new_object);
 }
@@ -24,7 +24,7 @@ void Renderer::stopDrawing()
 {
 	EndDrawing();
 }
-std::vector<RenderObject *> *Renderer::getRenderObjects()
+std::vector<RenderObject2D *> *Renderer::getRenderObjects()
 {
 	return &render_objects;
 }
@@ -58,28 +58,28 @@ void Renderer::drawContents()
 	*/
 	for (int i = 0; i != render_objects.size(); i++)
 	{
-		if (render_objects.at(i)->getLayer() == Layers::BACK)
+		if (render_objects.at(i)->getLayer() == DrawLayer::BACK)
 		{
 			render_objects.at(i)->draw();
 		}
 	}
 	for (int i = 0; i != render_objects.size(); i++)
 	{
-		if (render_objects.at(i)->getLayer() == Layers::MIDDLE)
+		if (render_objects.at(i)->getLayer() == DrawLayer::MIDDLE)
 		{
 			render_objects.at(i)->draw();
 		}
 	}
 	for (int i = 0; i != render_objects.size(); i++)
 	{
-		if (render_objects.at(i)->getLayer() == Layers::FRONT)
+		if (render_objects.at(i)->getLayer() == DrawLayer::FRONT)
 		{
 			render_objects.at(i)->draw();
 		}
 	}
 	for (int i = 0; i != render_objects.size(); i++)
 	{
-		if (render_objects.at(i)->getLayer() == Layers::UI)
+		if (render_objects.at(i)->getLayer() == DrawLayer::UI)
 		{
 			render_objects.at(i)->draw();
 		}

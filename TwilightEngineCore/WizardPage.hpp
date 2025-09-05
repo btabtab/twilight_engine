@@ -34,4 +34,18 @@ public:
 	void summonOrUnsummonHim();
 	void draw();
 	bool isThereAHole();
+	virtual size_t getBytesConsumed()
+	{
+		size_t ret = 0;
+		//General size.
+		ret += sizeof(WizardPage);
+		//Size consumed by the title.
+		ret += sizeof(char) * page_title.size();
+		//Size taken up by the text to show...
+		for(auto line : text_to_show)
+		{
+			ret += sizeof(char) * line.size();
+		}
+		return ret;
+	}
 };

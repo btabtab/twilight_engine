@@ -9,7 +9,7 @@
           "type": "cppdbg",
           "request": "launch",
           "program": "${workspaceRoot}/twilightEngineFrameWork.debug.runme",
-          "args": ["-wizard"],
+          "args": ["-wizard", "-metrics"],
           "stopAtEntry": false,
           "cwd": "${workspaceFolder}",
           "environment": [],

@@ -7,7 +7,7 @@
 	This is going to basically be a wrapper
 	for a vector of 2D lines.
 */
-class Room : public RenderObject
+class Room : public RenderObject2D
 {
 private:
 	std::vector<Line2D> walls;

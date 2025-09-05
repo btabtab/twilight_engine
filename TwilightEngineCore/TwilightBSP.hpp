@@ -27,13 +27,13 @@
 	was actually being worked towards.
 */
 
-class LineSet : public RenderObject
+class LineSet : public RenderObject2D
 {
 private:
 	std::vector<Line2D> lines;
 
 public:
-	LineSet() : RenderObject(), lines() {}
+	LineSet() : RenderObject2D(), lines() {}
 	LineSet(std::vector<Line2D> new_lines) : lines(new_lines) {}
 
 	void addLine(Point<float> a, Point<float> b, Color colour)
@@ -82,7 +82,7 @@ inline float signedDistance(const Line2D &line, const Point<float> &p) // docume
 } // document
 
 // Simple struct for bounding box
-class Bounds : public RenderObject
+class Bounds : public RenderObject2D
 {
 private:
 	std::vector<Line2D> edges;
@@ -116,7 +116,7 @@ public:
 	}
 };
 
-class BSPNode : public RenderObject
+class BSPNode : public RenderObject2D
 {
 private:
 	BSPNode *front_child;
@@ -154,7 +154,7 @@ public:
 		return Bounds(minX, minY, maxX, maxY, c);
 	}
 	BSPNode(Line2D new_splitting_line, bool leaf = false, int new_depth = 0, BSPNode *new_parent = nullptr, std::string label = "root")
-		: RenderObject(), splitting_line(new_splitting_line.extrapolate(10.0f)), original_splitting_line(new_splitting_line), is_leaf(leaf), front_child(nullptr), back_child(nullptr),
+		: RenderObject2D(), splitting_line(new_splitting_line.extrapolate(10.0f)), original_splitting_line(new_splitting_line), is_leaf(leaf), front_child(nullptr), back_child(nullptr),
 		  leaf_lines(), node_label(label)
 	{
 		depth = new_depth;

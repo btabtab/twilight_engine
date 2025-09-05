@@ -66,7 +66,7 @@ private:
 
 public:
 	TwilightEngine(int argc, char* argv[], Point<float> new_window_size, std::string new_name);
-
+	~TwilightEngine();
 	//Enters the main loop.
 	void enter();
 	//Takes a screenshot with the name.

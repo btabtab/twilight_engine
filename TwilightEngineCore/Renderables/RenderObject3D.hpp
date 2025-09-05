@@ -2,7 +2,7 @@
 #include <raylib.h>
 #include "RenderObject.hpp"
 
-class RenderObject3D: public RenderObject
+class RenderObject3D: public RenderObject2D
 {
 private:
     bool is_drawn_before_2D;

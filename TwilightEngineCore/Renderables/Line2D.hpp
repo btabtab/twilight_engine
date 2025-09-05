@@ -17,7 +17,7 @@ enum class Side
 	BACK,
 };
 
-class Line2D : public RenderObject
+class Line2D : public RenderObject2D
 {
 protected:
 	Point<float> a, b;
@@ -82,5 +82,9 @@ public:
 		Point<float> temp = a;
 		a = b;
 		b = temp;
+	}
+	virtual size_t getBytesConsumed() override
+	{
+		return sizeof(*this);
 	}
 };

@@ -1,7 +1,7 @@
 #pragma once
 #include "TwilightNode.hpp"
 
-class Ball: public RenderObject
+class Ball: public RenderObject2D
 {
 private:
 protected:
@@ -12,7 +12,7 @@ protected:
 	
 public:
 	Ball(Point<float> position, float radius, Color colour):
-	RenderObject(), position(position), radius(radius), colour(colour)
+	RenderObject2D(), position(position), radius(radius), colour(colour)
 	{
 	}
 	virtual void draw() override
