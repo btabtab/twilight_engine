@@ -6,6 +6,8 @@
 	and "userLoop" will run once every frame.
 */
 
+GrublingCollisionManager* grumbling_colision_manager;
+
 void TwilightEngine::userSetup()
 {
 	// renderer.addRenderObject(new TwilightExtensionDemo());
@@ -25,6 +27,9 @@ void TwilightEngine::userSetup()
 	renderer.addCamera(camera);
 
 	renderer.current_camera = 0;
+
+	grumbling_colision_manager = new GrublingCollisionManager(renderer.getRenderObjects());
+	renderer.getRenderObjects()->push_back(grumbling_colision_manager);
 }
 
 void TwilightEngine::userLoop()
@@ -35,4 +40,5 @@ void TwilightEngine::userLoop()
 		renderer.addRenderObject(new Grubling());
 		renderer.addRenderObject(new Grubling());
 	}
+	grumbling_colision_manager->getGrublings(renderer.getRenderObjects());
 }

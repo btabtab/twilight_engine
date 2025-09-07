@@ -3,6 +3,7 @@
 TwilightEngine::TwilightEngine(int argc, char *argv[], Point<float> new_window_size, std::string new_name)
 	: window_size(new_window_size), session_name(new_name)
 {
+	max_fps = 30;
 	bool is_the_wizard_here = false;
 	bool run_with_metrics_too = false;
 	//Basic, non-dependant, arguments.
@@ -37,7 +38,6 @@ TwilightEngine::TwilightEngine(int argc, char *argv[], Point<float> new_window_s
 		wizard_panel->grabRenderObjectLists(renderer.getRenderObjects(), renderer.getRenderObjects3D());
 	}
 	emergency_exit = false;
-	max_fps = 120;
 }
 TwilightEngine::~TwilightEngine()
 {
@@ -76,7 +76,7 @@ void TwilightEngine::enter()
 
 	while (!WindowShouldClose() || emergency_exit)
 	{
-		system("clear");
+		// system("clear");
 		
 		frame_ID++;
 
@@ -85,26 +85,27 @@ void TwilightEngine::enter()
 		{
 			should_i_pause_updates = !wizard_panel->isWizardOpen() || wizard_panel->getWasStepIssued();
 		}
-		if (should_i_pause_updates)
-		{
-			std::cout << "updating engine...\n";
-			if (!renderer.getRenderObjects3D()->empty())
-			{
-				for (int i = 0; i != renderer.getRenderObjects3D()->size(); i++)
-				{
-					renderer.getRenderObjects3D()->at(i)->update();
+		if (should_i_pause_updates) {
+			// std::cout << "updating engine...\n";
+			if (!renderer.getRenderObjects3D()->empty()) {
+				for (size_t i = 0; i < renderer.getRenderObjects3D()->size(); i++) {
+					if (renderer.getRenderObjects3D()->at(i)) {
+						renderer.getRenderObjects3D()->at(i)->update();
+					}
 				}
 			}
 
-			if (!renderer.getRenderObjects()->empty())
-			{
-				for (int i = 0; i != renderer.getRenderObjects()->size(); i++)
-				{
-					renderer.getRenderObjects()->at(i)->update();
+			handleDeletionRequests();
+
+			if (!renderer.getRenderObjects()->empty()) {
+				for (size_t i = 0; i < renderer.getRenderObjects()->size(); i++) {
+					if (renderer.getRenderObjects()->at(i)) {
+						renderer.getRenderObjects()->at(i)->update();
+					}
 				}
 			}
-			if (wizard_panel)
-			{
+
+			if (wizard_panel) {
 				wizard_panel->updateMetrics();
 			}
 
@@ -165,9 +166,29 @@ void TwilightEngine::enter()
 
 		userLoop();
 
-
 		// --- END INPUT POLLING SECTION ---
 	}
+}
+
+void TwilightEngine::handleDeletionRequests()
+{
+    for (int i = renderer.getRenderObjects()->size() - 1; i >= 0; i--)
+    {
+        if (renderer.getRenderObjects()->at(i)->wasDeleteRequested())
+        {
+            delete renderer.getRenderObjects()->at(i);
+            renderer.getRenderObjects()->erase(renderer.getRenderObjects()->begin() + i);
+        }
+    }
+
+    for (int i = renderer.getRenderObjects3D()->size() - 1; i >= 0; i--)
+    {
+        if (renderer.getRenderObjects3D()->at(i)->wasDeleteRequested())
+        {
+            delete renderer.getRenderObjects3D()->at(i);
+            renderer.getRenderObjects3D()->erase(renderer.getRenderObjects3D()->begin() + i);
+        }
+    }
 }
 
 void TwilightEngine::postError(std::string message)

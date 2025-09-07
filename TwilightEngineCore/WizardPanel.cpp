@@ -4,6 +4,8 @@
 WizardPanel::WizardPanel(bool run_with_twilight_metrics)
 {
 	was_step_issued = false;
+	keep_running_when_open = false;
+
 	current_page = 0;
 	std::cout << "\"Hello\" - The Wizard\n";
 	pages.push_back(new WizardPage(&the_wizard_texture, "KeyBinds"));
@@ -15,8 +17,10 @@ WizardPanel::WizardPanel(bool run_with_twilight_metrics)
 
 	pages.back()->addText(std::string("L-ALT + G - start recording GIF\n"));
 	pages.back()->addText(std::string("L-ALT + C - take screenshot (.png)\n"));
+	pages.back()->addText(std::string("L-ALT + D - Play while paused\n"));
 
 	pages.back()->addText(std::string("L-ALT + X + Y - Close Application\n"));
+	
 
 	pages.push_back(new WizardPage(&the_wizard_texture, "Window to see what's happening."));
 	pages.back()->toggleHole();
@@ -125,6 +129,7 @@ void WizardPanel::handleInputs()
 	bool was_GIF_recording_started = IsKeyPressed(KEY_G);
 	bool was_screenshot_taken = IsKeyPressed(KEY_C);
 	bool is_thunar_being_opened = IsKeyPressed(KEY_F);
+	bool is_play_while_paused = IsKeyPressed(KEY_D);
 
 	was_step_issued = false;
 
@@ -174,6 +179,10 @@ void WizardPanel::handleInputs()
 	{
 		system("thunar .");
 	}
+	if (is_alt_held_down && is_play_while_paused)
+	{
+		keep_running_when_open = !keep_running_when_open;
+	}
 }
 
 std::string WizardPanel::getType()
@@ -188,7 +197,7 @@ WizardPanel::~WizardPanel()
 
 bool WizardPanel::getWasStepIssued()
 {
-	return was_step_issued;
+	return was_step_issued || keep_running_when_open;
 }
 
 bool WizardPanel::callForGifRecording()

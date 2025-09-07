@@ -4,6 +4,7 @@
 TwilightNode::TwilightNode(int new_id)
 : ID(new_id)
 {
+    was_delete_requested = false;
     if(!new_id)
     {
         ID = rand() % 0xffff;

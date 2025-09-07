@@ -23,7 +23,8 @@ private:
 	std::vector<WizardPage*> pages;
 
 	bool was_step_issued;
-
+	bool keep_running_when_open;
+	
 	bool is_he_here;
 	Texture the_wizard_texture;
 
@@ -69,6 +70,7 @@ public:
 	void updateMetricsGrid();
 	void drawMetricsGridLine(float value_to_draw, std::string label, Color colour);
 	void drawMetricsAsLines(std::vector<float>* vector_to_draw, Color colour, float divide_amount);
+	
 	void updateMetrics()
 	{
 		twilight_metrics->generalUpdate(getEngineMemoryUsage(), GetFPS());
