@@ -5,6 +5,6 @@
 
 int main(int argc, char* argv[])
 {
-	TwilightEngine core(argc, argv, Point<float>(400, 400), "Twilight Engine");
+	TwilightEngine core(argc, argv, Point<float>(800, 800), "Twilight Engine");
 	core.enter();
 }

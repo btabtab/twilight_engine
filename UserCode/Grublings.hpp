@@ -21,6 +21,7 @@ class Grubling : public RenderObject2D
 private:
 	int age;
 	int generation;
+	int size;
 	/*
 		Here is a breakdown of how their DNA will work:
 		0, 1, 2 -	Their RGB values.
@@ -40,6 +41,7 @@ public:
 	Grubling() : position((GetScreenWidth() / 2), (GetScreenHeight() / 2)),
 				 generation(0)
 	{
+		size = 3;
 		age = 0;
 		position = position + Point<float>(
 								  GetRandomValue(-30, 30),
@@ -49,19 +51,20 @@ public:
 			DNA[i] = rand() % 0xff;
 		}
 		DNA[11] = 0x0AF0 / 60;
-		DNA[31] = rand() % 5;
+		DNA[31] = rand() % 0xff;
 	}
 	// Make a new grubling from 2 parents.
 	Grubling(Grubling *mother, Grubling *father) : position(mother->getPosition().getX(), father->getPosition().getY()),
 												   generation(mother->getGeneration() + 1)
 	{
+		size = 3;
 		age = 0;
 		position = position + Point<float>(
 								  GetRandomValue(-30, 30),
 								  GetRandomValue(-30, 30));
-		for (int i = 0; i != 16; i++)
+		for (int i = 0; i != 32; i++)
 		{
-			DNA[i] = (mother->getGene(i) + father->getGene(i));
+			DNA[i] = (mother->getGene(i) + father->getGene(i)) / 2;
 			if(DNA[i] < 6)
 			{
 				DNA[i] += GetRandomValue(-5, 5);
@@ -91,26 +94,31 @@ public:
 	}
 	void draw()
 	{
+		// DrawCircle(
+		// 	position.getX(),
+		// 	position.getY(),
+		// 	size + 1,
+		// 	WHITE);
 		DrawCircle(
 			position.getX(),
 			position.getY(),
-			12,
-			WHITE);
-		DrawCircle(
-			position.getX(),
-			position.getY(),
-			10,
+			size,
 			(Color){
-				getGene(0),
-				getGene(1),
+				//Older they get the redder they turn,
+				(unsigned char)(((float)(age) / (float)getGene(11)) * (float)0xff),
+				//The greener they are the more they can move,
+				getGene(31),
+				//The bluer they are the older they can get
 				getGene(11),
 				0xff});
+		// DrawText(("G: " + std::to_string(generation)).c_str(), position.getX(), position.getY(), 10, WHITE);
 	}
 	void update()
 	{
+		int movement_amount_limiter = ((float)DNA[31] / (float)0xff) * 30;
 		position = position + Point<float>(
-								  GetRandomValue(-DNA[31], DNA[31]),
-								  GetRandomValue(-DNA[31], DNA[31]));
+								  (float)GetRandomValue(-movement_amount_limiter, movement_amount_limiter) / 30.f,
+								  (float)GetRandomValue(-movement_amount_limiter, movement_amount_limiter) / 30.f);
 		if(position.getX() < 0)
 		{
 			position.setX(3);
@@ -121,11 +129,11 @@ public:
 		}
 		if(GetScreenWidth() < position.getX())
 		{
-			position.setX(3);
+			position.setX(GetScreenWidth() - 3);
 		}
 		if(GetScreenHeight() < position.getY())
 		{
-			position.setY(3);
+			position.setY(GetScreenHeight() - 3);
 		}
 
 		age++;
@@ -135,6 +143,11 @@ public:
 		}
 	}
 
+	void getOlder(int amount_to_age_by = 1)
+	{
+		age += amount_to_age_by;
+	}
+
 	size_t getBytesConsumed()
 	{
 		size_t ret = sizeof(DNA);
@@ -142,6 +155,14 @@ public:
 		ret += sizeof(generation);
 		ret += sizeof(position);
 		return ret;
+	}
+	int getSize()
+	{
+		return size;
+	}
+	int getAge()
+	{
+		return age;
 	}
 };
 
@@ -182,6 +203,38 @@ public:
 	void update()
 	{
 		std::vector<Grubling*> new_grubling_list;
+		for(auto mother : grublings)
+		{
+			for(auto father : grublings)
+			{
+				if(
+					father != mother
+					&&
+					mother->getPosition().getX() - (mother->getSize() - 1) < father->getPosition().getX()
+					&&
+					father->getPosition().getX() < mother->getPosition().getX() + (mother->getSize() - 1)
+					&&
+					mother->getPosition().getY() - (mother->getSize() - 1) < father->getPosition().getY()
+					&&
+					father->getPosition().getY() < mother->getPosition().getY() + (mother->getSize() - 1)
+					&&
+					10 < father->getAge()
+					&&
+					10 < mother->getAge()
+					)
+				{
+					if(amount_of_grublings < 200 && 50 < GetRandomValue(0, 0x100))
+					{
+						new_grubling_list.push_back(new Grubling(mother, father));
+					}
+					if(10 < GetRandomValue(0, 0x100))
+					{
+						mother->getOlder(10);
+						father->getOlder(10);
+					}
+				}
+			}
+		}
 		for (int i = 0; i < grublings.size(); i++)
 		{
 			for (int m = 0; m < grublings.size(); m++)
@@ -211,7 +264,8 @@ public:
 					}
 					if(10 < GetRandomValue(0, 0x100))
 					{
-						grublings.at(m)->deleteMe();
+						grublings.at(i)->getOlder(10);
+						grublings.at(m)->getOlder(10);
 					}
 				}
 			}
