@@ -4,6 +4,8 @@
 WizardPanel::WizardPanel(bool run_with_twilight_metrics)
 {
 	was_step_issued = false;
+	keep_running_when_open = false;
+
 	current_page = 0;
 	std::cout << "\"Hello\" - The Wizard\n";
 	pages.push_back(new WizardPage(&the_wizard_texture, "KeyBinds"));
@@ -15,8 +17,10 @@ WizardPanel::WizardPanel(bool run_with_twilight_metrics)
 
 	pages.back()->addText(std::string("L-ALT + G - start recording GIF\n"));
 	pages.back()->addText(std::string("L-ALT + C - take screenshot (.png)\n"));
+	pages.back()->addText(std::string("L-ALT + D - Play while paused\n"));
 
 	pages.back()->addText(std::string("L-ALT + X + Y - Close Application\n"));
+	
 
 	pages.push_back(new WizardPage(&the_wizard_texture, "Window to see what's happening."));
 	pages.back()->toggleHole();
@@ -52,8 +56,6 @@ void WizardPanel::grabRenderObjectLists(std::vector<RenderObject2D *> *main_rend
 
 void WizardPanel::loadWizardTexture()
 {
-	// Loads the wizard texture.
-	//  the_wizard_texture = LoadTexture("HIM_THE_WIZARD.png");
 }
 void WizardPanel::addTextToPanel()
 {
@@ -125,6 +127,7 @@ void WizardPanel::handleInputs()
 	bool was_GIF_recording_started = IsKeyPressed(KEY_G);
 	bool was_screenshot_taken = IsKeyPressed(KEY_C);
 	bool is_thunar_being_opened = IsKeyPressed(KEY_F);
+	bool is_play_while_paused = IsKeyPressed(KEY_D);
 
 	was_step_issued = false;
 
@@ -174,6 +177,10 @@ void WizardPanel::handleInputs()
 	{
 		system("thunar .");
 	}
+	if (is_alt_held_down && is_play_while_paused)
+	{
+		keep_running_when_open = !keep_running_when_open;
+	}
 }
 
 std::string WizardPanel::getType()
@@ -188,7 +195,7 @@ WizardPanel::~WizardPanel()
 
 bool WizardPanel::getWasStepIssued()
 {
-	return was_step_issued;
+	return was_step_issued || keep_running_when_open;
 }
 
 bool WizardPanel::callForGifRecording()
@@ -220,24 +227,7 @@ void WizardPanel::drawTwilightMetricsGraph()
 		return;
 	}
 	Point<int> metrics_box_top_left(10, 50);
-	//Box outline...
-	// DrawRectangle(0, 45, GetScreenWidth(), GetScreenHeight() - 90, WHITE);
-	//Metrics graph box...
-	// DrawRectangle(metrics_box_top_left.getX(), metrics_box_top_left.getY(), GetScreenWidth() - 20, GetScreenHeight() - 100, BLACK);
 	
-	// DrawTextureEx(
-	// 				metrics_grid_render_texture.texture,
-	// 				(Vector2)
-	// 				{
-	// 					(float)metrics_box_top_left.getX(),
-	// 					(float)metrics_box_top_left.getY()
-	// 					// metrics_grid_render_texture.texture.width,
-	// 				},
-	// 				0,
-	// 				-1,
-	// 				RAYWHITE
-	// 			);
-
 	// Draw the render texture flipped to display properly
 	Rectangle source = { 0.0f, 0.0f, (float)metrics_grid_render_texture.texture.width, -(float)metrics_grid_render_texture.texture.height };
 	Rectangle dest = { (float)metrics_box_top_left.getX(), (float)metrics_box_top_left.getY(), (float)metrics_grid_render_texture.texture.width, (float)metrics_grid_render_texture.texture.height };

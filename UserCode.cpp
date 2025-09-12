@@ -6,13 +6,15 @@
 	and "userLoop" will run once every frame.
 */
 
+GrublingCollisionManager* grumbling_colision_manager;
+
 void TwilightEngine::userSetup()
 {
-	renderer.addRenderObject(new TwilightExtensionDemo());
-	renderer.addRenderObject3D(new MagicCube(Point3D<float>(0, 0, 0)));
-	renderer.addRenderObject3D(new MagicCube(Point3D<float>(5, 5, 0)));
-	renderer.addRenderObject3D(new MagicCube(Point3D<float>(10, -5, 0)));
-	renderer.addRenderObject3D(new MagicCube(Point3D<float>(15, 5, 0)));
+	// renderer.addRenderObject(new TwilightExtensionDemo());
+	// renderer.addRenderObject3D(new MagicCube(Point3D<float>(0, 0, 0)));
+	// renderer.addRenderObject3D(new MagicCube(Point3D<float>(5, 5, 0)));
+	// renderer.addRenderObject3D(new MagicCube(Point3D<float>(10, -5, 0)));
+	// renderer.addRenderObject3D(new MagicCube(Point3D<float>(15, 5, 0)));
 
 	Camera3D* camera = new Camera3D();
 
@@ -25,31 +27,18 @@ void TwilightEngine::userSetup()
 	renderer.addCamera(camera);
 
 	renderer.current_camera = 0;
+
+	grumbling_colision_manager = new GrublingCollisionManager(renderer.getRenderObjects());
+	renderer.getRenderObjects()->push_back(grumbling_colision_manager);
 }
 
 void TwilightEngine::userLoop()
 {
-	MagicCube* last_magic_cube = nullptr;
-	for(int i = renderer.getRenderObjects()->size() - 1; i != 0; i--)
-	{
-		if(renderer.getRenderObjects()->at(i)->getType() == "MagicCube")
-		{
-			last_magic_cube = (MagicCube*)renderer.getRenderObjects()->at(i);
-		}
-	}
-	if(last_magic_cube)
-	{
-		renderer.getCurrentCamera()->target.x = last_magic_cube->getPosition().getX();
-		renderer.getCurrentCamera()->target.y = last_magic_cube->getPosition().getY();
-		renderer.getCurrentCamera()->target.z = last_magic_cube->getPosition().getZ();
-	}
+	grumbling_colision_manager->getGrublings(renderer.getRenderObjects());
 	if(IsKeyPressed(KEY_Q))
 	{
-		renderer.addRenderObject3D(new MagicCube(Point3D<float>(0, 0, 0)));
-		for(int i = -20; i != 20; i++)
-		{
-			renderer.addRenderObject3D(new MagicCube(Point3D<float>(i, sin(i), -i)));
-		}
-
+		renderer.addRenderObject(new Grubling());
+		renderer.addRenderObject(new Grubling());
+		renderer.addRenderObject(new Grubling());
 	}
 }

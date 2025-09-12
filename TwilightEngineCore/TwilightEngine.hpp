@@ -80,7 +80,14 @@ public:
 	void renderNextFrame();
 	//If the engine has stopped then return.
 	bool isEngineClosed();
-
+	
+	/*
+		Looks for any Twilight Nodes that
+		have a deletion request and will
+		free and then delete any that have.
+	*/
+	void handleDeletionRequests();
+	
 	//Puts an error message into the console.
 	void postError(std::string message);
 	//Puts a warning into the console.

@@ -10,6 +10,8 @@ private:
 protected:
 	int ID;
 	std::string name;
+	bool was_delete_requested;
+
 public:
 	int getID();
 	TwilightNode(int new_id = -1);
@@ -18,6 +20,15 @@ public:
 	virtual ~TwilightNode() = default;
 	virtual void update();
 	virtual std::string getType();
+
+	void deleteMe()
+	{
+		was_delete_requested = true;
+	}
+	bool wasDeleteRequested()
+	{
+		return was_delete_requested;
+	}
 
 	//Returns how many bytes the node is consuming.
 	virtual size_t getBytesConsumed()
