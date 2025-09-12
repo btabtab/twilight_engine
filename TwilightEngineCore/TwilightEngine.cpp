@@ -6,7 +6,7 @@ TwilightEngine::TwilightEngine(int argc, char *argv[], Point<float> new_window_s
 	max_fps = 30;
 	bool is_the_wizard_here = false;
 	bool run_with_metrics_too = false;
-	//Basic, non-dependant, arguments.
+	// Basic, non-dependant, arguments.
 	for (int i = 0; i != argc; i++)
 	{
 		if (std::string(argv[i]) == "-wizard")
@@ -15,8 +15,8 @@ TwilightEngine::TwilightEngine(int argc, char *argv[], Point<float> new_window_s
 			printf("Wizard found, running with the wizard...\n");
 		}
 	}
-	//For loop to check for arguments that depend on other arguments.
-	for(int i = 0; i != argc; i++)
+	// For loop to check for arguments that depend on other arguments.
+	for (int i = 0; i != argc; i++)
 	{
 		if (is_the_wizard_here && std::string(argv[i]) == "-metrics")
 		{
@@ -41,13 +41,13 @@ TwilightEngine::TwilightEngine(int argc, char *argv[], Point<float> new_window_s
 }
 TwilightEngine::~TwilightEngine()
 {
-	for(int i = 0; i != renderer.getRenderObjects()->size(); i++)
+	for (int i = 0; i != renderer.getRenderObjects()->size(); i++)
 	{
 		delete renderer.getRenderObjects()->at(i);
 	}
 	renderer.getRenderObjects()->clear();
 
-	for(int i = 0; i != renderer.getRenderObjects3D()->size(); i++)
+	for (int i = 0; i != renderer.getRenderObjects3D()->size(); i++)
 	{
 		delete renderer.getRenderObjects3D()->at(i);
 	}
@@ -77,7 +77,7 @@ void TwilightEngine::enter()
 	while (!WindowShouldClose() || emergency_exit)
 	{
 		// system("clear");
-		
+
 		frame_ID++;
 
 		bool should_i_pause_updates = false;
@@ -85,30 +85,37 @@ void TwilightEngine::enter()
 		{
 			should_i_pause_updates = !wizard_panel->isWizardOpen() || wizard_panel->getWasStepIssued();
 		}
-		if (should_i_pause_updates) {
+		if (should_i_pause_updates)
+		{
 			// std::cout << "updating engine...\n";
-			if (!renderer.getRenderObjects3D()->empty()) {
-				for (size_t i = 0; i < renderer.getRenderObjects3D()->size(); i++) {
-					if (renderer.getRenderObjects3D()->at(i)) {
+			if (!renderer.getRenderObjects3D()->empty())
+			{
+				for (size_t i = 0; i < renderer.getRenderObjects3D()->size(); i++)
+				{
+					if (renderer.getRenderObjects3D()->at(i))
+					{
 						renderer.getRenderObjects3D()->at(i)->update();
+					}
+				}
+			}
+
+			if (!renderer.getRenderObjects()->empty())
+			{
+				for (size_t i = 0; i < renderer.getRenderObjects()->size(); i++)
+				{
+					if (renderer.getRenderObjects()->at(i))
+					{
+						renderer.getRenderObjects()->at(i)->update();
 					}
 				}
 			}
 
 			handleDeletionRequests();
 
-			if (!renderer.getRenderObjects()->empty()) {
-				for (size_t i = 0; i < renderer.getRenderObjects()->size(); i++) {
-					if (renderer.getRenderObjects()->at(i)) {
-						renderer.getRenderObjects()->at(i)->update();
-					}
-				}
-			}
-
-			if (wizard_panel) {
+			if (wizard_panel)
+			{
 				wizard_panel->updateMetrics();
 			}
-
 		}
 
 		renderer.startDrawing();
@@ -172,23 +179,23 @@ void TwilightEngine::enter()
 
 void TwilightEngine::handleDeletionRequests()
 {
-    for (int i = renderer.getRenderObjects()->size() - 1; i >= 0; i--)
-    {
-        if (renderer.getRenderObjects()->at(i)->wasDeleteRequested())
-        {
-            delete renderer.getRenderObjects()->at(i);
-            renderer.getRenderObjects()->erase(renderer.getRenderObjects()->begin() + i);
-        }
-    }
+	for (int i = renderer.getRenderObjects()->size() - 1; i >= 0; i--)
+	{
+		if (renderer.getRenderObjects()->at(i)->wasDeleteRequested())
+		{
+			delete renderer.getRenderObjects()->at(i);
+			renderer.getRenderObjects()->erase(renderer.getRenderObjects()->begin() + i);
+		}
+	}
 
-    for (int i = renderer.getRenderObjects3D()->size() - 1; i >= 0; i--)
-    {
-        if (renderer.getRenderObjects3D()->at(i)->wasDeleteRequested())
-        {
-            delete renderer.getRenderObjects3D()->at(i);
-            renderer.getRenderObjects3D()->erase(renderer.getRenderObjects3D()->begin() + i);
-        }
-    }
+	for (int i = renderer.getRenderObjects3D()->size() - 1; i >= 0; i--)
+	{
+		if (renderer.getRenderObjects3D()->at(i)->wasDeleteRequested())
+		{
+			delete renderer.getRenderObjects3D()->at(i);
+			renderer.getRenderObjects3D()->erase(renderer.getRenderObjects3D()->begin() + i);
+		}
+	}
 }
 
 void TwilightEngine::postError(std::string message)

@@ -34,11 +34,11 @@ void TwilightEngine::userSetup()
 
 void TwilightEngine::userLoop()
 {
+	grumbling_colision_manager->getGrublings(renderer.getRenderObjects());
 	if(IsKeyPressed(KEY_Q))
 	{
 		renderer.addRenderObject(new Grubling());
 		renderer.addRenderObject(new Grubling());
 		renderer.addRenderObject(new Grubling());
 	}
-	grumbling_colision_manager->getGrublings(renderer.getRenderObjects());
 }
