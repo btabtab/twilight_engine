@@ -8,7 +8,7 @@
 #include "Renderables/RenderClasses.hpp"
 #include "Point.hpp"
 
-class WizardPage
+class WizardPage : public RenderObject2D
 {
 private:
 	std::string page_title;
@@ -33,9 +33,9 @@ public:
 	void addText(std::string text_to_add);
 	bool heIsThere();
 	void summonOrUnsummonHim();
-	void draw();
+	void draw() override;
 	bool isThereAHole();
-	virtual size_t getBytesConsumed()
+	virtual size_t getBytesConsumed() override
 	{
 		size_t ret = 0;
 		//General size.
@@ -48,5 +48,9 @@ public:
 			ret += sizeof(char) * line.size();
 		}
 		return ret;
+	}
+	std::string getType() override
+	{
+		return "WizardPageNormal";
 	}
 };

@@ -67,7 +67,7 @@ void TwilightEngine::enter()
 	if (wizard_panel)
 	{
 		wizard_panel->loadWizardTexture();
-		wizard_panel->produceRenderTexture();
+		wizard_panel->produceRenderTextures();
 	}
 
 	userSetup();
@@ -134,7 +134,6 @@ void TwilightEngine::enter()
 		if (wizard_panel)
 		{
 			wizard_panel->handleInputs();
-			wizard_panel->updateDebugPage();
 			wizard_panel->updateMetrics();
 		}
 
@@ -154,7 +153,6 @@ void TwilightEngine::enter()
 			{
 				is_screenshot_being_taken = true;
 			}
-			wizard_panel->updateMetricsGrid();
 		}
 		if (is_screenshot_being_taken)
 		{
