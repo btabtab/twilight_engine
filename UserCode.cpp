@@ -27,18 +27,8 @@ void TwilightEngine::userSetup()
 	renderer.addCamera(camera);
 
 	renderer.current_camera = 0;
-
-	grumbling_colision_manager = new GrublingCollisionManager(renderer.getRenderObjects());
-	renderer.getRenderObjects()->push_back(grumbling_colision_manager);
 }
 
 void TwilightEngine::userLoop()
 {
-	grumbling_colision_manager->getGrublings(renderer.getRenderObjects());
-	if(IsKeyPressed(KEY_Q))
-	{
-		renderer.addRenderObject(new Grubling());
-		renderer.addRenderObject(new Grubling());
-		renderer.addRenderObject(new Grubling());
-	}
 }

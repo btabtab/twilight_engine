@@ -5,6 +5,7 @@
 #include <vector>
 #include <raylib.h>
 
+#include "Renderables/RenderClasses.hpp"
 #include "Point.hpp"
 
 class WizardPage
