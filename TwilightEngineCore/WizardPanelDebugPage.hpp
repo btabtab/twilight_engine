@@ -77,7 +77,13 @@ public:
 	}
 
 	//Default amount of points to draw is 6 because hexagons are cool.
-	void drawStatRing(Point3D<float> center = Point3D<float>(0, 0, 0), float radius = 5, Color colour = HOLLOW_GREEN, int points = 6)
+	void drawStatRing(
+						Point3D<float> center = Point3D<float>(0, 0, 0),
+						float radius = 5,
+						Color colour = HOLLOW_GREEN,
+						int points = 6,
+						Point3D<float> rotation_axis = Point3D<float>UP_3D
+					)
 	{
 		Point3D<float> edge(center.getX() + radius, center.getY(), center.getZ());
 		Point3D<float> a = edge;
@@ -85,8 +91,31 @@ public:
 		for(int i = 1; i != points + 1; i++)
 		{
 			b = a;
-			a = edge.rotateAroundAxis(edge, center, Point3D<float>(0, 1, 0), (360 / points) * i);
+			a = edge.rotateAroundAxis(edge, center, rotation_axis, (360 / points) * i);
 			Line3D(a, b, colour).draw();
+		}
+	}
+	void drawChartedStatRing(
+								std::vector<float>* history = nullptr,
+								float division_amount = 1,
+								Color colour = WHITE,
+								int points = 6
+							)
+	{
+		colour.a = colour.a >> 2;
+		if(history == nullptr)
+		{
+			return;
+		}
+
+		for(auto chart_point : *history)
+		{
+			drawStatRing(
+							Point3D<float>(0, 0, 0),
+							chart_point / division_amount,
+							colour,
+							points
+						);
 		}
 	}
 
@@ -99,20 +128,39 @@ public:
 		
 		//Cool Drawing Stuff Here.
 		drawStatRing(
-						Point3D<float>(0, 0, 0),
+						Point3D<float>(0, -1, 0),
 						twilight_metrics.getAverageMemoryHistory() / 1024,
-						RED
+						RED,
+						60
 					);
 		drawStatRing(
-						Point3D<float>(0, 0, 0),
-						(twilight_metrics.getAverageFramerateHistory() / 60) * 10,
-						ORANGE
+						Point3D<float>(0, -1, 0),
+						twilight_metrics.getMemoryConsumedHistory()->back() / 1024,
+						HOLLOW_RED,
+						60
 					);
+
+		//Framerate Metrics:
 
 		drawStatRing(
 						Point3D<float>(0, 0, 0),
-						(twilight_metrics.getFramerateHistory()->back() / 60) * 10,
-						ORANGE
+						(twilight_metrics.getAverageFramerateHistory() / 30) * 10,
+						ORANGE,
+						60
+					);
+
+
+		drawStatRing(
+						Point3D<float>(0, 0, 0),
+						(twilight_metrics.getFramerateHistory()->back() / 30) * 10,
+						HOLLOW_ORANGE,
+						60
+					);
+		drawStatRing(
+						Point3D<float>(0, 0, 0),
+						10,
+						GREEN,
+						60
 					);
 
 		EndMode3D();
@@ -250,7 +298,7 @@ public:
 																																			 WizardPage((Texture2D *)nullptr, "Metrics Panel", std::vector<std::string>())
 	{
 
-		camera.position = (Vector3){ 10, 10, 10 };
+		camera.position = (Vector3){ 20, 20, 20 };
 		camera.target = (Vector3){0, 0, 0};
 		camera.up = (Vector3){ 0.0f, 1.0f, 0.0f };
 		camera.fovy = 45.0f;

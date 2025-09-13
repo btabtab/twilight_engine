@@ -35,6 +35,21 @@ public:
 	{
 		return &framerate_history;
 	}
+	float getUpperMemoryBound()
+	{
+		float ret = memory_consumed_history.back();
+		for(auto memory : memory_consumed_history)
+		{
+			if(ret < memory)
+			{
+				ret = memory;
+			}
+		}
+		return ret;
+	}
+	float getLowerMemoryBound()
+	{
+	}
 	float getAverageFramerateHistory()
 	{
 		float ret;

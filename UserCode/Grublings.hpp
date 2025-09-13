@@ -258,7 +258,7 @@ public:
 					grublings.at(m)->getPosition().getY() < grublings.at(i)->getPosition().getY() + 10
 					)
 				{
-					if(amount_of_grublings < 200 && 50 < GetRandomValue(0, 0x100))
+					if(amount_of_grublings < 400 && 50 < GetRandomValue(0, 0x100))
 					{
 						new_grubling_list.push_back(new Grubling(grublings.at(i), grublings.at(m)));
 					}
