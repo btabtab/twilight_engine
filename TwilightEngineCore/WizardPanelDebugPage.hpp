@@ -7,18 +7,27 @@
 #include "WizardPage.hpp"
 #include "TwilightMetrics.hpp"
 
+#define HOLLOW_GREEN (Color){ 0, 0xff, 0, 0xff >> 1 }
+#define HOLLOW_RED (Color){ 0xff, 0, 0, 0xff >> 1 }
+#define HOLLOW_BLUE (Color){ 0, 0, 0xff, 0xff >> 1 }
+#define HOLLOW_ORANGE (Color){ 0xff, 161, 0, 0xff >> 1 }
+
 class WizardDebugPage : public WizardPage
 {
 private:
 	RenderTexture metrics_grid_render_texture;
+	RenderTexture advanced_metrics_texture;
+
 	std::vector<RenderObject2D *> *render_object_vector;
 	std::vector<RenderObject3D *> *render_object_3D_vector;
 	TwilightMetrics twilight_metrics;
+	Camera3D camera;
 
 public:
 	void startRenderTextures()
 	{
 		metrics_grid_render_texture = LoadRenderTexture(GetScreenWidth() - 20, 200);
+		advanced_metrics_texture = LoadRenderTexture(GetScreenWidth() - 20, 400);
 	}
 	std::string getType() override
 	{
@@ -30,19 +39,12 @@ public:
 		BeginTextureMode(metrics_grid_render_texture);
 		ClearBackground(BLACK);
 
-		Color hollow_green =
-			(Color){
-				0,
-				0xff,
-				0,
-				0xff >> 1};
-
 		for (int x = 0; x <= dimensions.getX(); x += 10)
 		{
 			Line2D(
 				Point<float>(x, 20),
 				Point<float>(x, dimensions.getY()),
-				hollow_green)
+				HOLLOW_GREEN)
 				.draw();
 		}
 		for (int y = 20; y <= dimensions.getY(); y += 10)
@@ -50,7 +52,7 @@ public:
 			Line2D(
 				Point<float>(0, y),
 				Point<float>(dimensions.getX(), y),
-				hollow_green)
+				HOLLOW_GREEN)
 				.draw();
 		}
 
@@ -71,6 +73,49 @@ public:
 
 		DrawText("TwilightMetrics:", 0, 0, 10, WHITE);
 
+		EndTextureMode();
+	}
+
+	//Default amount of points to draw is 6 because hexagons are cool.
+	void drawStatRing(Point3D<float> center = Point3D<float>(0, 0, 0), float radius = 5, Color colour = HOLLOW_GREEN, int points = 6)
+	{
+		Point3D<float> edge(center.getX() + radius, center.getY(), center.getZ());
+		Point3D<float> a = edge;
+		Point3D<float> b(0, 0, 0);
+		for(int i = 1; i != points + 1; i++)
+		{
+			b = a;
+			a = edge.rotateAroundAxis(edge, center, Point3D<float>(0, 1, 0), (360 / points) * i);
+			Line3D(a, b, colour).draw();
+		}
+	}
+
+	void advancedMetricsDisplay()
+	{
+
+		BeginTextureMode(advanced_metrics_texture);
+		ClearBackground(BLACK);
+		BeginMode3D(camera);
+		
+		//Cool Drawing Stuff Here.
+		drawStatRing(
+						Point3D<float>(0, 0, 0),
+						twilight_metrics.getAverageMemoryHistory() / 1024,
+						RED
+					);
+		drawStatRing(
+						Point3D<float>(0, 0, 0),
+						(twilight_metrics.getAverageFramerateHistory() / 60) * 10,
+						ORANGE
+					);
+
+		drawStatRing(
+						Point3D<float>(0, 0, 0),
+						(twilight_metrics.getFramerateHistory()->back() / 60) * 10,
+						ORANGE
+					);
+
+		EndMode3D();
 		EndTextureMode();
 	}
 
@@ -102,6 +147,17 @@ public:
 		Rectangle dest = {(float)metrics_box_top_left.getX(), (float)metrics_box_top_left.getY(), (float)metrics_grid_render_texture.texture.width, (float)metrics_grid_render_texture.texture.height};
 		Vector2 origin = {0.0f, 0.0f};
 		DrawTexturePro(metrics_grid_render_texture.texture, source, dest, origin, 0.0f, RAYWHITE);
+	}
+
+	void drawAdvancedMetricsDisplayGraph()
+	{
+		Point<int> metrics_box_top_left(10, 300);
+
+		// Draw the render texture flipped to display properly
+		Rectangle source = {0.0f, 0.0f, (float)advanced_metrics_texture.texture.width, -(float)advanced_metrics_texture.texture.height};
+		Rectangle dest = {(float)metrics_box_top_left.getX(), (float)metrics_box_top_left.getY(), (float)advanced_metrics_texture.texture.width, (float)advanced_metrics_texture.texture.height};
+		Vector2 origin = {0.0f, 0.0f};
+		DrawTexturePro(advanced_metrics_texture.texture, source, dest, origin, 0.0f, RAYWHITE);
 	}
 
 	/*
@@ -166,6 +222,7 @@ public:
 		getText()->at(3) = "Space consumed in MB: " + std::to_string((((float)getEngineMemoryUsage() / 1024.f) / 1024.f));
 
 		updateMetricsGrid();
+		advancedMetricsDisplay();
 
 	}
 	void setVectors(std::vector<RenderObject2D *> *main_render_object_vector, std::vector<RenderObject3D *> *main_render_object_3D_vector)
@@ -185,16 +242,23 @@ public:
 		*/
 		WizardPage::draw();// <- THIS IS AMAZING I LOVE THIS.
 		drawTwilightMetricsGraph();
+		drawAdvancedMetricsDisplayGraph();
 	}
 
 	WizardDebugPage(std::vector<RenderObject2D *> *main_render_object_vector, std::vector<RenderObject3D *> *main_render_object_3D_vector) : render_object_vector(main_render_object_vector),
 																																			 render_object_3D_vector(main_render_object_3D_vector),
 																																			 WizardPage((Texture2D *)nullptr, "Metrics Panel", std::vector<std::string>())
 	{
+
+		camera.position = (Vector3){ 10, 10, 10 };
+		camera.target = (Vector3){0, 0, 0};
+		camera.up = (Vector3){ 0.0f, 1.0f, 0.0f };
+		camera.fovy = 45.0f;
+		camera.projection = CAMERA_PERSPECTIVE;
+
 		getText()->push_back("FPS");
 		getText()->push_back("2D objects");
 		getText()->push_back("3D objects");
 		getText()->push_back("Space consumed (MB)");
-
 	}
 };
