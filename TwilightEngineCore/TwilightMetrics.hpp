@@ -47,9 +47,6 @@ public:
 		}
 		return ret;
 	}
-	float getLowerMemoryBound()
-	{
-	}
 	float getAverageFramerateHistory()
 	{
 		float ret;

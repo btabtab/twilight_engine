@@ -53,6 +53,10 @@ public:
 		DNA[11] = 0x0AF0 / 60;
 		DNA[31] = rand() % 0xff;
 	}
+	void setAge(int new_age = 0)
+	{
+		age = new_age;
+	}
 	// Make a new grubling from 2 parents.
 	Grubling(Grubling *mother, Grubling *father) : position(mother->getPosition().getX(), father->getPosition().getY()),
 												   generation(mother->getGeneration() + 1)
@@ -163,6 +167,10 @@ public:
 	int getAge()
 	{
 		return age;
+	}
+	int getMaxAge()
+	{
+		return getGene(11);
 	}
 };
 

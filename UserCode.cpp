@@ -6,7 +6,7 @@
 	and "userLoop" will run once every frame.
 */
 
-GrublingCollisionManager* grumbling_colision_manager;
+BeetleNode* top_dog;
 
 void TwilightEngine::userSetup()
 {
@@ -27,20 +27,16 @@ void TwilightEngine::userSetup()
 	renderer.addCamera(camera);
 
 	renderer.current_camera = 0;
-
-
-	grumbling_colision_manager = new GrublingCollisionManager(renderer.getRenderObjects());
-	renderer.getRenderObjects()->push_back(grumbling_colision_manager);
-
+	//This is abysmal practice but yk, I'm just messing around rn.
+	top_dog = new BeetleNode();
+	top_dog->giveChild(new BeetleNode(top_dog));
+	renderer.addRenderObject(top_dog);
 }
 
 void TwilightEngine::userLoop()
 {
-	grumbling_colision_manager->getGrublings(renderer.getRenderObjects());
-	if(IsKeyPressed(KEY_Q))
+	if(IsKeyPressed(KEY_Y))
 	{
-		renderer.addRenderObject(new Grubling());
-		renderer.addRenderObject(new Grubling());
-		renderer.addRenderObject(new Grubling());
+		top_dog->handChildDown(new BeetleNode());
 	}
 }
