@@ -35,6 +35,47 @@ public:
 	{
 		return &framerate_history;
 	}
+	float getUpperMemoryBound()
+	{
+		float ret = memory_consumed_history.back();
+		for(auto memory : memory_consumed_history)
+		{
+			if(ret < memory)
+			{
+				ret = memory;
+			}
+		}
+		return ret;
+	}
+	float getLowerMemoryBound()
+	{
+	}
+	float getAverageFramerateHistory()
+	{
+		float ret;
+		for(auto framerate : framerate_history)
+		{
+			ret += framerate;
+		}
+		if(framerate_history.size() == 0)
+		{
+			return 0.f;
+		}
+		return ret / framerate_history.size();
+	}
+	float getAverageMemoryHistory()
+	{
+		float ret = 0;
+		for(auto memory : memory_consumed_history)
+		{
+			ret += memory;
+		}
+		if(memory_consumed_history.size() == 0)
+		{
+			return 0.f;
+		}
+		return ret / memory_consumed_history.size();
+	}
 
 	void updateFramerateHistory(int new_framerate_value)
 	{

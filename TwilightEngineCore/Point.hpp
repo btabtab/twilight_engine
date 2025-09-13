@@ -152,6 +152,13 @@ public:
 	}
 };
 
+#define UP_3D (0, 1, 0)
+#define DOWN_3D (0, -1, 0)
+#define LEFT_3D (1, 0, 0)
+#define RIGHT_3D (-1, 0, 0)
+#define FORWARDS_3D (0, 1, 0)
+#define BACKWARDS_3D (0, -1, 0)
+
 // 3D Point/Vector class
 template <typename T>
 class Point3D

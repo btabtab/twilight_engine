@@ -25,26 +25,20 @@ WizardPanel::WizardPanel(bool run_with_twilight_metrics)
 	pages.push_back(new WizardPage(&the_wizard_texture, "Window to see what's happening."));
 	pages.back()->toggleHole();
 
-	pages.push_back(new WizardPage(&the_wizard_texture, "Debug Information"));
-	pages.back()->toggleDebugPage();
-
-	pages.back()->addText("Framerate counter [?]");
-
-	pages.back()->addText("2D object counts");
-	pages.back()->addText("3D object counts");
-	pages.back()->addText("Consumed Space");
-
 	if(run_with_twilight_metrics)
 	{
-		twilight_metrics = new TwilightMetrics();
+		pages.push_back(new WizardDebugPage(render_object_vector, render_object_3D_vector));
 	}
 }
 
-void WizardPanel::produceRenderTexture()
+void WizardPanel::produceRenderTextures()
 {
-	if(twilight_metrics)
+	for(auto page : pages)
 	{
-		metrics_grid_render_texture = LoadRenderTexture(GetScreenWidth() - 20, 200);
+		if(page->getType() == "WizardDebugPage")
+		{
+			((WizardDebugPage*)page)->startRenderTextures();
+		}
 	}
 }
 
@@ -52,6 +46,14 @@ void WizardPanel::grabRenderObjectLists(std::vector<RenderObject2D *> *main_rend
 {
 	render_object_vector = main_render_object_vector;
 	render_object_3D_vector = main_render_object_3D_vector;
+
+	for(auto page : pages)
+	{
+		if(page->getType() == "WizardDebugPage")
+		{
+			((WizardDebugPage*)page)->setVectors(main_render_object_vector, main_render_object_3D_vector);
+		}
+	}
 }
 
 void WizardPanel::loadWizardTexture()
@@ -59,19 +61,6 @@ void WizardPanel::loadWizardTexture()
 }
 void WizardPanel::addTextToPanel()
 {
-}
-
-void WizardPanel::updateDebugPage()
-{
-	if (!pages.at(current_page)->isDebugPage())
-	{
-		return;
-	}
-	pages.at(current_page)->getText()->at(0) = "Framerate: " + std::to_string(GetFPS());
-	pages.at(current_page)->getText()->at(1) = "2D render objects: " + std::to_string(render_object_vector->size());
-	pages.at(current_page)->getText()->at(2) = "3D render objects: " + std::to_string(render_object_3D_vector->size());
-
-	pages.at(current_page)->getText()->at(3) = "Space consumed in MB: " + std::to_string((((float)getEngineMemoryUsage() / 1024.f) / 1024.f));
 }
 
 void WizardPanel::draw()
@@ -97,10 +86,6 @@ void WizardPanel::draw()
 		DrawRectangle(0, 0, screen.getX(), screen.getY(), BLACK);
 	}
 	pages.at(current_page)->draw();
-	if(pages.at(current_page)->isDebugPage())
-	{
-		drawTwilightMetricsGraph();
-	}
 	
 	// DrawText(((std::string)("FPS: " + GetFPS())).c_str(), screen.getX() - 30, screen.getY() - 30, 10, ORANGE;
 	DrawText(
@@ -109,6 +94,11 @@ void WizardPanel::draw()
 		screen.getY() - 30,
 		10,
 		ORANGE);
+	
+	for(auto page : pages)
+	{
+		page->update();
+	}
 }
 
 bool WizardPanel::isWizardOpen()
@@ -217,129 +207,4 @@ bool WizardPanel::callForScreenshot()
 	}
 	request_screenshot = false;
 	return ret;
-}
-
-void WizardPanel::drawTwilightMetricsGraph()
-{
-	if(!twilight_metrics)
-	{
-		DrawText("TwilightMetrics not found...", 10, 50, 10, WHITE);
-		return;
-	}
-	Point<int> metrics_box_top_left(10, 50);
-	
-	// Draw the render texture flipped to display properly
-	Rectangle source = { 0.0f, 0.0f, (float)metrics_grid_render_texture.texture.width, -(float)metrics_grid_render_texture.texture.height };
-	Rectangle dest = { (float)metrics_box_top_left.getX(), (float)metrics_box_top_left.getY(), (float)metrics_grid_render_texture.texture.width, (float)metrics_grid_render_texture.texture.height };
-	Vector2 origin = { 0.0f, 0.0f };
-	DrawTexturePro(metrics_grid_render_texture.texture, source, dest, origin, 0.0f, RAYWHITE);
-}
-
-/*
-	1. Grab the value, colour, and label,
-	2. Draw the line after accounting for dimensions..
-*/
-void WizardPanel::drawMetricsGridLine(float value_to_draw, std::string label, Color colour)
-{
-	Point<int> dimensions(metrics_grid_render_texture.texture.width, metrics_grid_render_texture.texture.height);
-	
-	value_to_draw = dimensions.getY() - value_to_draw;
-
-	DrawLine(0, value_to_draw, dimensions.getX(), value_to_draw, BLUE);
-	
-	DrawText(
-				label.c_str(),
-				10,
-				value_to_draw - 10,
-				10,
-				colour
-						);
-}
-
-void WizardPanel::drawMetricsAsLines(std::vector<float>* vector_to_draw, Color colour, float divide_amount)
-{
-    if (vector_to_draw == nullptr || vector_to_draw->empty())
-    {
-        // If the vector is null or empty, there's nothing to draw.
-        return;
-    }
-
-    Point<int> dimensions(metrics_grid_render_texture.texture.width, metrics_grid_render_texture.texture.height);
-
-    Point<float> last_point(0, dimensions.getY());
-
-    for (size_t i = 0; i < vector_to_draw->size(); ++i)
-    {
-        // Scale the value using divide_amount to ensure it fits within the grid's height.
-        float scaled_value = vector_to_draw->at(i) / divide_amount;
-        float value_to_draw = dimensions.getY() - std::clamp(scaled_value, 0.0f, (float)dimensions.getY());
-
-        Point<float> new_point(
-            // Scale x-coordinate to fit within the texture width.
-            (static_cast<float>(dimensions.getX()) / vector_to_draw->size()) * i,
-            value_to_draw
-        );
-
-        Line2D(
-            last_point,
-            new_point,
-            colour
-        ).draw();
-
-        last_point = new_point;
-    }
-}
-
-void WizardPanel::updateMetricsGrid()
-{
-	Point<int> dimensions(metrics_grid_render_texture.texture.width, metrics_grid_render_texture.texture.height);
-	BeginTextureMode(metrics_grid_render_texture);
-	ClearBackground(BLACK);
-
-	Color hollow_green =
-	(Color)
-	{
-		0,
-		0xff,
-		0,
-		0xff >> 1
-	};
-	
-	for(int x = 0; x <= dimensions.getX(); x += 10)
-	{
-		Line2D(
-				Point<float>(x, 20),
-				Point<float>(x, dimensions.getY()),
-				hollow_green
-							).draw();
-	}
-	for(int y = 20; y <= dimensions.getY(); y += 10)
-	{
-		Line2D(
-				Point<float>(0, y),
-				Point<float>(dimensions.getX(), y),
-				hollow_green
-							).draw();
-	}
-
-	float current_memory_usage_in_kilobytes = (getEngineMemoryUsage() / 1024.f);
-
-	drawMetricsAsLines(twilight_metrics->getMemoryConsumedHistory(), RED, 1024);
-	drawMetricsAsLines(twilight_metrics->getFramerateHistory(), ORANGE, 1);
-
-	drawMetricsGridLine(
-						current_memory_usage_in_kilobytes,
-						"Current Memory Usage in KB: " + std::to_string(current_memory_usage_in_kilobytes),
-						BLUE
-						);
-	
-	drawMetricsGridLine(
-						twilight_metrics->getAverageFramerate(),
-						"Current Framerate: " + std::to_string(GetFPS()),
-						GREEN
-						);
-
-	DrawText("TwilightMetrics:", 0, 0, 10, WHITE);
-
-	EndTextureMode();
 }
