@@ -24,7 +24,7 @@ protected:
 
 public:
 	Line2D();
-	Line2D(Point<float> new_a, Point<float> new_b, Color new_colour);
+	Line2D(Point<float> new_a, Point<float> new_b, Color new_colour = WHITE);
 	virtual void draw() override;
 	// Returns true if intersection exists within segments
 	bool intersects(const Line2D &other) const;
@@ -86,5 +86,14 @@ public:
 	virtual size_t getBytesConsumed() override
 	{
 		return sizeof(*this);
+	}
+
+	bool isLineValid()
+	{
+		return !(
+				(int)a.getX() == (int)b.getX()
+				&&
+				(int)a.getY() == (int)b.getY()
+			);
 	}
 };

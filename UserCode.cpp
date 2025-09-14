@@ -1,42 +1,57 @@
 #include "UserIncludes.hpp"
+
 /*
+
 	Hello!
+
 	This file will let you easily add your own code
+
 	to run. "userSetup" will run once at the start,
+
 	and "userLoop" will run once every frame.
+
 */
 
-BeetleNode* top_dog;
+GrublingCollisionManager *grubling_colision_manager;
+Texture test_texture;
 
 void TwilightEngine::userSetup()
+
 {
+
 	// renderer.addRenderObject(new TwilightExtensionDemo());
 	// renderer.addRenderObject3D(new MagicCube(Point3D<float>(0, 0, 0)));
 	// renderer.addRenderObject3D(new MagicCube(Point3D<float>(5, 5, 0)));
 	// renderer.addRenderObject3D(new MagicCube(Point3D<float>(10, -5, 0)));
 	// renderer.addRenderObject3D(new MagicCube(Point3D<float>(15, 5, 0)));
 
-	Camera3D* camera = new Camera3D();
-
-	camera->position = (Vector3){ 0.0f, 3.0f, 16.0f };
-	camera->target = (Vector3){ -3.0f, -3.0f, 3.0f };
-	camera->up = (Vector3){ 0.0f, 1.0f, 0.0f };
+	Camera3D *camera = new Camera3D();
+	camera->position = (Vector3){0.0f, 3.0f, 16.0f};
+	camera->target = (Vector3){-3.0f, -3.0f, 3.0f};
+	camera->up = (Vector3){0.0f, 1.0f, 0.0f};
 	camera->fovy = 45.0f;
 	camera->projection = CAMERA_PERSPECTIVE;
 
 	renderer.addCamera(camera);
-
 	renderer.current_camera = 0;
-	//This is abysmal practice but yk, I'm just messing around rn.
-	top_dog = new BeetleNode();
-	top_dog->giveChild(new BeetleNode(top_dog));
-	renderer.addRenderObject(top_dog);
+	grubling_colision_manager = new GrublingCollisionManager(renderer.getRenderObjects());
+	//Strangest fix I've ever done, i HAVE an API for that...
+	renderer.addRenderObject(grubling_colision_manager);
+
+	test_texture = LoadTexture("HIM_THE_WIZARD.png");
+	renderer.addRenderObject(new Sprite(&test_texture, Point<int>(0, 0)));
 }
 
 void TwilightEngine::userLoop()
 {
-	if(IsKeyPressed(KEY_Y))
+
+	grubling_colision_manager->getGrublings(renderer.getRenderObjects());
+	if (IsKeyPressed(KEY_Q))
 	{
-		top_dog->handChildDown(new BeetleNode());
+		renderer.addRenderObject(new Grubling());
+		renderer.addRenderObject(new Grubling());
+		renderer.addRenderObject(new Grubling());
 	}
+
+	grubling_colision_manager->getGrublings(renderer.getRenderObjects());
 }

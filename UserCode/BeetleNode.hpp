@@ -34,6 +34,10 @@ public:
 		child->handChildDown(new_child);
 	}
 	
+	/*
+		Really morbid naming here...
+		might keep it for the funnies.
+	*/
 	void tellParentImGoingToDie()
 	{
 	}
@@ -43,6 +47,31 @@ public:
 		child = new_child;
 		child->setParent(this);
 	}
+
+	Line2D getAttachmentLine()
+	{
+		if(child != nullptr)
+		{
+			return Line2D(getPosition(), getPosition());
+		}
+		return Line2D(getPosition(), child->getPosition());
+	}
+	
+	void checkForTangle()
+	{
+		Line2D tangle_line = getAttachmentLine();
+		Line2D child_tangle_line = child->getAttachmentLine();
+		
+		if(child == nullptr && child->getChild() == nullptr)
+		{
+			return;
+		}
+		
+		if(tangle_line.intersects(child_tangle_line))
+		{
+		}
+	}
+
 	void reattachToOtherBeetle(BeetleNode* other_beetle)
 	{
 		parent = other_beetle;

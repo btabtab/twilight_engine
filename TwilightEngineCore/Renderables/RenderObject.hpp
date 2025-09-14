@@ -52,8 +52,7 @@ public:
 
 	virtual size_t getBytesConsumed() override
 	{
-		size_t ret = 0;
-		ret += sizeof(*this);
+		size_t ret = sizeof(*this);
 		
 		if(sub_render_object)
 		{
