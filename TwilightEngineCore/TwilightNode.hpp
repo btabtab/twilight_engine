@@ -21,8 +21,10 @@ public:
 	virtual ~TwilightNode() = default;
 	virtual void update();
 	virtual std::string getType();
-	virtual void handleInputs() = 0;
-	
+	virtual void handleInputs()
+	{
+	}
+
 	void deleteMe()
 	{
 		was_delete_requested = true;

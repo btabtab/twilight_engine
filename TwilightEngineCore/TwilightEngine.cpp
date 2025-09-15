@@ -92,6 +92,16 @@ void TwilightEngine::enter()
 		}
 		if (should_i_pause_updates)
 		{
+
+			for(auto object : *renderer.getRenderObjects())
+			{
+				object->handleInputs();
+			}
+			for(auto object : *renderer.getRenderObjects3D())
+			{
+				object->handleInputs();
+			}
+
 			// std::cout << "updating engine...\n";
 			if (!renderer.getRenderObjects3D()->empty())
 			{
@@ -113,15 +123,6 @@ void TwilightEngine::enter()
 						renderer.getRenderObjects()->at(i)->update();
 					}
 				}
-			}
-
-			for(auto object : *renderer.getRenderObjects())
-			{
-				object->handleInputs()
-			}
-			for(auto object : *renderer.getRenderObjects3D())
-			{
-				object->handleInputs();
 			}
 
 			handleDeletionRequests();

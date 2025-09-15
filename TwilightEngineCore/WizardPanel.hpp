@@ -53,7 +53,7 @@ public:
 	void draw() override;
 	bool isWizardOpen();
 
-	void handleInputs();
+	void handleInputs() override;
 	std::string getType() override;
 	~WizardPanel();
 
