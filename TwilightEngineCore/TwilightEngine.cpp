@@ -28,7 +28,7 @@ TwilightEngine::TwilightEngine(int argc, char *argv[], Point<float> new_window_s
 	printf("Clearing Gifs...");
 	system("rm -rf screenshots/gifs/*");
 	system("rm -rf screenshots/*");
-
+	system("mkdir -p resources/");
 	wizard_panel = nullptr;
 	is_wizard_present = is_the_wizard_here;
 	if (is_wizard_present)

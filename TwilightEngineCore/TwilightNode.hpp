@@ -11,6 +11,7 @@ protected:
 	int ID;
 	std::string name;
 	bool was_delete_requested;
+	bool is_texture_manager_called_for;
 
 public:
 	int getID();
@@ -20,7 +21,7 @@ public:
 	virtual ~TwilightNode() = default;
 	virtual void update();
 	virtual std::string getType();
-
+	
 	void deleteMe()
 	{
 		was_delete_requested = true;

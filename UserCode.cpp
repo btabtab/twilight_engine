@@ -37,9 +37,9 @@ void TwilightEngine::userSetup()
 	grubling_colision_manager = new GrublingCollisionManager(renderer.getRenderObjects());
 	//Strangest fix I've ever done, i HAVE an API for that...
 	renderer.addRenderObject(grubling_colision_manager);
-
-	test_texture = LoadTexture("HIM_THE_WIZARD.png");
-	renderer.addRenderObject(new Sprite(&test_texture, Point<int>(0, 0)));
+	addTexture("HIM_THE_WIZARD.png", 0);
+	// test_texture = LoadTexture("HIM_THE_WIZARD.png");
+	addRenderObject(new Sprite(0, Point<int>(0, 0)));
 }
 
 void TwilightEngine::userLoop()

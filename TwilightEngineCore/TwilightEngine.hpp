@@ -8,10 +8,12 @@
 #include "TwilightNode.hpp"
 #include "CollisionMan.hpp"
 #include "TwilightBSP.hpp"
+#include "TextureManager.hpp"
 
 #include "Ball.hpp"
 
 #include "WizardPanel.hpp"
+#include "Renderables/Sprite.hpp"
 
 class TwilightEngine
 {
@@ -44,6 +46,7 @@ private:
 	bool suspend_on_warning;
 
 	Renderer renderer;
+	TextureManager texture_manager;
 
 	int GIF_frame_counter = 0;
 	bool is_recording_gif = false;
@@ -114,4 +117,24 @@ public:
 	void startGIFRecording(std::string name);
 	void stopGIFRecording();
 	void recordGIFFrame();
+
+	void addRenderObject(RenderObject2D* new_object)
+	{
+		renderer.addRenderObject(new_object);
+		std::cout << " t = " << new_object->getType() << "\n";
+		if(new_object->getType() == "sprite")
+		{
+			std::cout << "assigning texture to sprite...\n";
+			Sprite* sprite_object = ((Sprite*)new_object);
+			sprite_object->setTexture(texture_manager.getTwilightTextureData(sprite_object->getSearchID()));
+		}
+	}
+	void addRenderObject3D(RenderObject3D* new_object)
+	{
+		renderer.addRenderObject3D(new_object);
+	}
+	void addTexture(std::string file_name, int texture_ID)
+	{
+		texture_manager.addTexture(file_name, texture_ID);
+	}
 };
