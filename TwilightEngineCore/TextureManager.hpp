@@ -36,4 +36,14 @@ class TextureManager : TwilightNode
 	{
 		return sizeof(*this);
 	}
+
+	void list()
+	{
+		std::cout << "Texture IDs:\n";
+		for(auto texture : textures)
+		{
+			std::cout << "\t";
+			texture.list();
+		}
+	}
 };

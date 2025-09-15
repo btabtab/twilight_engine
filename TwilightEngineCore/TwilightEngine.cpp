@@ -74,6 +74,11 @@ void TwilightEngine::enter()
 
 	bool is_screenshot_being_taken = false;
 
+	if(is_wizard_present)
+	{
+		texture_manager.list();
+	}
+
 	while (!WindowShouldClose() || emergency_exit)
 	{
 		// system("clear");

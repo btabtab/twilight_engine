@@ -33,6 +33,11 @@ private:
 		return &texture;
 	}
 
+	std::string list()
+	{
+		std::cout << "texture ID = " << ID << "\n";
+	}
+
 	~TwilightTexture()
 	{
 	}
