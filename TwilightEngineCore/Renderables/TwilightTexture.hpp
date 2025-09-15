@@ -33,7 +33,7 @@ private:
 		return &texture;
 	}
 
-	std::string list()
+	void list()
 	{
 		std::cout << "texture ID = " << ID << "\n";
 	}
