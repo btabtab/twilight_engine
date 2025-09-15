@@ -23,7 +23,7 @@ class Sprite : public RenderObject2D
 	}
 	void move(Point<int> movement)
 	{
-		position += movement;
+		position = position + movement;
 	}
 	Point<int> getPosition()
 	{
