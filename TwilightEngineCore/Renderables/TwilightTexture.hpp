@@ -18,10 +18,16 @@ private:
 	TwilightTexture(std::string file_name, int new_ID)
 	{
 		ID = new_ID;
-		std::cout << "Trying to load texture: " << file_name;
+		std::cout << "\n\tTrying to load texture: " << file_name;
 		file_name = "resources/" + file_name;
 		std::cout << " from " + file_name << "\n";
 		texture = LoadTexture(file_name.c_str());
+		if(texture.width == 0 || texture.height == 0)
+		{
+			std::cout << "[ Error ] :> Texture loading failed... Aborting\n";
+			exit(0);
+		}
+		std::cout << "\n";
 	}
 	//Compares the relevant ID to the objects ID to see if they match.
 	bool doesIDMatch(int comparison_ID)

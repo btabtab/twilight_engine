@@ -19,7 +19,7 @@ class Sprite : public RenderObject2D
 	position(new_position)
 	{
 		search_ID = texture_search_ID;
-		std::cout << "search ID of : " << search_ID << "\n";
+		// std::cout << "search ID of : " << search_ID << "\n";
 	}
 	int getSearchID()
 	{
