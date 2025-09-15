@@ -16,7 +16,6 @@ GrublingCollisionManager *grubling_colision_manager;
 Texture test_texture;
 
 void TwilightEngine::userSetup()
-
 {
 
 	// renderer.addRenderObject(new TwilightExtensionDemo());

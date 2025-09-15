@@ -21,6 +21,14 @@ class Sprite : public RenderObject2D
 		search_ID = texture_search_ID;
 		// std::cout << "search ID of : " << search_ID << "\n";
 	}
+	void move(Point<int> movement)
+	{
+		position += movement;
+	}
+	Point<int> getPosition()
+	{
+		return position;
+	}
 	int getSearchID()
 	{
 		return search_ID;

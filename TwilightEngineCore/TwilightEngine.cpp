@@ -115,6 +115,15 @@ void TwilightEngine::enter()
 				}
 			}
 
+			for(auto object : *renderer.getRenderObjects())
+			{
+				object->handleInputs()
+			}
+			for(auto object : *renderer.getRenderObjects3D())
+			{
+				object->handleInputs();
+			}
+
 			handleDeletionRequests();
 
 			if (wizard_panel)

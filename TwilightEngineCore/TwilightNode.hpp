@@ -21,6 +21,7 @@ public:
 	virtual ~TwilightNode() = default;
 	virtual void update();
 	virtual std::string getType();
+	virtual void handleInputs() = 0;
 	
 	void deleteMe()
 	{
