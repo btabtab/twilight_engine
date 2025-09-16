@@ -4,6 +4,7 @@
 TwilightNode::TwilightNode(int new_id)
 : ID(new_id)
 {
+    unlockInput();
     was_delete_requested = false;
     if(!new_id)
     {

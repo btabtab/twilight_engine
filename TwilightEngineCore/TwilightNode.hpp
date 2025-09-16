@@ -12,6 +12,7 @@ protected:
 	std::string name;
 	bool was_delete_requested;
 	bool is_texture_manager_called_for;
+	bool lock_input;
 
 public:
 	int getID();
@@ -38,5 +39,14 @@ public:
 	virtual size_t getBytesConsumed()
 	{
 		return sizeof(*this);
+	}
+
+	void lockInput()
+	{
+		lock_input = true;
+	}
+	void unlockInput()
+	{
+		lock_input = false;
 	}
 };
