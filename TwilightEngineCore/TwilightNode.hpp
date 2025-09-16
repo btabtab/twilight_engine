@@ -40,7 +40,10 @@ public:
 	{
 		return sizeof(*this);
 	}
-
+	bool isInputLocked()
+	{
+		return lock_input;
+	}
 	void lockInput()
 	{
 		lock_input = true;
