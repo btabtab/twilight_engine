@@ -3,11 +3,8 @@
 /*
 
 	Hello!
-
 	This file will let you easily add your own code
-
 	to run. "userSetup" will run once at the start,
-
 	and "userLoop" will run once every frame.
 
 */
@@ -18,11 +15,7 @@ Texture test_texture;
 void TwilightEngine::userSetup()
 {
 
-	// renderer.addRenderObject(new TwilightExtensionDemo());
-	// renderer.addRenderObject3D(new MagicCube(Point3D<float>(0, 0, 0)));
-	// renderer.addRenderObject3D(new MagicCube(Point3D<float>(5, 5, 0)));
-	// renderer.addRenderObject3D(new MagicCube(Point3D<float>(10, -5, 0)));
-	// renderer.addRenderObject3D(new MagicCube(Point3D<float>(15, 5, 0)));
+	CursorTextureIDs::loadTextures(this);
 
 	Camera3D *camera = new Camera3D();
 	camera->position = (Vector3){0.0f, 3.0f, 16.0f};
@@ -34,10 +27,10 @@ void TwilightEngine::userSetup()
 	renderer.addCamera(camera);
 	renderer.current_camera = 0;
 	grubling_colision_manager = new GrublingCollisionManager(renderer.getRenderObjects());
-	//Strangest fix I've ever done, i HAVE an API for that...
+
 	renderer.addRenderObject(grubling_colision_manager);
 	addTexture("HIM_THE_WIZARD.png", 0);
-	// test_texture = LoadTexture("HIM_THE_WIZARD.png");
+
 	addRenderObject(new Sprite(0, Point<int>(0, 0)));
 }
 

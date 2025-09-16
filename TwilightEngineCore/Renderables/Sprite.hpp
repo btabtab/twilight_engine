@@ -15,19 +15,23 @@ class Sprite : public RenderObject2D
 	TwilightTexture* texture;
 	int search_ID;
 	public:
-	Sprite(int texture_search_ID, Point<int> new_position):
+	Sprite(int texture_search_ID, Point<int> new_position = Point<int>(0, 0)):
 	position(new_position)
 	{
 		search_ID = texture_search_ID;
 		// std::cout << "search ID of : " << search_ID << "\n";
 	}
-	void move(Point<int> movement)
+	virtual void move(Point<int> movement)
 	{
 		position = position + movement;
 	}
 	Point<int> getPosition()
 	{
 		return position;
+	}
+	void setPosition(Point<int> new_position)
+	{
+		position = new_position;
 	}
 	int getSearchID()
 	{
