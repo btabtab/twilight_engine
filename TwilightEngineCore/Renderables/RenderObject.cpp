@@ -25,6 +25,11 @@ DrawLayer RenderObject2D::getLayer()
 {
     return layer;
 }
+void RenderObject2D::setLayer(DrawLayer new_layer)
+{
+    layer = new_layer;
+}
+
 
 void RenderObject2D::draw()
 {

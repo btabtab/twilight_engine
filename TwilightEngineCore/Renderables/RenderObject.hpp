@@ -41,6 +41,7 @@ public:
 	void drawChildren();
 	virtual void update() override;
 	DrawLayer getLayer();
+	void setLayer(DrawLayer new_layer);
 	Color getColour() const;
 
 	//This handles updating the node and defines it's behaviour.
