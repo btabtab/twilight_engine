@@ -35,8 +35,10 @@ public:
 	RenderObject2D();
 	RenderObject2D(Color new_colour);
 	void setColour(Color new_colour);
-	void toggleVisibility();
+	
 	bool isVisible() const;
+	bool setVisibility(bool new_visibility);
+	
 	virtual void draw();
 	void drawChildren();
 	virtual void update() override;

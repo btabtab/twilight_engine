@@ -10,6 +10,7 @@ public:
 	RenderObject3D(bool new_is_drawn_before_2D = true)
     {
         is_drawn_before_2D = new_is_drawn_before_2D;
+        is_visible = true;
     }
     bool getIfDrawnPre2D()
     {
