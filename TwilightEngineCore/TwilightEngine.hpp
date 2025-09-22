@@ -137,4 +137,26 @@ public:
 	{
 		texture_manager.addTexture(file_name, texture_ID);
 	}
+	void lockAllInputs()
+	{
+		for(auto object : *renderer.getRenderObjects())
+		{
+			object->lockInput();
+		}
+		for(auto object : *renderer.getRenderObjects3D())
+		{
+			object->lockInput();
+		}
+	}
+	void unlockAllInputs()
+	{
+		for(auto object : *renderer.getRenderObjects())
+		{
+			object->unlockInput();
+		}
+		for(auto object : *renderer.getRenderObjects3D())
+		{
+			object->unlockInput();
+		}
+	}
 };

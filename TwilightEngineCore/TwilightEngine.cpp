@@ -92,14 +92,22 @@ void TwilightEngine::enter()
 		}
 		if (should_i_pause_updates)
 		{
-
+			/*
+				If inputs are locked then don't let them happen.
+			*/
 			for(auto object : *renderer.getRenderObjects())
 			{
-				object->handleInputs();
+				if(!object->isInputLocked())
+				{
+					object->handleInputs();
+				}
 			}
 			for(auto object : *renderer.getRenderObjects3D())
 			{
-				object->handleInputs();
+				if(!object->isInputLocked())
+				{
+					object->handleInputs();
+				}
 			}
 
 			// std::cout << "updating engine...\n";
