@@ -39,7 +39,7 @@ void Renderer::drawContents()
 		startDrawing3D_Objects();
 		for (int i = 0; i != render_objects_3D.size(); i++)
 		{
-			if (render_objects_3D.at(i)->getIfDrawnPre2D())
+			if (render_objects_3D.at(i)->getIfDrawnPre2D() && render_objects.at(i)->isVisible())
 			{
 				render_objects_3D.at(i)->draw();
 			}
@@ -58,28 +58,28 @@ void Renderer::drawContents()
 	*/
 	for (int i = 0; i != render_objects.size(); i++)
 	{
-		if (render_objects.at(i)->getLayer() == DrawLayer::BACK)
+		if (render_objects.at(i)->getLayer() == DrawLayer::BACK && render_objects.at(i)->isVisible())
 		{
 			render_objects.at(i)->draw();
 		}
 	}
 	for (int i = 0; i != render_objects.size(); i++)
 	{
-		if (render_objects.at(i)->getLayer() == DrawLayer::MIDDLE)
+		if (render_objects.at(i)->getLayer() == DrawLayer::MIDDLE && render_objects.at(i)->isVisible())
 		{
 			render_objects.at(i)->draw();
 		}
 	}
 	for (int i = 0; i != render_objects.size(); i++)
 	{
-		if (render_objects.at(i)->getLayer() == DrawLayer::FRONT)
+		if (render_objects.at(i)->getLayer() == DrawLayer::FRONT && render_objects.at(i)->isVisible())
 		{
 			render_objects.at(i)->draw();
 		}
 	}
 	for (int i = 0; i != render_objects.size(); i++)
 	{
-		if (render_objects.at(i)->getLayer() == DrawLayer::UI)
+		if (render_objects.at(i)->getLayer() == DrawLayer::UI && render_objects.at(i)->isVisible())
 		{
 			render_objects.at(i)->draw();
 		}
@@ -92,7 +92,7 @@ void Renderer::drawContents()
 	startDrawing3D_Objects();
 	for (int i = 0; i != render_objects_3D.size(); i++)
 	{
-		if (!render_objects_3D.at(i)->getIfDrawnPre2D())
+		if (!render_objects_3D.at(i)->getIfDrawnPre2D() && render_objects.at(i)->isVisible())
 		{
 			render_objects_3D.at(i)->draw();
 		}
